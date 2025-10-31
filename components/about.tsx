@@ -13,14 +13,14 @@ const About = () => {
           <div className="space-y-4">
             <div className="space-y-3">
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
-                About Michael Cross Specialist Hospital
+                About Michael Cross Specialists Hospital
               </h3>
               <div className="w-24 h-1.5 bg-app-blue rounded-full" />
             </div>
 
             <div className="space-y-4">
               <p className="text-lg text-gray-700 leading-relaxed font-light">
-                Michael Cross Specialist Hospital is the fifth largest
+                Michael Cross Specialists Hospital is the fifth largest
                 for-profit health system in Nigeria, operating{" "}
                 <strong>51 hospitals</strong> across <strong>14 states</strong>,
                 with more than <strong>360 outpatient locations</strong>.
@@ -31,7 +31,7 @@ const About = () => {
                 <strong>57,000 staff and affiliated physicians</strong>{" "}
                 dedicated to providing the highest quality, value-based
                 healthcare. Eighteen of our facilities are members of the
-                Michael Cross Specialist Foundation, a 501(c)(3) not-for-profit
+                Michael Cross Specialists Foundation, a 501(c)(3) not-for-profit
                 public charity.
               </p>
             </div>

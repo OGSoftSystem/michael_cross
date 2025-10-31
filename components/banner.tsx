@@ -20,7 +20,7 @@ const Banner = () => {
       />
 
       {/* Enhanced overlay with gradient */}
-      <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-linear-to-r from-black/60 via-black/40 to-black/20" />
 
       {/* Content */}
       <MaxWidthWrapper className="relative z-10 h-full flex flex-col justify-center">

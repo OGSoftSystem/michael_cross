@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
 // import { ArrowBigUp } from "lucide-react";
@@ -22,22 +22,24 @@ const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  // const [showArrow, setShowArrow] = useState(false);
+  const [showArrow, setShowArrow] = useState(false);
 
-  // const handleScrollToTop = useCallback(() => {
-  //   if (window.scrollY > 100) {
-  //     setShowArrow(true);
-  //   }
-  //   setShowArrow(false);
-  // }, [setShowArrow]);
+  const handleScrollToTop = useCallback(() => {
+    if (window.scrollY > 100) {
+      setShowArrow(true);
+    }
+    setShowArrow(false);
+  }, [setShowArrow]);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScrollToTop);
+  console.log(showArrow);
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScrollToTop);
-  //   };
-  // }, [handleScrollToTop]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollToTop);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollToTop);
+    };
+  }, [handleScrollToTop]);
 
   // Close mobile menu when route changes - Fixed useEffect
   useEffect(() => {
@@ -93,7 +95,7 @@ const Header = () => {
               />
             </Link>
             <h3 className="lg:block hidden text-app-blue font-semibold text-lg">
-              Michael Cross Specialist Hospital
+              Michael Cross Specialists Hospital
             </h3>
           </div>
 

@@ -1,7 +1,8 @@
+import Locations from "@/components/location";
 import React from "react";
 
 const LocationPage = () => {
-  return <div>LocationPage</div>;
+  return <Locations />;
 };
 
 export default LocationPage;
