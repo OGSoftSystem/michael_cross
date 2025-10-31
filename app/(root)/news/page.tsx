@@ -4,6 +4,7 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Calendar, User, ArrowRight, Clock } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 // Blog data - in a real app, this would come from a CMS or database
 const blogPosts = [
@@ -26,7 +27,7 @@ const blogPosts = [
     excerpt:
       "Essential tips and insights for parents on maintaining children's health through different developmental stages.",
     image:
-      "https://images.unsplash.com/photo-1622253692010-333f2da60319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     author: "Dr. Funmi Adebayo",
     date: "2024-01-12",
     readTime: "4 min read",
@@ -39,7 +40,7 @@ const blogPosts = [
     excerpt:
       "How advanced surgical methods are reducing recovery times and improving patient outcomes in modern healthcare.",
     image:
-      "https://images.unsplash.com/photo-1584467735871-8db9ac8e5e3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     author: "Dr. Ibrahim Mohammed",
     date: "2024-01-08",
     readTime: "6 min read",
@@ -52,7 +53,7 @@ const blogPosts = [
     excerpt:
       "The importance of mental health care and how we're integrating psychological support into our medical services.",
     image:
-      "https://images.unsplash.com/photo-1590650516494-0c8e4a4dd61b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     author: "Dr. Ngozi Eze",
     date: "2024-01-05",
     readTime: "7 min read",
@@ -116,7 +117,7 @@ export default function BlogPage() {
         {/* Categories Filter */}
         <div className="flex flex-wrap gap-4 justify-center mb-12">
           {categories.map((category) => (
-            <button
+            <Button
               key={category}
               className={cn(
                 "px-6 py-3 rounded-full border-2 transition-all duration-200 font-semibold",
@@ -126,7 +127,7 @@ export default function BlogPage() {
               )}
             >
               {category}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -179,7 +180,7 @@ export default function BlogPage() {
                     <span className="text-sm text-gray-600">{post.author}</span>
                   </div>
 
-                  <Link href={`/blog/${post.slug}`}>
+                  <Link href={`/news/${post.slug}`}>
                     <Button
                       variant="ghost"
                       className="text-app-blue hover:text-app-blue/80 hover:bg-app-blue/10 p-0 font-semibold group/btn"
@@ -203,8 +204,8 @@ export default function BlogPage() {
             Subscribe to our newsletter and receive the latest health tips,
             medical research, and hospital updates directly in your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto items-center">
+            <Input
               type="email"
               placeholder="Enter your email address"
               className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:border-white"

@@ -395,7 +395,7 @@ const Locations = () => {
               Don&apos;t wait - visit the nearest Michael Cross Hospital
               immediately or call our emergency line
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
               <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg">
                 <Phone className="w-5 h-5 mr-2" />
                 Call Emergency: (234) 800-MICHAEL

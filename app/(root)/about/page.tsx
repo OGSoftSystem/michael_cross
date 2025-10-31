@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { Button } from "@/components/ui/button";
+import {  buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Users, Award, Heart, Shield, Star } from "lucide-react";
+import Link from "next/link";
 
 const AboutPage = () => {
   return (
@@ -242,17 +242,22 @@ const AboutPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button
+              <Link
+                href={"/leadership"}
                 className={cn(
                   "bg-app-blue hover:bg-app-blue/90 text-white font-semibold",
                   "px-8 py-6 rounded-full transition-all duration-300",
                   "hover:scale-105 hover:shadow-lg",
-                  "min-w-[200px]"
+                  "min-w-[200px]",
+                  buttonVariants({
+                    variant: "default",
+                    className: "rounded-full bg-app-blue py-6",
+                  })
                 )}
               >
                 Meet Our Leadership
-              </Button>
-              <Button
+              </Link>
+              {/* <Button
                 variant="outline"
                 className={cn(
                   "border-app-blue text-app-blue hover:bg-app-blue hover:text-white",
@@ -262,7 +267,7 @@ const AboutPage = () => {
                 )}
               >
                 Our Foundation
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -309,27 +314,36 @@ const AboutPage = () => {
             Hospital with their health and wellbeing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button
+            <Link
+              href={"/appointment"}
               className={cn(
-                "bg-app-blue hover:bg-app-blue/90 text-white font-semibold",
-                "px-8 py-6 rounded-full text-lg transition-all duration-300",
+                " hover:bg-app-blue/90 text-white font-semibold",
+                "px-8 py-6  text-lg transition-all duration-300",
                 "hover:scale-105 hover:shadow-lg",
-                "min-w-[200px]"
+                "min-w-[200px]",
+                buttonVariants({
+                  variant: "default",
+                  className: "rounded-full bg-app-blue py-6",
+                })
               )}
             >
               Book Appointment
-            </Button>
-            <Button
-              variant="outline"
+            </Link>
+            <Link
+              href={"/locations"}
               className={cn(
                 "border-app-blue text-app-blue hover:bg-app-blue hover:text-white",
                 "px-8 py-6 rounded-full text-lg font-semibold transition-all duration-300",
                 "hover:scale-105 hover:shadow-lg",
-                "min-w-[200px]"
+                "min-w-[200px]",
+                buttonVariants({
+                  variant: "ghost",
+                  className: "rounded-full py-6",
+                })
               )}
             >
               Find a Location
-            </Button>
+            </Link>
           </div>
         </div>
       </MaxWidthWrapper>

@@ -27,11 +27,12 @@ const Header = () => {
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
       setShowArrow(true);
+    } else {
+      setShowArrow(false);
     }
-    setShowArrow(false);
   }, [setShowArrow]);
 
-  console.log(showArrow);
+  console.log("showArrow", showArrow);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollToTop);
@@ -88,13 +89,13 @@ const Header = () => {
               <Image
                 src="/images/logo.png"
                 alt="Michael Cross Hospital Logo"
-                width={120}
+                width={100}
                 height={60}
-                className="w-auto h-10 lg:h-12 transition-all duration-300"
+                className="w-auto h-8 lg:h-10 transition-all duration-300"
                 priority
               />
             </Link>
-            <h3 className="lg:block hidden text-app-blue font-semibold text-lg">
+            <h3 className="lg:block hidden text-app-blue font-semibold text-xl">
               Michael Cross Specialists Hospital
             </h3>
           </div>

@@ -4,17 +4,30 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
-import { Calendar, User, Clock, ArrowLeft, Share, Facebook, Twitter, Linkedin } from "lucide-react";
+import {
+  Calendar,
+  User,
+  Clock,
+  ArrowLeft,
+  Share,
+  Facebook,
+  Twitter,
+  Linkedin,
+} from "lucide-react";
 
-// Blog post data - in a real app, this would come from a CMS
-const blogPosts = {
-  "advancements-in-cardiac-care": {
+// Blog post data as an array
+const blogPosts = [
+  {
+    slug: "advancements-in-cardiac-care",
     id: 1,
     title: "Advancements in Cardiac Care: New Heart Treatment Options",
-    excerpt: "Discover the latest innovations in cardiology that are revolutionizing heart disease treatment across our hospitals.",
-    image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    excerpt:
+      "Discover the latest innovations in cardiology that are revolutionizing heart disease treatment across our hospitals.",
+    image:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     author: "Dr. Adebayo Johnson",
-    authorImage: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    authorImage:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     authorRole: "Head of Cardiology",
     date: "2024-01-15",
     readTime: "5 min read",
@@ -47,15 +60,19 @@ const blogPosts = {
       <p>Our remote monitoring program allows patients with chronic heart conditions to be tracked from home using wearable technology. This has reduced emergency hospital admissions by 45% and improved medication adherence.</p>
 
       <p>As we continue to innovate, our commitment remains to provide accessible, advanced cardiac care to communities across Nigeria. With 14 states covered and more facilities planned, quality heart care is becoming increasingly available to those who need it most.</p>
-    `
+    `,
   },
-  "pediatric-health-tips": {
+  {
+    slug: "pediatric-health-tips",
     id: 2,
     title: "Pediatric Health: Keeping Our Children Safe and Healthy",
-    excerpt: "Essential tips and insights for parents on maintaining children's health through different developmental stages.",
-    image: "https://images.unsplash.com/photo-1622253692010-333f2da60319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    excerpt:
+      "Essential tips and insights for parents on maintaining children's health through different developmental stages.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da60319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     author: "Dr. Funmi Adebayo",
-    authorImage: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    authorImage:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
     authorRole: "Head of Pediatrics",
     date: "2024-01-12",
     readTime: "4 min read",
@@ -85,19 +102,89 @@ const blogPosts = {
         <li>Dehydration signs (dry mouth, no tears, reduced urination)</li>
         <li>Unusual lethargy or irritability</li>
       </ul>
-    `
-  }
-  // Add other blog posts similarly...
-};
+    `,
+  },
+  {
+    slug: "minimally-invasive-surgery",
+    id: 3,
+    title: "Understanding Minimally Invasive Surgery Techniques",
+    excerpt:
+      "How advanced surgical methods are reducing recovery times and improving patient outcomes in modern healthcare.",
+    image:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    author: "Dr. Adebayo Johnson",
+    authorImage:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    authorRole: "Chief of Surgery",
+    date: "2024-01-08",
+    readTime: "6 min read",
+    category: "Surgery",
+    content: `
+      <p>Minimally invasive surgery has transformed the field of surgical medicine, offering patients faster recovery times, less pain, and reduced scarring compared to traditional open surgery.</p>
+
+      <h2>Laparoscopic Procedures</h2>
+      <p>Laparoscopic surgery involves making small incisions and using a camera to guide surgical instruments. This approach has become standard for many abdominal procedures including gallbladder removal and hernia repair.</p>
+
+      <h2>Robotic-Assisted Surgery</h2>
+      <p>Our hospitals are equipped with state-of-the-art robotic surgical systems that provide surgeons with enhanced precision, flexibility, and control during complex procedures.</p>
+    `,
+  },
+  {
+    slug: "mental-health-awareness",
+    id: 4,
+    title: "Mental Health Awareness: Breaking the Stigma in Healthcare",
+    excerpt:
+      "The importance of mental health care and how we're integrating psychological support into our medical services.",
+    image:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    author: "Dr. Adebayo Johnson",
+    authorImage:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    authorRole: "Head of Psychiatry",
+    date: "2024-01-05",
+    readTime: "7 min read",
+    category: "Mental Health",
+    content: `
+      <p>Mental health is an integral part of overall wellness, and at Michael Cross Specialist Hospital, we're committed to providing comprehensive care that addresses both physical and psychological needs.</p>
+
+      <h2>Integrated Care Approach</h2>
+      <p>We've implemented a holistic approach where mental health professionals work alongside medical teams to provide coordinated care for patients.</p>
+    `,
+  },
+  {
+    slug: "emergency-preparedness-guide",
+    id: 5,
+    title: "Emergency Preparedness: What to Do in Medical Emergencies",
+    excerpt:
+      "A comprehensive guide on handling common medical emergencies before professional help arrives.",
+    image:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    author: "Dr. Adebayo Johnson",
+    authorImage:
+      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    authorRole: "Head of Emergency Medicine",
+    date: "2024-01-02",
+    readTime: "8 min read",
+    category: "Emergency Care",
+    content: `
+      <p>Being prepared for medical emergencies can save lives. This guide provides essential information on how to respond to common emergency situations.</p>
+
+      <h2>Basic First Aid Knowledge</h2>
+      <p>Every household should have basic first aid knowledge and supplies. Knowing how to perform CPR and control bleeding are fundamental skills.</p>
+    `,
+  },
+];
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = blogPosts[params.slug as keyof typeof blogPosts];
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const slug = (await params).slug;
+
+  const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -174,12 +261,14 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               <div>
                 <h3 className="font-semibold text-gray-900">{post.author}</h3>
                 <p className="text-gray-600 text-sm">{post.authorRole}</p>
-                <p className="text-gray-500 text-sm">Michael Cross Specialist Hospital</p>
+                <p className="text-gray-500 text-sm">
+                  Michael Cross Specialist Hospital
+                </p>
               </div>
             </div>
 
             {/* Article Content */}
-            <div 
+            <div
               className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-blockquote:border-app-blue prose-blockquote:bg-blue-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-xl"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
@@ -189,18 +278,32 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center space-x-2">
                   <Share className="w-5 h-5 text-gray-600" />
-                  <span className="font-semibold text-gray-900">Share this article:</span>
+                  <span className="font-semibold text-gray-900">
+                    Share this article:
+                  </span>
                 </div>
                 <div className="flex space-x-3">
-                  <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center space-x-2"
+                  >
                     <Facebook className="w-4 h-4" />
                     <span>Facebook</span>
                   </Button>
-                  <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center space-x-2"
+                  >
                     <Twitter className="w-4 h-4" />
                     <span>Twitter</span>
                   </Button>
-                  <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center space-x-2"
+                  >
                     <Linkedin className="w-4 h-4" />
                     <span>LinkedIn</span>
                   </Button>
@@ -216,16 +319,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl font-bold text-gray-900">Related Articles</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore more health insights and medical updates from our specialists
+            Explore more health insights and medical updates from our
+            specialists
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {Object.entries(blogPosts)
-            .filter(([slug]) => slug !== params.slug)
+          {blogPosts
+            .filter((relatedPost) => relatedPost.slug !== slug)
             .slice(0, 3)
-            .map(([slug, relatedPost]) => (
-              <Link key={slug} href={`/blog/${slug}`}>
+            .map((relatedPost) => (
+              <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
                 <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group overflow-hidden cursor-pointer">
                   <div className="relative h-40 overflow-hidden">
                     <Image
@@ -243,7 +347,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                       {relatedPost.excerpt}
                     </p>
                     <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span>{new Date(relatedPost.date).toLocaleDateString()}</span>
+                      <span>
+                        {new Date(relatedPost.date).toLocaleDateString()}
+                      </span>
                       <span>{relatedPost.readTime}</span>
                     </div>
                   </div>
@@ -257,7 +363,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 }
 
 export async function generateStaticParams() {
-  return Object.keys(blogPosts).map((slug) => ({
-    slug,
+  return blogPosts.map((post) => ({
+    slug: post.slug,
   }));
 }

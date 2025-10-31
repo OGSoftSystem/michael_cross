@@ -12,7 +12,7 @@ const Banner = () => {
   return (
     <div className="relative w-full py-24 md:py-0 md:h-[700px]">
       <Image
-        src="/images/hospital.jpg"
+        src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80"
         alt="Modern hospital facility"
         fill
         className="object-cover z-0"
@@ -110,7 +110,7 @@ function MainLink({ title, Icon, description, ...props }: MainLinkProps) {
       )}
     >
       <div className="p-3 bg-app-blue rounded-full group-hover:bg-app-blue/90 transition-colors">
-        <Icon  className="text-white md:size-8" />
+        <Icon className="text-white md:size-8" />
       </div>
 
       <div className="space-y-2">
