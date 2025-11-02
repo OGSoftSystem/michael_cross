@@ -14,7 +14,11 @@ import {
   Phone,
   Calendar,
 } from "lucide-react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Benefits",
+};
 const Benefits = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-app-blue/5">

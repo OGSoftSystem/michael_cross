@@ -1,9 +1,14 @@
 import Image from "next/image";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import {  buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Users, Award, Heart, Shield, Star } from "lucide-react";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Michael Cross Sepecialists Hospital",
+};
 
 const AboutPage = () => {
   return (

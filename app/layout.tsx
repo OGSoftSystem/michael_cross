@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { siteConfig } from "@/config";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +17,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Michae Cross Specialists Hospital",
-  description: "Health",
+  metadataBase: new URL(siteConfig.baseUrl),
+  title: {
+    template: `%s | ${siteConfig.title}`,
+    default: siteConfig.title,
+  },
+  description: siteConfig.description,
+  authors: [
+    { name: "Ogsoftsolutions Ltd", url: "https://ogsoftsolutions.com" },
+  ],
 };
 
 export default function RootLayout({
@@ -32,6 +41,7 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col justify-between">
           <Header />
           <main className="flex-1 h-full">{children}</main>
+          <Toaster />
           <Footer />
         </div>
       </body>

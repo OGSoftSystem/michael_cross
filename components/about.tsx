@@ -1,8 +1,9 @@
 import MaxWidthWrapper from "./max-width-wrapper";
-import { CustomCarousel } from "./cus-carousel";
-import { Button } from "./ui/button";
+import { CustomCarousel } from "./customs";
+import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
 import Count from "./count";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -39,29 +40,33 @@ const About = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button
-              variant={"default"}
+            <Link
+              href={"/leadership"}
               className={cn(
-                "bg-app-blue hover:bg-app-blue/90 text-white font-semibold",
-                "px-8 py-6 rounded-full transition-all duration-300",
-                "hover:scale-105 hover:shadow-lg",
-                "min-w-[200px]"
+                "",
+                buttonVariants({
+                  variant: "default",
+                  className:
+                    "bg-app-blue hover:bg-app-blue/90 text-white font-semibold px-8 py-6  transition-all duration-300 hover:scale-105 hover:shadow-lg min-w-[200px] rounded-full",
+                })
               )}
             >
               Meet Our Leadership
-            </Button>
+            </Link>
 
-            <Button
-              variant={"outline"}
+            <Link
+              href={"/file.png"}
+              download={"Medical-Facts.png"}
               className={cn(
-                "border-app-blue text-app-blue hover:bg-app-blue hover:text-white",
-                "px-8 py-6 rounded-full font-semibold transition-all duration-300",
-                "hover:scale-105 hover:shadow-lg",
-                "min-w-[200px]"
+                buttonVariants({
+                  variant: "outline",
+                  className:
+                    "border-app-blue text-app-blue hover:bg-app-blue hover:text-white px-8 py-6 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg min-w-[200px]",
+                })
               )}
             >
               Download Facts
-            </Button>
+            </Link>
           </div>
         </div>
 

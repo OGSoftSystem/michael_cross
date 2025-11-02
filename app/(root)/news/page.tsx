@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Calendar, User, ArrowRight, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "News",
+};
 // Blog data - in a real app, this would come from a CMS or database
 const blogPosts = [
   {

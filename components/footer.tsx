@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { siteConfig } from "@/config";
 
 const footerSections = [
   {
@@ -121,11 +122,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-gray-300">
                 <Phone className="w-5 h-5 text-app-blue" />
-                <span>Emergency: (234) 800-MICHAEL</span>
+                <span>Emergency: {siteConfig.phone}</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <Mail className="w-5 h-5 text-app-blue" />
-                <span>info@michaelcrosshospital.org</span>
+                <span>{siteConfig.email}</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <MapPin className="w-5 h-5 text-app-blue" />
@@ -199,7 +200,7 @@ const Footer = () => {
             </div>
             <div className="text-center md:text-right">
               <div className="text-2xl font-bold text-white">
-                (234) 800-MICHAEL
+                {siteConfig.phone}
               </div>
               <p className="text-gray-300">Call immediately for emergencies</p>
             </div>
