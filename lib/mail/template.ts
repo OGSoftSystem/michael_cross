@@ -1,4 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const appointmentEmailTemplate = (data: any) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -242,3 +243,67 @@ export const appointmentEmailTemplate = (data: any) => `
 </body>
 </html>
 `;
+
+export function contactTemplate(data: any): string {
+  return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f4f4f4; }
+        .container { max-width: 600px; margin: 20px auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: #3498db; color: white; padding: 20px; text-align: center; }
+        .content { padding: 25px; }
+        .section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .label { font-weight: bold; color: #555; font-size: 14px; margin-bottom: 4px; }
+        .value { background: #f8f9fa; padding: 8px 12px; border-radius: 4px; border-left: 3px solid #3498db; }
+        .full-width { grid-column: 1 / -1; }
+        .message-content { background: #f8f9fa; padding: 15px; border-radius: 6px; font-style: italic; }
+        .footer { background: #2c3e50; color: white; padding: 15px; text-align: center; font-size: 14px; }
+        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 New Contact Message</h1>
+            <p>Website Contact Form</p>
+        </div>
+        <div class="content">
+            <div style="text-align: center; color: #666; margin-bottom: 20px;">
+                Received on: ${new Date().toLocaleString()}
+            </div>
+            <div class="section">
+                <h3>👤 Contact Details</h3>
+                <div class="info-grid">
+                    <div><span class="label">Full Name:</span><div class="value">${
+                      data.fullName
+                    }</div></div>
+                    <div><span class="label">Email:</span><div class="value">${
+                      data.email
+                    }</div></div>
+                    <div><span class="label">Phone:</span><div class="value">${
+                      data.phone
+                    }</div></div>
+                    <div><span class="label">State:</span><div class="value">${
+                      data.state
+                    }</div></div>
+                </div>
+            </div>
+            <div class="section">
+                <h3>Subject</h3>
+                <div class="message-content">${data.subject}</div>
+            </div>
+            <div class="section">
+                <h3>💬 Message</h3>
+                <div class="message-content">${data.message}</div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Automated notification from website contact form</p>
+        </div>
+    </div>
+</body>
+</html>`;
+}

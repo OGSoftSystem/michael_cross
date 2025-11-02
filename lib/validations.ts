@@ -26,4 +26,28 @@ export const appointmentSchema = z.object({
 });
 
 export type AppointmentFormDataType = z.infer<typeof appointmentSchema>;
- 
+
+export const contactFormSchema = z.object({
+  fullName: z
+    .string()
+    .min(2, "Full name must be at least 2 characters")
+    .max(100, "Full name must be less than 100 characters")
+    .regex(/^[a-zA-Z\s]+$/, "Full name can only contain letters and spaces"),
+
+  phone: z
+    .string()
+    .min(10, "Phone number must be at least 10 digits")
+    .max(15, "Phone number must be less than 15 digits")
+    .regex(/^[0-9+\-\s()]+$/, "Please enter a valid phone number"),
+
+  email: z.string().email({ message: "provide a valid email" }),
+  state: z.string().min(1, "Please select a state"),
+  subject: z.string().min(1, "Please enter subject"),
+
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(1000, "Message must be less than 1000 characters"),
+});
+
+export type ContactFormData = z.infer<typeof contactFormSchema>;

@@ -19,12 +19,9 @@ import {
   Calendar,
   Clock,
   User,
-  Phone,
   Mail,
   Stethoscope,
   CheckCircle2,
-  AlertCircle,
-  ArrowLeft,
 } from "lucide-react";
 import { Form } from "./ui/form";
 import { CustomInput, CustomSelect, CustomTextarea } from "./customs";
@@ -65,8 +62,7 @@ const locations = [
   "Telemedicine (Virtual)",
 ];
 
-
-const Appointment = () => {
+const AppointmentForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const initial = {
@@ -180,323 +176,217 @@ const Appointment = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-app-blue/5">
-      {/* Header */}
-      <section className="bg-linear-to-r from-app-blue to-blue-700 text-white py-16">
-        <MaxWidthWrapper>
-          <div className="text-center space-y-6">
-            <Link href="/" className="inline-block">
-              <Button
-                variant="ghost"
-                className="text-white hover:bg-white/20 mb-4"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Book Your Appointment
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
-              Schedule your visit with our specialist doctors. Choose between
-              physical consultation or telemedicine.
-            </p>
-          </div>
-        </MaxWidthWrapper>
-      </section>
-
-      <MaxWidthWrapper className="paddingY">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Form */}
-          <div className="lg:col-span-2">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
-              >
-                <FieldGroup>
-                  <FieldSet>
-                    {/* Patient Information */}
-                    <FieldGroup className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                      <div className="flex items-center space-x-3">
-                        <User className="size-6 text-app-blue" />
-
-                        <div>
-                          <FieldLegend className="font-bold text-accent-foreground">
-                            Patient Information
-                          </FieldLegend>
-                          <FieldDescription className="text-xs text-muted-foreground">
-                            Personal data
-                          </FieldDescription>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <CustomInput
-                          name="firstName"
-                          control={form.control}
-                          label="First Name"
-                          isRequired
-                        />
-                        <CustomInput
-                          name="lastName"
-                          control={form.control}
-                          label="First Name"
-                          isRequired
-                        />
-                        <CustomInput
-                          name="email"
-                          control={form.control}
-                          label="Email Address"
-                          isRequired
-                          type="email"
-                        />
-                        <CustomInput
-                          name="phone"
-                          control={form.control}
-                          label="Phone"
-                          isRequired
-                        />
-                        <CustomInput
-                          name="dateOfBirth"
-                          control={form.control}
-                          label="Date of birth"
-                          isRequired
-                          type="date"
-                        />
-                        <CustomSelect
-                          name="gender"
-                          control={form.control}
-                          label="Gender"
-                          isRequired
-                          items={[
-                            { id: "male", value: "Male" },
-                            { id: "female", value: "Female" },
-                          ]}
-                        />
-                      </div>
-                    </FieldGroup>
-                  </FieldSet>
-
-                  {/* Appointment Details */}
-                  <FieldSet>
-                    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                      <div className="text-2xl font-bold text-gray-900 mb-6 flex items-center space-x-3">
-                        <Calendar className="w-6 h-6 text-app-blue" />
-                        <div>
-                          <FieldLegend className="font-bold text-accent-foreground">
-                            Appointment Details
-                          </FieldLegend>
-                          <FieldDescription className="text-xs text-muted-foreground">
-                            Appointment data
-                          </FieldDescription>
-                        </div>
-                      </div>
-
-                      <FieldGroup>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <CustomInput
-                            name="preferredDate"
-                            control={form.control}
-                            label="Preferred Date"
-                            isRequired
-                            type="date"
-                            min={new Date().toISOString().split("T")[0]}
-                          />
-
-                          <CustomInput
-                            name="preferredTime"
-                            control={form.control}
-                            label="Preferred Time"
-                            isRequired
-                            type="time"
-                          />
-
-                          <CustomSelect
-                            name="department"
-                            control={form.control}
-                            label="Department"
-                            isRequired
-                            items={departments.map((d) => ({
-                              id: d,
-                              value: d,
-                            }))}
-                          />
-                          <CustomSelect
-                            name="doctor"
-                            control={form.control}
-                            label="Preferred Doctor"
-                            isRequired
-                            items={doctors.map((d) => ({
-                              id: d,
-                              value: d,
-                            }))}
-                          />
-                          <CustomSelect
-                            name="location"
-                            control={form.control}
-                            label="Preferred Location"
-                            isRequired
-                            items={locations.map((d) => ({
-                              id: d,
-                              value: d,
-                            }))}
-                          />
-                        </div>
-                      </FieldGroup>
-                    </div>
-                  </FieldSet>
-
-                  {/* Medical Information */}
-
-                  <FieldSet>
-                    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                      <div className="text-2xl font-bold text-gray-900 mb-6 flex items-center space-x-3">
-                        <Stethoscope className="size-6 text-app-blue" />
-                        <div>
-                          <FieldLegend className="font-bold text-accent-foreground">
-                            Medical Information
-                          </FieldLegend>
-                          <FieldDescription className="text-xs text-muted-foreground">
-                            Medical data
-                          </FieldDescription>
-                        </div>
-                      </div>
-
-                      <FieldGroup>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <CustomTextarea
-                            name="reason"
-                            control={form.control}
-                            label="Reason for visit"
-                            isRequired
-                            rows={4}
-                          />
-                          <CustomTextarea
-                            name="symptoms"
-                            control={form.control}
-                            label="Additional Symptoms (Optional)"
-                            rows={4}
-                          />
-
-                          <CustomInput
-                            name="insuranceProvider"
-                            control={form.control}
-                            label="HMO Company (Optional)"
-                            type="text"
-                          />
-                          <CustomInput
-                            name="insuranceNumber"
-                            control={form.control}
-                            label="HMO ID (Optional)"
-                            type="text"
-                          />
-                        </div>
-                      </FieldGroup>
-                    </div>
-                  </FieldSet>
-
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    disabled={form.formState.isSubmitting}
-                    className={cn(
-                      "w-full bg-app-blue hover:bg-app-blue/90 text-white font-semibold",
-                      "py-6 rounded-xl text-lg transition-all duration-300",
-                      "hover:scale-105 hover:shadow-lg",
-                      "disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none cursor-pointer"
-                    )}
-                  >
-                    {form.formState.isSubmitting ? (
-                      <div className="flex items-center space-x-2">
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Booking Appointment...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="w-5 h-5" />
-                        <span>Book Appointment</span>
-                      </div>
-                    )}
-                  </Button>
-                </FieldGroup>
-              </form>
-            </Form>
-          </div>
-
-          {/* Sidebar */}
-          <aside className="space-y-6">
-            {/* Emergency Banner */}
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FieldGroup>
+          <FieldSet>
+            {/* Patient Information */}
+            <FieldGroup className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-white" />
-                </div>
+                <User className="size-6 text-app-blue" />
+
                 <div>
-                  <h3 className="font-bold text-red-900">Medical Emergency?</h3>
-                  <p className="text-red-700 text-sm mt-1">
-                    Don&apos;t wait for an appointment. Visit the nearest
-                    emergency room immediately.
-                  </p>
-                  <p className="text-red-900 font-semibold mt-2">
-                    Emergency Line: (234) 800-MICHAEL
-                  </p>
+                  <FieldLegend className="font-bold text-accent-foreground">
+                    Patient Information
+                  </FieldLegend>
+                  <FieldDescription className="text-xs text-muted-foreground">
+                    Personal data
+                  </FieldDescription>
                 </div>
               </div>
-            </div>
 
-            {/* Contact Information */}
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-4">
-                Need Help Booking?
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-sm">
-                  <Phone className="w-4 h-4 text-app-blue" />
-                  <span className="text-gray-600">(234) 800-642-4235</span>
-                </div>
-                <div className="flex items-center space-x-3 text-sm">
-                  <Mail className="w-4 h-4 text-app-blue" />
-                  <span className="text-gray-600">
-                    email@michaelcrosspecialist.com
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3 text-sm">
-                  <Clock className="w-4 h-4 text-app-blue" />
-                  <span className="text-gray-600">
-                    Mon-Sun: 7:00 AM - 9:00 PM
-                  </span>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CustomInput
+                  name="firstName"
+                  control={form.control}
+                  label="First Name"
+                  isRequired
+                />
+                <CustomInput
+                  name="lastName"
+                  control={form.control}
+                  label="First Name"
+                  isRequired
+                />
+                <CustomInput
+                  name="email"
+                  control={form.control}
+                  label="Email Address"
+                  isRequired
+                  type="email"
+                />
+                <CustomInput
+                  name="phone"
+                  control={form.control}
+                  label="Phone"
+                  isRequired
+                />
+                <CustomInput
+                  name="dateOfBirth"
+                  control={form.control}
+                  label="Date of birth"
+                  isRequired
+                  type="date"
+                />
+                <CustomSelect
+                  name="gender"
+                  control={form.control}
+                  label="Gender"
+                  isRequired
+                  items={[
+                    { id: "male", value: "Male" },
+                    { id: "female", value: "Female" },
+                  ]}
+                />
               </div>
-            </div>
+            </FieldGroup>
+          </FieldSet>
 
-            {/* What to Expect */}
-            <div className="bg-app-blue text-white rounded-2xl p-6">
-              <h3 className="font-bold mb-4">What to Expect</h3>
-              <div className="space-y-3 text-sm text-blue-100">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Confirmation call within 2 hours</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Bring valid ID and insurance card</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Arrive 15 minutes early</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Cancel 24 hours in advance if needed</span>
+          {/* Appointment Details */}
+          <FieldSet>
+            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+              <div className="text-2xl font-bold text-gray-900 mb-6 flex items-center space-x-3">
+                <Calendar className="w-6 h-6 text-app-blue" />
+                <div>
+                  <FieldLegend className="font-bold text-accent-foreground">
+                    Appointment Details
+                  </FieldLegend>
+                  <FieldDescription className="text-xs text-muted-foreground">
+                    Appointment data
+                  </FieldDescription>
                 </div>
               </div>
+
+              <FieldGroup>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CustomInput
+                    name="preferredDate"
+                    control={form.control}
+                    label="Preferred Date"
+                    isRequired
+                    type="date"
+                    min={new Date().toISOString().split("T")[0]}
+                  />
+
+                  <CustomInput
+                    name="preferredTime"
+                    control={form.control}
+                    label="Preferred Time"
+                    isRequired
+                    type="time"
+                  />
+
+                  <CustomSelect
+                    name="department"
+                    control={form.control}
+                    label="Department"
+                    isRequired
+                    items={departments.map((d) => ({
+                      id: d,
+                      value: d,
+                    }))}
+                  />
+                  <CustomSelect
+                    name="doctor"
+                    control={form.control}
+                    label="Preferred Doctor"
+                    isRequired
+                    items={doctors.map((d) => ({
+                      id: d,
+                      value: d,
+                    }))}
+                  />
+                  <CustomSelect
+                    name="location"
+                    control={form.control}
+                    label="Preferred Location"
+                    isRequired
+                    items={locations.map((d) => ({
+                      id: d,
+                      value: d,
+                    }))}
+                  />
+                </div>
+              </FieldGroup>
             </div>
-          </aside>
-        </div>
-      </MaxWidthWrapper>
-    </div>
+          </FieldSet>
+
+          {/* Medical Information */}
+
+          <FieldSet>
+            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+              <div className="text-2xl font-bold text-gray-900 mb-6 flex items-center space-x-3">
+                <Stethoscope className="size-6 text-app-blue" />
+                <div>
+                  <FieldLegend className="font-bold text-accent-foreground">
+                    Medical Information
+                  </FieldLegend>
+                  <FieldDescription className="text-xs text-muted-foreground">
+                    Medical data
+                  </FieldDescription>
+                </div>
+              </div>
+
+              <FieldGroup>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CustomTextarea
+                    name="reason"
+                    control={form.control}
+                    label="Reason for visit"
+                    isRequired
+                    rows={4}
+                  />
+                  <CustomTextarea
+                    name="symptoms"
+                    control={form.control}
+                    label="Additional Symptoms (Optional)"
+                    rows={4}
+                  />
+
+                  <CustomInput
+                    name="insuranceProvider"
+                    control={form.control}
+                    label="HMO Company (Optional)"
+                    type="text"
+                  />
+                  <CustomInput
+                    name="insuranceNumber"
+                    control={form.control}
+                    label="HMO ID (Optional)"
+                    type="text"
+                  />
+                </div>
+              </FieldGroup>
+            </div>
+          </FieldSet>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            className={cn(
+              "w-full bg-app-blue hover:bg-app-blue/90 text-white font-semibold",
+              "py-6 rounded-xl text-lg transition-all duration-300",
+              "hover:scale-105 hover:shadow-lg",
+              "disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none cursor-pointer"
+            )}
+          >
+            {form.formState.isSubmitting ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>Booking Appointment...</span>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-5 h-5" />
+                <span>Book Appointment</span>
+              </div>
+            )}
+          </Button>
+        </FieldGroup>
+      </form>
+    </Form>
   );
 };
 
-export default Appointment;
+export default AppointmentForm;
