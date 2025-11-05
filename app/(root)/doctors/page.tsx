@@ -2,7 +2,7 @@ import Doctors from "@/components/doctor-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Doctors",
+  title: "Our Doctors",
 };
 const DoctorsPage = () => {
   return <Doctors />;

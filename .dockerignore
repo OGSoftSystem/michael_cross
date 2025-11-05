@@ -1,0 +1,4 @@
+node_modules
+dockfile
+compose*.yml
+.env*

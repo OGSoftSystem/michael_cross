@@ -1,0 +1,31 @@
+services:
+  nextjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC=${NEXT_PUBLIC}
+
+    container_name: nextjs-app
+    networks:
+      - app-network
+    depends-on:
+      - mongodb
+
+  mongodb:
+    image: mongodb
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - MONGO_USER
+      - MONGO_PASS
+
+    ports:
+      - "27017/27017"
+    volumes: mongodb-data:/db/data
+    container_name: mongodb
+    networks:
+      - app-network
+
+volumes:
+  mongodb-data:
+    - local

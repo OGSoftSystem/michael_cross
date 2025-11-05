@@ -6,3 +6,5 @@ export const mail = {
     pass: process.env.EMAIL_PASS as string,
   },
 };
+
+export const mongo_url = process.env.MONGO_URL as string;

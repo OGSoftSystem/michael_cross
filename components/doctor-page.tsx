@@ -15,6 +15,7 @@ import {
   Star,
   Award,
 } from "lucide-react";
+import Link from "next/link";
 
 const doctors = [
   {
@@ -201,7 +202,8 @@ const Doctors = () => {
           {/* Search Tips */}
           <div className="mt-6 text-center">
             <p className="text-gray-500 text-sm">
-              Try searching by: {"Dr. Adebayo"}, {"Cardiology"}, {"Pediatrician"}
+              Try searching by: {"Dr. Adebayo"}, {"Cardiology"},{" "}
+              {"Pediatrician"}
             </p>
           </div>
         </div>
@@ -218,9 +220,8 @@ const Doctors = () => {
                 No doctors found
               </h3>
               <p className="text-gray-600 max-w-md mx-auto">
-                No doctors match your search for <strong>{searchQuery}</strong>
-                . Try searching with different terms or contact us for
-                assistance.
+                No doctors match your search for <strong>{searchQuery}</strong>.
+                Try searching with different terms or contact us for assistance.
               </p>
             </div>
           )}
@@ -331,6 +332,7 @@ const Doctors = () => {
                           {/* Contact Actions */}
                           <div className="flex flex-col sm:flex-row gap-3 pt-4">
                             <Button
+                              asChild
                               className={cn(
                                 "bg-app-blue hover:bg-app-blue/90 text-white font-semibold",
                                 "px-6 py-3 rounded-xl transition-all duration-300",
@@ -340,8 +342,10 @@ const Doctors = () => {
                               )}
                               disabled={!doctor.available}
                             >
-                              <Calendar className="w-4 h-4 mr-2" />
-                              Book Appointment
+                              <Link href={"/appointment"}>
+                                <Calendar className="w-4 h-4 mr-2" />
+                                Book Appointment
+                              </Link>
                             </Button>
 
                             <div className="flex gap-2">

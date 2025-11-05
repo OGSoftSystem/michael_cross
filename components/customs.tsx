@@ -18,7 +18,7 @@ import {
 } from "react-hook-form";
 import { Field, FieldDescription, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
-import { ComponentProps } from "react";
+import { ComponentProps, ReactNode } from "react";
 import {
   Select,
   SelectContent,
@@ -27,6 +27,9 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import { IconType } from "react-icons";
+import { cn } from "@/lib/utils";
+import { LucideIcon, LucideProps } from "lucide-react";
 
 const Items = ["mc1", "mc2", "mc3"];
 export function CustomCarousel() {
@@ -74,6 +77,7 @@ type TextInputProps<T extends FieldValues> = Omit<
   placeholder?: string;
   min?: string;
   type?: ComponentProps<"input">["type"];
+  icon?: IconType | LucideIcon | undefined;
 };
 
 function Label({
@@ -98,6 +102,7 @@ export function CustomInput<T extends FieldValues>({
   placeholder,
   min,
   type = "text",
+  icon: Icon,
   ...props
 }: TextInputProps<T>) {
   return (
@@ -107,16 +112,30 @@ export function CustomInput<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <Field>
           <Label htmlFor={props.name} label={label} isRequired={isRequired} />
-          <Input
-            {...field}
-            placeholder={placeholder}
-            // name={props.name}
-            id={props.name}
-            type={type}
-            min={min}
-          />
+          <div className="relative">
+            {Icon && (
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                <Icon className="w-5 h-5 text-gray-400" />
+              </div>
+            )}
+            <Input
+              {...field}
+              placeholder={placeholder}
+              id={props.name}
+              type={type}
+              min={min}
+              className={cn(
+                "transition-all duration-200 size text-gray-400",
+                Icon && "pl-10", // Add padding when icon is present
+                fieldState.error &&
+                  "border-red-500 focus:border-red-500 focus:ring-red-500"
+              )}
+            />
+          </div>
           {fieldState.error && (
-            <FieldDescription className="text-red-500 text-xs">{fieldState.error.message}</FieldDescription>
+            <FieldDescription className="text-red-500 text-xs mt-1">
+              {fieldState.error.message}
+            </FieldDescription>
           )}
         </Field>
       )}

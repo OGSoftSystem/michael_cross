@@ -238,19 +238,10 @@ const Locations = () => {
                 </div>
 
                 {/* Quick Stats */}
-                <div className="grid grid-cols-3 gap-4 mt-6">
-                  <div className="text-center p-3 bg-app-blue/10 rounded-lg">
-                    <div className="text-2xl font-bold text-app-blue">51</div>
-                    <div className="text-sm text-gray-600">Hospitals</div>
-                  </div>
-                  <div className="text-center p-3 bg-app-blue/10 rounded-lg">
-                    <div className="text-2xl font-bold text-app-blue">14</div>
-                    <div className="text-sm text-gray-600">States</div>
-                  </div>
-                  <div className="text-center p-3 bg-app-blue/10 rounded-lg">
-                    <div className="text-2xl font-bold text-app-blue">24/7</div>
-                    <div className="text-sm text-gray-600">Emergency Care</div>
-                  </div>
+                <div className="grid grid-cols-3 gap-2 mt-6">
+                  <Stat value={"51"} text="Hospitals" />
+                  <Stat value={"14"} text="States" />
+                  <Stat value={"24/7"} text=" Emergency Care" />
                 </div>
               </div>
             </div>
@@ -415,3 +406,12 @@ const Locations = () => {
 };
 
 export default Locations;
+
+function Stat({ value, text }: { value: string; text: string }) {
+  return (
+    <div className="text-center p-3 bg-app-blue/10 rounded-lg">
+      <div className="text-xl md:text-2xl font-bold text-app-blue">{value}</div>
+      <div className="text-xs md:text-sm text-gray-600">{text}</div>
+    </div>
+  );
+}
