@@ -6,41 +6,41 @@ const services = [
     title: "Emergency Care",
     description: "24/7 emergency services with state-of-the-art trauma centers",
     icon: "🚑",
-    image: "/images/emer.jpg",
+    image: "/assets/images/emer.jpg",
   },
   {
     title: "Gynaecology",
     description:
       "Expert gynecological care including well-woman exams, minimally invasive surgery, and reproductive health.",
     icon: "👱‍♀️",
-    image: "/images/gynae.jpg", // Gynecological ultrasound
+    image: "/assets/images/gynae.jpg", // Gynecological ultrasound
   },
   {
     title: "Pediatrics",
     description:
       "Specialized care for children from infancy through adolescence",
     icon: "👶",
-    image: "/images/ped.jpg", // Doctor examining child
+    image: "/assets/images/ped.jpg", // Doctor examining child
   },
   {
     title: "Infertility management",
     description:
       "Comprehensive fertility evaluations, advanced treatments like IVF, and personalized care plans.",
     icon: "🎗️",
-    image: "/images/infer.jpg", // Fertility lab and embryos
+    image: "/assets/images/infer.jpg", // Fertility lab and embryos
   },
   {
     title: "General Surgery and dermatology",
     description:
       "Specialists in general surgery procedures and medical/surgical dermatology.",
     icon: "✂️",
-    image: "/images/surg.jpg", // Surgical procedure
+    image: "/assets/images/surg.jpg", // Surgical procedure
   },
   {
     title: "Maternity Care",
     description: "Comprehensive care for mothers and newborns",
     icon: "🤰",
-    image: "/images/mar.jpg", // Newborn baby care
+    image: "/assets/images/mar.jpg", // Newborn baby care
   },
 ];
 

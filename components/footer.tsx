@@ -103,7 +103,7 @@ const Footer = () => {
           <div className="xl:col-span-2 space-y-6">
             <Link href="/" className="inline-block">
               <Image
-                src="/images/logo.png"
+                src="/assets/images/logo.png"
                 alt="Michael Cross Specialist Hospital"
                 width={180}
                 height={80}

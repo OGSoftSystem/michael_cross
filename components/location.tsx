@@ -6,92 +6,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Search, MapPin, Phone, Clock, Car, Star } from "lucide-react";
+import { siteConfig } from "@/config";
 
 // Nigeria states with coordinates (approximate positions for the map)
 const hospitalLocations = [
   {
     id: 1,
-    state: "Lagos",
-    city: "Victoria Island",
-    address: "123 Medical Drive, Victoria Island, Lagos",
-    phone: "+234 800 642 4001",
-    hours: "24/7 Emergency Services",
-    type: "Main Branch",
-    coordinates: { x: 25, y: 75 }, // Southwest
-    features: ["Emergency Care", "Surgery", "ICU", "Pharmacy"],
-    rating: 4.9,
-  },
-  {
-    id: 2,
-    state: "Abuja",
-    city: "Central District",
-    address: "456 Healthcare Avenue, Central District, Abuja",
-    phone: "+234 800 642 4002",
+    state: "FCT-Abuja",
+    city: "Abuja",
+    address: siteConfig.location,
+    phone: siteConfig.phone,
     hours: "Mon-Sun: 6:00 AM - 10:00 PM",
-    type: "Specialist Center",
+    type: "Specialist Hospital",
     coordinates: { x: 50, y: 45 }, // Center
-    features: ["Cardiology", "Neurology", "Pediatrics", "Lab"],
+    features: [
+      "Gynaecology",
+      "Emergency care",
+      "Pediatrics",
+      "Maternity Care",
+      "Infertility management",
+      "General Surgery and dermatology",
+    ],
     rating: 4.8,
-  },
-  {
-    id: 3,
-    state: "Rivers",
-    city: "Port Harcourt",
-    address: "789 Healing Road, GRA, Port Harcourt",
-    phone: "+234 800 642 4003",
-    hours: "24/7 Emergency Services",
-    type: "Regional Hospital",
-    coordinates: { x: 40, y: 70 }, // South
-    features: ["Maternity", "Surgery", "Emergency", "Imaging"],
-    rating: 4.7,
-  },
-  {
-    id: 4,
-    state: "Kano",
-    city: "Kano Metropolitan",
-    address: "321 Wellness Street, Kano Metropolitan",
-    phone: "+234 800 642 4004",
-    hours: "Mon-Sun: 7:00 AM - 9:00 PM",
-    type: "Regional Hospital",
-    coordinates: { x: 55, y: 30 }, // North
-    features: ["General Medicine", "Pediatrics", "Pharmacy", "Lab"],
-    rating: 4.6,
-  },
-  {
-    id: 5,
-    state: "Oyo",
-    city: "Ibadan",
-    address: "654 Care Boulevard, Ibadan",
-    phone: "+234 800 642 4005",
-    hours: "24/7 Emergency Services",
-    type: "Specialist Center",
-    coordinates: { x: 30, y: 65 }, // Southwest
-    features: ["Oncology", "Cardiology", "Surgery", "ICU"],
-    rating: 4.8,
-  },
-  {
-    id: 6,
-    state: "Delta",
-    city: "Asaba",
-    address: "987 Health Way, Asaba",
-    phone: "+234 800 642 4006",
-    hours: "Mon-Sun: 6:00 AM - 11:00 PM",
-    type: "General Hospital",
-    coordinates: { x: 35, y: 65 }, // South
-    features: ["Emergency", "Maternity", "Pharmacy", "Lab"],
-    rating: 4.5,
-  },
-  {
-    id: 7,
-    state: "Kaduna",
-    city: "Kaduna North",
-    address: "147 Recovery Road, Kaduna North",
-    phone: "+234 800 642 4007",
-    hours: "Mon-Sun: 7:00 AM - 9:00 PM",
-    type: "Regional Hospital",
-    coordinates: { x: 48, y: 40 }, // North Central
-    features: ["General Medicine", "Pediatrics", "Emergency", "Pharmacy"],
-    rating: 4.6,
   },
 ];
 
@@ -239,8 +175,8 @@ const Locations = () => {
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-3 gap-2 mt-6">
-                  <Stat value={"51"} text="Hospitals" />
-                  <Stat value={"14"} text="States" />
+                  <Stat value={"1"} text="Hospital" />
+                  <Stat value={"1"} text="State1" />
                   <Stat value={"24/7"} text=" Emergency Care" />
                 </div>
               </div>
@@ -389,7 +325,7 @@ const Locations = () => {
             <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
               <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg">
                 <Phone className="w-5 h-5 mr-2" />
-                Call Emergency: (234) 800-MICHAEL
+                Call Emergency: {siteConfig.phone}
               </Button>
               <Button
                 variant="outline"

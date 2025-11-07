@@ -8,7 +8,7 @@ const testimonials = [
     content:
       "The care I received at Michael Cross Specialists Hospital was exceptional. The staff treated me like family and the doctors were incredibly knowledgeable.",
     image:
-      "/images/mela.jpeg",
+      "/assets/images/mela.jpeg",
   },
   {
     name: "Dr. Chukwuma Eze",
@@ -24,7 +24,7 @@ const testimonials = [
     content:
       "During my brother's treatment, the communication and support from the medical team gave our family peace of mind in a difficult time.",
     image:
-      "/images/vm.jpg",
+      "/assets/images/vm.jpg",
   },
 ];
 

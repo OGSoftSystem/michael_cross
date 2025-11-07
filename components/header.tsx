@@ -118,7 +118,7 @@ const Header = () => {
           <div className="inline-flex space-x-2 items-center">
             <Link href="/" className="shrink-0">
               <Image
-                src="/images/logo.png"
+                src="/assets/images/logo.png"
                 alt="Michael Cross Specialists Hospital Logo"
                 width={100}
                 height={60}
@@ -258,21 +258,21 @@ function LoggedInUser({ user }: { user: string }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   return (
-    <div
-      onClick={() =>
-        startTransition(async () => {
-          await authClient.signOut({
-            fetchOptions: {
-              onSuccess: () => {
-                router.push("/");
+    <div className="inline-flex items-center space-x-2">
+      <div
+        onClick={() =>
+          startTransition(async () => {
+            await authClient.signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  router.push("/");
+                },
               },
-            },
-          });
-        })
-      }
-      className="size-10 rounded-full flex items-center justify-center  border border-app-blue cursor-pointer"
-    >
-      <div className="inline-flex items-center space-x-2">
+            });
+          })
+        }
+        className="size-10 rounded-full flex items-center justify-center  border border-app-blue cursor-pointer"
+      >
         <CusTooltip title="Log out">
           <p
             className={cn(
@@ -283,13 +283,13 @@ function LoggedInUser({ user }: { user: string }) {
             {user.charAt(0)}
           </p>
         </CusTooltip>
-        <Link
-          className=" hover:text-app-blue"
-          href={`/${siteConfig.baseUrl}/dashboard`}
-        >
-          <LayoutDashboard />
-        </Link>
       </div>
+      <Link
+        className=" hover:text-app-blue"
+        href={`/${siteConfig.baseUrl}/dashboard`}
+      >
+        <LayoutDashboard />
+      </Link>
     </div>
   );
 }

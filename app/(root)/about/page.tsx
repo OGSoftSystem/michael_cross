@@ -193,7 +193,7 @@ const AboutPage = () => {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="/images/surg.jpg"
+                    src="/assets/images/surg.jpg"
                     alt="Medical team collaboration"
                     width={300}
                     height={200}
