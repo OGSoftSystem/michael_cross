@@ -21,19 +21,21 @@ const About = () => {
 
             <div className="space-y-4">
               <p className="text-lg text-gray-700 leading-relaxed font-light">
-                Michael Cross Specialists Hospital is the fifth largest
-                for-profit health system in Nigeria, operating{" "}
-                <strong>51 hospitals</strong> across <strong>14 states</strong>,
-                with more than <strong>360 outpatient locations</strong>.
+                Michael Cross Specialists Hospital is a premier healthcare
+                destination in the heart of Abuja, setting a new standard for
+                specialist medical care in Nigeria. While we are proud to be a
+                growing name in the Nigerian healthcare sector, our core focus
+                is uncompromising: delivering the highest quality, value-based
+                healthcare from our state-of-the-art facility in Abuja.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed font-light">
-                Our network includes over{" "}
-                <strong>57,000 staff and affiliated physicians</strong>{" "}
-                dedicated to providing the highest quality, value-based
-                healthcare. Eighteen of our facilities are members of the
-                Michael Cross Specialists Foundation, a 501(c)(3) not-for-profit
-                public charity.
+                Our Abuja hospital is home to a dedicated team of highly-skilled
+                specialist physicians and staff, all committed to a single
+                mission: your well-being. As a key member of the Michael Cross
+                Specialists Foundation, a not-for-profit public charity, we are
+                deeply invested in the health of our community, ensuring our
+                care is both advanced and accessible.
               </p>
             </div>
           </div>
@@ -83,13 +85,13 @@ const About = () => {
 
       {/* Stats Bar */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16 pt-8 border-t border-gray-200">
-        <Values start={0} end={10} suffix="+" text="Hospitals" />
+        <Values start={0} end={1} text="Hospital" />
 
-        <Values start={0} end={14} text="States" />
+        <Values start={0} end={1} text="State" />
 
-        <Values start={0} end={360} suffix="+" text="Outpatient Locations" />
+        <Values start={0} end={310} suffix="+" text="Outpatient Locations" />
 
-        <Values start={0} end={300} suffix="+" text="Medical Staff" />
+        <Values start={0} end={50} suffix="+" text="Medical Staff" />
       </div>
     </MaxWidthWrapper>
   );

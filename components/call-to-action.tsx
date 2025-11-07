@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
 import { Phone, MapPin, Clock, AlertTriangle, Calendar } from "lucide-react";
@@ -5,7 +6,7 @@ import Link from "next/link";
 
 const CTA = () => {
   return (
-    <MaxWidthWrapper className="paddingY text-white">
+    <MaxWidthWrapper className="paddingY text-white" id="emergency">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
@@ -19,11 +20,11 @@ const CTA = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <Phone className="w-5 h-5" />
-              <span className="text-lg">(234) 800-MICHAEL</span>
+              <span className="text-lg">{siteConfig.phone}</span>
             </div>
             <div className="flex items-center space-x-3">
               <MapPin className="w-5 h-5" />
-              <span className="text-lg">51 Locations Across Nigeria</span>
+              <span className="text-lg">{siteConfig.location}</span>
             </div>
             <div className="flex items-center space-x-3">
               <Clock className="w-5 h-5" />

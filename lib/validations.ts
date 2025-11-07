@@ -80,3 +80,67 @@ export const signInSchema = z.object({
 });
 
 export type SignInFormDataType = z.infer<typeof signInSchema>;
+
+export const blogSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Title is required")
+    .min(3, "Title must be at least 3 characters")
+    .max(200, "Title must be less than 200 characters"),
+
+  excerpt: z
+    .string()
+    .min(1, "Excerpt is required")
+    .min(10, "Excerpt must be at least 10 characters")
+    .max(300, "Excerpt must be less than 300 characters"),
+
+  image: z.string().url("Please enter a valid URL").or(z.literal("")),
+
+  author: z
+    .string()
+    .min(1, "Author is required")
+    .min(2, "Author name must be at least 2 characters")
+    .max(100, "Author name must be less than 100 characters"),
+
+  category: z
+    .string()
+    .min(1, "Category is required")
+    .min(2, "Category must be at least 2 characters")
+    .max(100, "Category must be less than 100 characters"),
+
+  readTime: z
+    .string()
+    .optional()
+    .or(z.literal(""))
+    .refine((val) => !val || /^\d+\s*min(\s*read)?$/i.test(val), {
+      message:
+        "Please enter a valid read time format (e.g., '5 min read' or '10 min')",
+    }),
+
+  slug: z
+    .string()
+    .min(1, "Slug is required")
+    .min(3, "Slug must be at least 3 characters")
+    .max(100, "Slug must be less than 100 characters")
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "Slug can only contain lowercase letters, numbers, and hyphens"
+    ),
+});
+
+export type BlogFormDataType = z.infer<typeof blogSchema>;
+
+export type BlogPost = BlogFormDataType & {
+  id: string;
+  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  published: boolean;
+};
+
+export const blogUpdateSchema = blogSchema.extend({
+  id: z.string(),
+  published: z.boolean().default(false),
+});
+
+export type BlogUpdateDataType = z.infer<typeof blogUpdateSchema>;

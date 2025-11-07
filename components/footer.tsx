@@ -24,20 +24,20 @@ const footerSections = [
       { name: "About Us", href: "/about" },
       { name: "Our Leadership", href: "/leadership" },
       { name: "News & Media", href: "/news" },
-      { name: "Careers", href: "/careers" },
-      { name: "Patient Stories", href: "/stories" },
-      { name: "Quality & Safety", href: "/quality" },
+      // { name: "Careers", href: "/careers" },
+      // { name: "Patient Stories", href: "/stories" },
+      // { name: "Quality & Safety", href: "/quality" },
     ],
   },
   {
     title: "Our Services",
     links: [
-      { name: "Emergency Care", href: "/services/emergency" },
-      { name: "Cardiology", href: "/services/cardiology" },
-      { name: "Pediatrics", href: "/services/pediatrics" },
-      { name: "Oncology", href: "/services/oncology" },
-      { name: "Orthopedics", href: "/services/orthopedics" },
-      { name: "Maternity Care", href: "/services/maternity" },
+      { name: "Emergency Care", href: "#emergency" },
+      { name: "Gynaecology", href: "#services" },
+      { name: "Pediatrics", href: "#services" },
+      { name: "Infertility Management", href: "#services" },
+      { name: "General Surgery and dermatology", href: "#services" },
+      { name: "Maternity Care", href: "#services" },
     ],
   },
   {
@@ -45,21 +45,21 @@ const footerSections = [
     links: [
       { name: "Find a Doctor", href: "/doctors" },
       { name: "Book Appointment", href: "/appointment" },
-      { name: "Patient Portal", href: "/portal" },
-      { name: "Medical Records", href: "/records" },
-      { name: "Billing & Insurance", href: "/billing" },
-      { name: "Visitor Information", href: "/visitors" },
+      // { name: "Patient Portal", href: "/" },
+      // { name: "Medical Records", href: "/" },
+      // { name: "Billing & Insurance", href: "/" },
+      // { name: "Visitor Information", href: "/" },
     ],
   },
   {
-    title: "Locations",
+    title: "Location",
     links: [
-      { name: "Lagos Main Branch", href: "/locations/lagos" },
-      { name: "Abuja Specialist Center", href: "/locations/abuja" },
-      { name: "Port Harcourt", href: "/locations/ph" },
-      { name: "Kano Regional", href: "/locations/kano" },
-      { name: "Ibadan Center", href: "/locations/ibadan" },
-      { name: "View All Locations", href: "/locations" },
+      { name: "Abuja, Nigeria", href: "/locations/lagos" },
+      // { name: "Abuja Specialist Center", href: "/locations/abuja" },
+      // { name: "Port Harcourt", href: "/locations/ph" },
+      // { name: "Kano Regional", href: "/locations/kano" },
+      // { name: "Ibadan Center", href: "/locations/ibadan" },
+      // { name: "View All Locations", href: "/locations" },
     ],
   },
 ];
@@ -113,9 +113,9 @@ const Footer = () => {
 
             <p className="text-gray-300 leading-relaxed max-w-md">
               Michael Cross Specialist Hospital is dedicated to providing
-              exceptional healthcare with compassion and innovation. With 51
-              locations across Nigeria, we&apos;re committed to building a
-              healthier community.
+              exceptional healthcare with compassion and innovation. With
+              current location in Abuja, Nigeria, we&apos;re committed to
+              building a healthier community.
             </p>
 
             {/* Contact Info */}
@@ -130,7 +130,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <MapPin className="w-5 h-5 text-app-blue" />
-                <span>51 Locations Across Nigeria</span>
+                <span>{siteConfig.location}</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <Clock className="w-5 h-5 text-app-blue" />
@@ -214,7 +214,7 @@ const Footer = () => {
               <h3 className="text-2xl font-bold">Stay Informed</h3>
               <p className="text-gray-300">
                 Subscribe to our newsletter for health tips, news, and updates
-                from Michael Cross Hospital.
+                from Michael Cross Specialists Hospital.
               </p>
             </div>
             <div className="flex space-x-4">
@@ -253,7 +253,7 @@ const Footer = () => {
               >
                 Terms of Service
               </Link>
-              <Link
+              {/* <Link
                 href="/sitemap"
                 className="hover:text-white transition-colors"
               >
@@ -264,7 +264,7 @@ const Footer = () => {
                 className="hover:text-white transition-colors"
               >
                 Accessibility
-              </Link>
+              </Link> */}
             </div>
 
             <div className="text-sm">

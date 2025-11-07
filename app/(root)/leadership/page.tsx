@@ -34,7 +34,7 @@ const leadershipTeam = [
     position: "Chief Medical Director",
     department: "Medical Administration",
     image:
-      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
     qualifications: [
       "MD, University of Lagos College of Medicine",
       "MSc Healthcare Management, London School of Economics",
@@ -46,25 +46,6 @@ const leadershipTeam = [
     experience: "20+ years",
     email: "a.johnson@michaelcrosshospital.org",
     phone: "+234 800 642 4236",
-  },
-  {
-    id: 3,
-    name: "Dr. Chinyere Okoro",
-    position: "Head of Cardiology",
-    department: "Cardiology",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MD, University of Ibadan",
-      "DM Cardiology, All India Institute of Medical Sciences",
-      "Fellow, American College of Cardiology",
-      "Board Certified Cardiologist",
-    ],
-    about:
-      "Dr. Okoro leads our nationally recognized cardiology department, pioneering advanced cardiac procedures in Nigeria. Under her leadership, we've performed over 5,000 successful cardiac interventions.",
-    experience: "18+ years",
-    email: "c.okoro@michaelcrosshospital.org",
-    phone: "+234 800 642 4237",
   },
   {
     id: 4,
@@ -84,82 +65,6 @@ const leadershipTeam = [
     experience: "22+ years",
     email: "i.mohammed@michaelcrosshospital.org",
     phone: "+234 800 642 4238",
-  },
-  {
-    id: 5,
-    name: "Dr. Funmi Adebayo",
-    position: "Head of Pediatrics",
-    department: "Pediatrics",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MD, Obafemi Awolowo University",
-      "Fellow, American Academy of Pediatrics",
-      "Diploma in Child Health, Royal College of Pediatrics",
-      "Neonatal Resuscitation Program Certified",
-    ],
-    about:
-      "Dr. Adebayo is passionate about child healthcare and has established our pediatric department as a center of excellence. She introduced family-centered care models that have been adopted nationwide.",
-    experience: "16+ years",
-    email: "f.adebayo@michaelcrosshospital.org",
-    phone: "+234 800 642 4239",
-  },
-  {
-    id: 6,
-    name: "Dr. Ngozi Eze",
-    position: "Head of Oncology",
-    department: "Oncology",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MD, University of Nigeria",
-      "PhD Oncology, Johns Hopkins University",
-      "Fellow, European Society for Medical Oncology",
-      "Board Certified Radiation Oncologist",
-    ],
-    about:
-      "Dr. Eze leads our comprehensive cancer care program, integrating the latest research with compassionate patient care. She has been instrumental in establishing our regional cancer treatment centers.",
-    experience: "19+ years",
-    email: "n.eze@michaelcrosshospital.org",
-    phone: "+234 800 642 4240",
-  },
-  {
-    id: 7,
-    name: "Dr. Bola Williams",
-    position: "Chief Nursing Officer",
-    department: "Nursing Services",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "BSN, University of Lagos",
-      "MSN Nursing Administration, University of Pennsylvania",
-      "Doctor of Nursing Practice, Johns Hopkins University",
-      "Certified Nurse Executive",
-    ],
-    about:
-      "Dr. Williams oversees our team of 15,000 nurses, ensuring the highest standards of nursing care. Her leadership in nursing education and professional development has set new benchmarks in Nigeria.",
-    experience: "24+ years",
-    email: "b.williams@michaelcrosshospital.org",
-    phone: "+234 800 642 4241",
-  },
-  {
-    id: 8,
-    name: "Dr. Tunde Okafor",
-    position: "Head of Emergency Medicine",
-    department: "Emergency Services",
-    image:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MD, University of Benin",
-      "Fellow, American College of Emergency Physicians",
-      "Advanced Cardiac Life Support Certified",
-      "Pediatric Advanced Life Support Certified",
-    ],
-    about:
-      "Dr. Okafor has revolutionized emergency care across our network, implementing standardized protocols that have reduced emergency response times by 40% and significantly improved patient outcomes.",
-    experience: "17+ years",
-    email: "t.okafor@michaelcrosshospital.org",
-    phone: "+234 800 642 4242",
   },
 ];
 
@@ -277,9 +182,9 @@ const LeadershipPage = () => {
         <div className="mt-16 pt-12 border-t border-gray-200">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { number: "200+", label: "Specialist Doctors" },
-              { number: "15,000+", label: "Nursing Staff" },
-              { number: "51", label: "Hospital Locations" },
+              { number: "20+", label: "Specialist Doctors" },
+              { number: "100+", label: "Nursing Staff" },
+              { number: "1", label: "Hospital Location" },
               { number: "98%", label: "Patient Satisfaction" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
@@ -304,6 +209,7 @@ const LeadershipPage = () => {
             difference? Explore career opportunities with Michael Cross
             Specialist Hospital.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               className={cn(
@@ -318,7 +224,7 @@ const LeadershipPage = () => {
             <Button
               variant="outline"
               className={cn(
-                "border-white text-white hover:bg-white hover:text-app-blue",
+                "border-white text-app-blue hover:bg-white hover:text-app-blue",
                 "px-8 py-6 rounded-full font-semibold transition-all duration-300",
                 "hover:scale-105 hover:shadow-lg",
                 "min-w-[200px]"
@@ -327,6 +233,7 @@ const LeadershipPage = () => {
               Contact HR Department
             </Button>
           </div>
+          
         </div>
       </MaxWidthWrapper>
     </div>

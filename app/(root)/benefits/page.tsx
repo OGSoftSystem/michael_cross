@@ -15,6 +15,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { Metadata } from "next";
+import { siteConfig } from "@/config";
 
 export const metadata: Metadata = {
   title: "Benefits",
@@ -112,10 +113,10 @@ const Benefits = () => {
 
               <div className="space-y-4">
                 {[
-                  "Access to 500+ specialist doctors across 14 states",
+                  "Access to 20+ specialist doctors in 1 state",
                   "State-of-the-art medical technology and equipment",
                   "Multi-disciplinary approach to complex medical cases",
-                  "Seamless referral system between our 51 facilities",
+                  "Seamless referral system",
                   "Electronic health records for coordinated care",
                   "Preventive health screenings and wellness programs",
                 ].map((benefit, index) => (
@@ -396,7 +397,7 @@ const Benefits = () => {
                   "min-w-[200px]"
                 )}
               >
-                <Calendar className="w-5 h-5 mr-2" />
+                <Calendar className="size-5 mr-2" />
                 Book Appointment
               </Button>
 
@@ -409,14 +410,14 @@ const Benefits = () => {
                   "min-w-[200px]"
                 )}
               >
-                <Phone className="w-5 h-5 mr-2" />
-                Call: (234) 800-MICHAEL
+                <Phone className="size-5 mr-2" />
+                Call: {siteConfig.phone}
               </Button>
             </div>
 
             <div className="pt-6 border-t border-white/20">
               <p className="text-blue-200 text-sm">
-                🚨 Emergency services available 24/7 at all 51 locations
+                🚨 Emergency services available 24/7
               </p>
             </div>
           </div>

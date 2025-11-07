@@ -8,3 +8,4 @@ export const mail = {
 };
 
 export const mongo_url = process.env.MONGO_URL as string;
+export const cloudinaryImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL as string;

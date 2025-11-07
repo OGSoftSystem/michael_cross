@@ -18,7 +18,7 @@ import {
 } from "react-hook-form";
 import { Field, FieldDescription, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps, SetStateAction } from "react";
 import {
   Select,
   SelectContent,
@@ -29,7 +29,8 @@ import {
 import { Textarea } from "./ui/textarea";
 import { IconType } from "react-icons";
 import { cn } from "@/lib/utils";
-import { LucideIcon, LucideProps } from "lucide-react";
+import { LucideIcon } from "lucide-react";
+import ImageUploader from "./image-uploader";
 
 const Items = ["mc1", "mc2", "mc3"];
 export function CustomCarousel() {
@@ -211,6 +212,47 @@ export function CustomSelect<T extends FieldValues>({
               </SelectContent>
             </SelectTrigger>
           </Select>
+          {fieldState.error && (
+            <FieldDescription className="text-red-500 text-xs">
+              {fieldState.error.message}
+            </FieldDescription>
+          )}
+        </Field>
+      )}
+    />
+  );
+}
+
+type ImageProps<T extends FieldValues> = Omit<ControllerProps<T>, "render"> & {
+  control: Control<T>;
+  label: string;
+  imageUrl: string;
+  isRequired: boolean;
+  setImageUrl: React.Dispatch<SetStateAction<string>>;
+};
+export function ImageUploadInput<T extends FieldValues>({
+  control,
+  imageUrl,
+  setImageUrl,
+  isRequired,
+  label,
+  ...props
+}: ImageProps<T>) {
+  return (
+    <Controller
+      {...props}
+      control={control}
+      render={({ field, fieldState }) => (
+        <Field>
+          <Label htmlFor={props.name} label={label} isRequired={isRequired} />
+
+          <ImageUploader
+            publicId={field.value}
+            onValueChange={(e) => field.onChange(e)}
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+          />
+          
           {fieldState.error && (
             <FieldDescription className="text-red-500 text-xs">
               {fieldState.error.message}

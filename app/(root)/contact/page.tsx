@@ -3,14 +3,8 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 import { Metadata } from "next";
 
-import {
-  Phone,
-  MapPin,
-  Mail,
-  Clock,
-
-  AlertCircle,
-} from "lucide-react";
+import { Phone, MapPin, Mail, Clock, AlertCircle } from "lucide-react";
+import { siteConfig } from "@/config";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -54,7 +48,7 @@ const ContactPage = () => {
                   <h3 className="font-semibold text-gray-900 text-lg">
                     Emergency Line
                   </h3>
-                  <p className="text-gray-600">(234) 800-MICHAEL</p>
+                  <p className="text-gray-600">{siteConfig.phone}</p>
                   <p className="text-sm text-gray-500">
                     24/7 Emergency Services
                   </p>
@@ -69,7 +63,7 @@ const ContactPage = () => {
                   <h3 className="font-semibold text-gray-900 text-lg">
                     Email Us
                   </h3>
-                  <p className="text-gray-600">info@michaelcrosshospital.org</p>
+                  <p className="text-gray-600">{siteConfig.email}</p>
                   <p className="text-sm text-gray-500">
                     We&apos;ll respond within 24 hours
                   </p>
@@ -84,10 +78,7 @@ const ContactPage = () => {
                   <h3 className="font-semibold text-gray-900 text-lg">
                     Main Location
                   </h3>
-                  <p className="text-gray-600">
-                    123 Medical Drive, Victoria Island
-                  </p>
-                  <p className="text-gray-600">Lagos, Nigeria</p>
+                  <p className="text-gray-600">{siteConfig.location}</p>
                 </div>
               </div>
 
@@ -138,7 +129,7 @@ const ContactPage = () => {
               </div>
 
               {/* Success Message */}
-              
+
               {/* Form */}
               <ContactForm />
             </div>

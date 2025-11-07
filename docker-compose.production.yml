@@ -1,4 +1,0 @@
-services:
-  nextjs-app:
-    environment:
-      - name=value

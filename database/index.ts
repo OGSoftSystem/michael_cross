@@ -29,6 +29,8 @@ export async function connectToDatabase() {
       .connect(mongo_url, {
         dbName: "michael-cross",
         bufferCommands: false,
+         serverSelectionTimeoutMS: 10000, // 10 seconds
+      socketTimeoutMS: 45000, // 45 seconds
       } as mongoose.ConnectOptions)
       .then((mongoose) => mongoose);
 

@@ -2,18 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import MaxWidthWrapper from "./max-width-wrapper";
-import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-import {
-  Shield,
-  User,
-  ArrowRight,
-  Settings,
-  Users,
-  FileText,
-  Sparkles,
-  CheckCircle2,
-} from "lucide-react";
+import { Shield, User, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 
 const RoleCard = ({
   title,
@@ -133,7 +123,7 @@ const DashboardLanding = () => {
         "Billing & Subscription Management",
         "Security & Audit Logs",
       ],
-      path: "/admin/dashboard",
+      path: "/dashboard/admin",
       color: "app-blue",
     },
     {
@@ -149,7 +139,7 @@ const DashboardLanding = () => {
         "Performance Insights",
         "Collaboration Tools",
       ],
-      path: "/creator/dashboard",
+      path: "/dashboard/creator",
       color: "purple-600",
     },
   ];
@@ -206,30 +196,6 @@ const DashboardLanding = () => {
               />
             </div>
           ))}
-        </div>
-
-        {/* Footer Info */}
-        <div className="text-center mt-16">
-          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center space-x-2 text-gray-600 mb-4">
-              <Settings className="w-5 h-5" />
-              <span className="font-semibold">Need help choosing?</span>
-            </div>
-            <p className="text-gray-600 mb-6">
-              Contact your system administrator if you need access to multiple
-              roles or have questions about permissions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" className="px-6 py-3">
-                <Users className="w-4 h-4 mr-2" />
-                Contact Support
-              </Button>
-              <Button className="bg-app-blue hover:bg-app-blue/90 px-6 py-3">
-                <FileText className="w-4 h-4 mr-2" />
-                View Documentation
-              </Button>
-            </div>
-          </div>
         </div>
       </MaxWidthWrapper>
 

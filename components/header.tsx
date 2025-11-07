@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback, useTransition } from "react";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
+import { CusTooltip } from "./tooltip";
+import { siteConfig } from "@/config";
+import { LayoutDashboard } from "lucide-react";
 // import { ArrowBigUp } from "lucide-react";
 
 const navLinks = [
@@ -18,11 +22,26 @@ const navLinks = [
   { title: "Contact", path: "/contact" },
 ];
 
+type AuthType = {
+  id: string;
+  email: string;
+  emailVerified: boolean;
+  name: string;
+  image?: string | null | undefined;
+  role: string;
+};
+
 const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
+
+  const [user, setUser] = useState<AuthType | null>(null);
+
+  if (user) {
+    console.log("User:", user);
+  }
 
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
@@ -72,6 +91,18 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    (async function session() {
+      const session = await authClient.getSession();
+
+      if (session.data?.user) {
+        setUser({
+          ...session.data.user,
+          role: "user",
+        });
+      }
+    })();
+  }, []);
   return (
     <header
       className={cn(
@@ -88,7 +119,7 @@ const Header = () => {
             <Link href="/" className="shrink-0">
               <Image
                 src="/images/logo.png"
-                alt="Michael Cross Hospital Logo"
+                alt="Michael Cross Specialists Hospital Logo"
                 width={100}
                 height={60}
                 className="w-auto h-8 lg:h-10 transition-all duration-300"
@@ -125,41 +156,47 @@ const Header = () => {
           </nav>
 
           {/* CTA Button - Desktop */}
-          <div className="hidden lg:block shrink-0">
+          <div className="hidden lg:inline-flex lg:space-x-4 lg:items-center shrink-0 ">
             <Link
               href="/appointment"
-              className="bg-app-blue text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-app-blue/90 transition-all duration-200 hover:shadow-lg"
+              className="bg-app-blue text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-app-blue/90 transition-all duration-200 hover:shadow-lg hidden md:block"
             >
               Book Appointment
             </Link>
+
+            <UserIcon className="md:block" user={user as AuthType} />
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex flex-col items-center justify-center w-10 h-10 space-y-1.5 focus:outline-none"
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            <span
-              className={cn(
-                "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
-                isOpen && "rotate-45 translate-y-2"
-              )}
-            />
-            <span
-              className={cn(
-                "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
-                isOpen && "opacity-0"
-              )}
-            />
-            <span
-              className={cn(
-                "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
-                isOpen && "-rotate-45 -translate-y-2"
-              )}
-            />
-          </button>
+          <div className="flex items-center space-x-3 md:hidden">
+            <UserIcon className="md:hidden" user={user as AuthType} />
+
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden flex flex-col items-center justify-center w-10 h-10 space-y-1.5 focus:outline-none"
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              <span
+                className={cn(
+                  "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
+                  isOpen && "rotate-45 translate-y-2"
+                )}
+              />
+              <span
+                className={cn(
+                  "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
+                  isOpen && "opacity-0"
+                )}
+              />
+              <span
+                className={cn(
+                  "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
+                  isOpen && "-rotate-45 -translate-y-2"
+                )}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -216,3 +253,66 @@ const Header = () => {
 };
 
 export default Header;
+
+function LoggedInUser({ user }: { user: string }) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  return (
+    <div
+      onClick={() =>
+        startTransition(async () => {
+          await authClient.signOut({
+            fetchOptions: {
+              onSuccess: () => {
+                router.push("/");
+              },
+            },
+          });
+        })
+      }
+      className="size-10 rounded-full flex items-center justify-center  border border-app-blue cursor-pointer"
+    >
+      <div className="inline-flex items-center space-x-2">
+        <CusTooltip title="Log out">
+          <p
+            className={cn(
+              "text-2xl font-bold border rounded-full flex items-center justify-around size-8",
+              isPending && "animate-pulse"
+            )}
+          >
+            {user.charAt(0)}
+          </p>
+        </CusTooltip>
+        <Link
+          className=" hover:text-app-blue"
+          href={`/${siteConfig.baseUrl}/dashboard`}
+        >
+          <LayoutDashboard />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function UserIcon({
+  user,
+  className,
+}: {
+  user: { name: string };
+  className: string;
+}) {
+  return (
+    <div className={className}>
+      {user ? (
+        <LoggedInUser user={user.name} />
+      ) : (
+        <Link
+          href="/auth/sign-in"
+          className="text-sm cursor-pointer hover:text-app-blue"
+        >
+          Sign in
+        </Link>
+      )}
+    </div>
+  );
+}

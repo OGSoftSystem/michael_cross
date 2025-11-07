@@ -1,4 +1,9 @@
+Dockerfile
+.dockerignore
 node_modules
-dockfile
-compose*.yml
-.env*
+npm-debug.log
+README.md
+.next
+.git
+.env.local
+note.md

@@ -1,7 +1,4 @@
-import Link from "next/link";
 import MaxWidthWrapper from "./max-width-wrapper";
-import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const services = [
@@ -9,50 +6,47 @@ const services = [
     title: "Emergency Care",
     description: "24/7 emergency services with state-of-the-art trauma centers",
     icon: "🚑",
-    image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/images/emer.jpg",
   },
   {
-    title: "Cardiology",
-    description: "Comprehensive heart care with advanced cardiac procedures",
-    icon: "❤️",
-    image:
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    title: "Gynaecology",
+    description:
+      "Expert gynecological care including well-woman exams, minimally invasive surgery, and reproductive health.",
+    icon: "👱‍♀️",
+    image: "/images/gynae.jpg", // Gynecological ultrasound
   },
   {
     title: "Pediatrics",
     description:
       "Specialized care for children from infancy through adolescence",
     icon: "👶",
-    image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/images/ped.jpg", // Doctor examining child
   },
   {
-    title: "Oncology",
-    description: "Advanced cancer treatment with compassionate care",
+    title: "Infertility management",
+    description:
+      "Comprehensive fertility evaluations, advanced treatments like IVF, and personalized care plans.",
     icon: "🎗️",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/images/infer.jpg", // Fertility lab and embryos
   },
   {
-    title: "Orthopedics",
-    description: "Bone and joint care with innovative surgical techniques",
-    icon: "🦴",
-    image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    title: "General Surgery and dermatology",
+    description:
+      "Specialists in general surgery procedures and medical/surgical dermatology.",
+    icon: "✂️",
+    image: "/images/surg.jpg", // Surgical procedure
   },
   {
     title: "Maternity Care",
     description: "Comprehensive care for mothers and newborns",
     icon: "🤰",
-    image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    image: "/images/mar.jpg", // Newborn baby care
   },
 ];
 
 const Services = () => {
   return (
-    <MaxWidthWrapper className="paddingY ">
+    <MaxWidthWrapper className="paddingY " id="services">
       <div className="text-center space-y-4 mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Our Medical Services
@@ -75,6 +69,7 @@ const Services = () => {
                 src={service.image}
                 alt={service.title}
                 fill
+                priority
                 className="object-cover group-hover:scale-110 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-app-blue/20 group-hover:bg-app-blue/10 transition-colors" />
@@ -88,18 +83,18 @@ const Services = () => {
                 </h3>
               </div>
               <p className="text-gray-600 mb-4">{service.description}</p>
-              <Button
+              {/* <Button
                 variant="ghost"
                 className="text-app-blue hover:text-app-blue/80 hover:bg-app-blue/10 p-0 px-2 rounded-full font-light"
               >
                 Learn More →
-              </Button>
+              </Button> */}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="text-center mt-12">
+      {/* <div className="text-center mt-12">
         <Link
           href={"/"}
           className={cn(
@@ -110,7 +105,7 @@ const Services = () => {
         >
           View All Services
         </Link>
-      </div>
+      </div> */}
     </MaxWidthWrapper>
   );
 };

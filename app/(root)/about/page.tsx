@@ -48,15 +48,17 @@ const AboutPage = () => {
               </h2>
               <div className="w-24 h-1.5 bg-app-blue rounded-full" />
               <p className="text-lg text-gray-700 leading-relaxed">
-                Michael Cross specialists Hospital stands as a beacon of hope
-                and healing across Nigeria. With 51 hospitals spanning 14
-                states, we bring world-class healthcare closer to communities
-                that need it most.
+                Michael Cross Specialists Hospital stands as a beacon of hope
+                and healing in the heart of Abuja. From our advanced facility,
+                we are dedicated to providing world-class, specialist healthcare
+                to the community, serving as a trusted destination for
+                comprehensive medical needs.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Our network of over 57,000 dedicated healthcare professionals
-                works tirelessly to ensure every patient receives personalized,
-                compassionate care backed by cutting-edge medical technology.
+                Our team of highly-skilled specialists and dedicated healthcare
+                professionals works tirelessly to ensure every patient receives
+                personalized, compassionate care, backed by cutting-edge medical
+                technology and a commitment to clinical excellence.
               </p>
             </div>
 
@@ -66,7 +68,9 @@ const AboutPage = () => {
                 <div className="text-sm text-gray-600">Years of Excellence</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-app-blue mb-2">1M+</div>
+                <div className="text-3xl font-bold text-app-blue mb-2">
+                  300+
+                </div>
                 <div className="text-sm text-gray-600">
                   Patients Served Annually
                 </div>
@@ -189,7 +193,7 @@ const AboutPage = () => {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    src="/images/surg.jpg"
                     alt="Medical team collaboration"
                     width={300}
                     height={200}
@@ -200,7 +204,7 @@ const AboutPage = () => {
               <div className="space-y-4 pt-8">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80"
                     alt="Hospital facility"
                     width={300}
                     height={200}

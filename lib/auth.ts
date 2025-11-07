@@ -1,7 +1,6 @@
 import { mongo_url } from "@/env";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-// import { client } from "./mongodb";
 import { nextCookies } from "better-auth/next-js";
 import { MongoClient } from "mongodb";
 
@@ -21,6 +20,11 @@ export const auth = betterAuth({
         input: true,
         default: "user",
       },
+      username: {
+        type: "string",
+        required: false,
+        input: true,
+      },
     },
   },
   emailAndPassword: {
@@ -31,3 +35,5 @@ export const auth = betterAuth({
 
   plugins: [nextCookies()],
 });
+
+

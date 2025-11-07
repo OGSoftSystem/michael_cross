@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/field";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import MaxWidthWrapper from "./max-width-wrapper";
@@ -57,8 +57,8 @@ const AuthForm = ({ type }: AuthType) => {
       if (type === "SignUp") {
         const res = await signUp(data as SignUpFormDataType);
 
-        if (!res?.valueOf()) {
-          toast.error(`Failed to sign up:`);
+        if (!res.success) {
+          toast.error(`Failed to sign up: ${res.error}`);
           setIsSubmitted(false);
           return;
         }
@@ -69,11 +69,12 @@ const AuthForm = ({ type }: AuthType) => {
         // Sign-in
         const res = await signIn(data as SignInFormDataType);
 
-        if (!res.valueOf()) {
-          toast.error(`Failed to sign in:`);
+        if (!res.success) {
+          toast.error(`Failed to sign in: ${res.error}`);
           return;
         }
-        toast.success("Sign in successfully");
+
+        toast.success("Signed in successfully");
         router.replace("/");
       }
     } catch (error) {
@@ -81,6 +82,11 @@ const AuthForm = ({ type }: AuthType) => {
       setIsSubmitted(false);
     }
   };
+
+  const password = useWatch({
+    control: form.control,
+    name: "password"
+  });
 
   if (isSubmitted && type === "SignUp") {
     return (
@@ -253,7 +259,7 @@ const AuthForm = ({ type }: AuthType) => {
                           <li className="flex items-center">
                             <div
                               className={`w-2 h-2 rounded-full mr-2 ${
-                                form.watch("password")?.length >= 8
+                                password?.length >= 8
                                   ? "bg-green-500"
                                   : "bg-gray-300"
                               }`}
@@ -263,7 +269,7 @@ const AuthForm = ({ type }: AuthType) => {
                           <li className="flex items-center">
                             <div
                               className={`w-2 h-2 rounded-full mr-2 ${
-                                /[a-z]/.test(form.watch("password") || "")
+                                /[a-z]/.test(password || "")
                                   ? "bg-green-500"
                                   : "bg-gray-300"
                               }`}
@@ -273,7 +279,7 @@ const AuthForm = ({ type }: AuthType) => {
                           <li className="flex items-center">
                             <div
                               className={`w-2 h-2 rounded-full mr-2 ${
-                                /[A-Z]/.test(form.watch("password") || "")
+                                /[A-Z]/.test(password|| "")
                                   ? "bg-green-500"
                                   : "bg-gray-300"
                               }`}
@@ -283,7 +289,7 @@ const AuthForm = ({ type }: AuthType) => {
                           <li className="flex items-center">
                             <div
                               className={`w-2 h-2 rounded-full mr-2 ${
-                                /\d/.test(form.watch("password") || "")
+                                /\d/.test(password || "")
                                   ? "bg-green-500"
                                   : "bg-gray-300"
                               }`}
