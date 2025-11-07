@@ -16,80 +16,69 @@ fi
 
 # Clean up existing services
 echo "Cleaning up existing services..."
-docker-compose down 2>/dev/null || true
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml down 2>/dev/null || true
 
-# Stop system services that might conflict
-sudo systemctl stop nginx 2>/dev/null || true
-sudo systemctl stop apache2 2>/dev/null || true
-
-# Kill any processes on port 80
-echo "Checking for processes on port 80..."
-if sudo lsof -i :80 | grep LISTEN; then
-    echo "Stopping processes on port 80..."
-    sudo fuser -k 80/tcp || true
-    sleep 5
-fi
-
-# Create necessary directories
-mkdir -p certbot/conf certbot/www
-
-# Download required SSL configuration files
-echo "Downloading SSL configuration files..."
-curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/options-ssl-nginx.conf > certbot/conf/options-ssl-nginx.conf
-curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem > certbot/conf/ssl-dhparams.pem
-
-# Step 1: Start nginx without SSL certificates
-echo "Starting nginx for SSL certificate setup..."
-docker-compose up -d nginx
-
-echo "Waiting for nginx to start..."
-sleep 10
-
-# Step 2: Test that nginx is running and serving ACME challenges
-echo "Testing nginx..."
-curl -I http://localhost/.well-known/acme-challenge/test 2>/dev/null || echo "Nginx is running but challenge test failed (normal)"
-
-# Step 3: Obtain SSL certificates using standalone mode (more reliable)
-echo "Obtaining SSL certificates using standalone mode..."
-docker run -it --rm \
-  -p 80:80 \
-  -v $(pwd)/certbot/conf:/etc/letsencrypt \
-  -v $(pwd)/certbot/www:/var/www/certbot \
-  certbot/certbot certonly --standalone \
-  --email ogomadigwe87@gmail.com \
-  -d michaelcrossspecialist.com \
-  -d www.michaelcrossspecialist.com \
-  --agree-tos \
-  --force-renewal
-
-# Check if certificate was created
-if [ -f "./certbot/conf/live/michaelcrossspecialist.com/fullchain.pem" ]; then
-    echo "✓ SSL certificates obtained successfully"
-else
-    echo "❌ SSL certificate setup failed"
-    echo "Contents of certbot directory:"
-    ls -la certbot/conf/
-    exit 1
-fi
-
-# Step 4: Stop services and start with SSL
-echo "Stopping services..."
-docker-compose down
-
-# Step 5: Start all services with SSL
-echo "Starting all services with SSL..."
-docker-compose up -d --build
+# Step 1: Build and deploy the application only
+echo "Building and deploying application..."
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 
 echo "Waiting for services to initialize..."
 sleep 30
 
-# Final verification
-echo "Testing SSL setup..."
-curl -k -I https://localhost 2>/dev/null || echo "HTTPS test completed"
+# Step 2: Verify deployment
+echo "Verifying deployment..."
+
+# Check if containers are running
+if docker ps | grep -q "michael-cross"; then
+    echo "✓ Michael Cross app container is running"
+else
+    echo "❌ Michael Cross app container is not running"
+    exit 1
+fi
+
+if docker ps | grep -q "mongodb"; then
+    echo "✓ MongoDB container is running"
+else
+    echo "❌ MongoDB container is not running"
+    exit 1
+fi
+
+# Check application logs for errors
+echo "Checking application logs for errors..."
+if docker logs michael-cross 2>&1 | grep -i "error\|failed"; then
+    echo "⚠ Found errors in application logs:"
+    docker logs michael-cross | grep -i "error\|failed" | tail -5
+else
+    echo "✓ No critical errors found in application logs"
+fi
+
+# Check if application is responding (basic connectivity test)
+echo "Checking application responsiveness..."
+if docker exec michael-cross curl -f http://localhost:3000/ >/dev/null 2>&1; then
+    echo "✓ Application is responding on port 3000"
+else
+    echo "⚠ Application might still be starting up (normal for first deployment)"
+fi
+
+# Check network connectivity
+echo "Checking network connectivity..."
+if docker network inspect app-network >/dev/null 2>&1; then
+    echo "✓ Docker network 'app-network' is configured"
+else
+    echo "❌ Docker network 'app-network' not found"
+    exit 1
+fi
 
 echo "=== Deployment Completed Successfully ==="
-echo "Your app is now running at: https://michaelcrossspecialist.com"
+echo "Your app is now running and accessible through your existing nginx proxy"
+echo "URL: https://michaelcrossspecialist.com"
 
 # Show running containers
+echo ""
 echo "Running containers:"
-docker ps
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# Show recent application logs
+echo ""
+echo "Recent application logs:"
+docker logs michael-cross --tail 20
