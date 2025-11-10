@@ -13,74 +13,6 @@ import { NewsType } from "@/types";
 export const metadata: Metadata = {
   title: "News",
 };
-// Blog data - in a real app, this would come from a CMS or database
-// const blogPosts = [
-//   {
-//     id: 1,
-//     title: "Advancements in Cardiac Care: New Heart Treatment Options",
-//     excerpt:
-//       "Discover the latest innovations in cardiology that are revolutionizing heart disease treatment across our hospitals.",
-//     image:
-//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-//     author: "Dr. Adebayo Johnson",
-//     date: "2024-01-15",
-//     readTime: "5 min read",
-//     category: "Cardiology",
-//     slug: "advancements-in-cardiac-care",
-//   },
-//   {
-//     id: 2,
-//     title: "Pediatric Health: Keeping Our Children Safe and Healthy",
-//     excerpt:
-//       "Essential tips and insights for parents on maintaining children's health through different developmental stages.",
-//     image:
-//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-//     author: "Dr. Funmi Adebayo",
-//     date: "2024-01-12",
-//     readTime: "4 min read",
-//     category: "Pediatrics",
-//     slug: "pediatric-health-tips",
-//   },
-//   {
-//     id: 3,
-//     title: "Understanding Minimally Invasive Surgery Techniques",
-//     excerpt:
-//       "How advanced surgical methods are reducing recovery times and improving patient outcomes in modern healthcare.",
-//     image:
-//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-//     author: "Dr. Ibrahim Mohammed",
-//     date: "2024-01-08",
-//     readTime: "6 min read",
-//     category: "Surgery",
-//     slug: "minimally-invasive-surgery",
-//   },
-//   {
-//     id: 4,
-//     title: "Mental Health Awareness: Breaking the Stigma in Healthcare",
-//     excerpt:
-//       "The importance of mental health care and how we're integrating psychological support into our medical services.",
-//     image:
-//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-//     author: "Dr. Ngozi Eze",
-//     date: "2024-01-05",
-//     readTime: "7 min read",
-//     category: "Mental Health",
-//     slug: "mental-health-awareness",
-//   },
-//   {
-//     id: 5,
-//     title: "Emergency Preparedness: What to Do in Medical Emergencies",
-//     excerpt:
-//       "A comprehensive guide on handling common medical emergencies before professional help arrives.",
-//     image:
-//       "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-//     author: "Dr. Tunde Okafor",
-//     date: "2024-01-02",
-//     readTime: "8 min read",
-//     category: "Emergency Care",
-//     slug: "emergency-preparedness-guide",
-//   },
-// ];
 
 const categories = [
   "All",
@@ -93,7 +25,7 @@ const categories = [
   "Research",
 ];
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   const news = await getNews();

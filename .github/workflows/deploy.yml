@@ -1,4 +1,4 @@
-name: Deploy Michael Cross
+name: Deploy Michael Cross Site
 
 on:
     push:
@@ -11,6 +11,15 @@ jobs:
             - name: Check out branch
               uses: actions/checkout@v3
 
+            - name: Set up node
+              uses: actions/setup-node@v5
+              with:
+                  node-version: 18
+                  cache: "npm"
+            - name: Install dependencies
+              run: npm install
+            - name: Lint code
+              run: npm run lint
             - name: Access VPS For Deployment
               uses: appleboy/ssh-action@v0.1.7
               with:

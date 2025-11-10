@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "View News",
 };
 
-export const dynamic = "force-dynamic"; 
+// export const dynamic = "force-dynamic"; 
 
 const ViewPage = async () => {
   const data = await getNews();
