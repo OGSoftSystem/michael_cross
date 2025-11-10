@@ -31,6 +31,7 @@ import { IconType } from "react-icons";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import ImageUploader from "./image-uploader";
+import RichTextEditor from "./rich-text-editor";
 
 const Items = ["mc1", "mc2", "mc3"];
 export function CustomCarousel() {
@@ -63,7 +64,12 @@ export function CustomCarousel() {
 function ImageContainer({ src }: { src: string }) {
   return (
     <div className="w-[500px] h-[300px] relative">
-      <Image src={`/images/${src}`} alt="about" fill className="bg-cover" />
+      <Image
+        src={`/assets/images/${src}`}
+        alt="about"
+        fill
+        className="bg-cover"
+      />
     </div>
   );
 }
@@ -151,7 +157,7 @@ type TextareaProps<T extends FieldValues> = Omit<
   control: Control<T>;
   label: string;
   isRequired?: boolean;
-  rows: number;
+  rows?: number;
 };
 export function CustomTextarea<T extends FieldValues>({
   control,
@@ -230,6 +236,7 @@ type ImageProps<T extends FieldValues> = Omit<ControllerProps<T>, "render"> & {
   isRequired: boolean;
   setImageUrl: React.Dispatch<SetStateAction<string>>;
 };
+
 export function ImageUploadInput<T extends FieldValues>({
   control,
   imageUrl,
@@ -252,7 +259,34 @@ export function ImageUploadInput<T extends FieldValues>({
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
           />
-          
+
+          {fieldState.error && (
+            <FieldDescription className="text-red-500 text-xs">
+              {fieldState.error.message}
+            </FieldDescription>
+          )}
+        </Field>
+      )}
+    />
+  );
+}
+
+export function CustomRichTextArea<T extends FieldValues>({
+  control,
+  isRequired,
+  label,
+  ...props
+}: TextareaProps<T>) {
+  return (
+    <Controller
+      {...props}
+      control={control}
+      render={({ field, fieldState }) => (
+        <Field>
+          <Label htmlFor={props.name} label={label} isRequired={isRequired!} />
+
+          <RichTextEditor fieldValue={field.value} onChange={field.onChange} />
+
           {fieldState.error && (
             <FieldDescription className="text-red-500 text-xs">
               {fieldState.error.message}

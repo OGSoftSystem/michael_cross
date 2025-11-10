@@ -10,6 +10,7 @@ import { handleErrors } from "../utils";
 import { auth } from "../auth";
 import { UserRoles } from "@/database/models/user.model";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 export async function signUp(data: SignUpFormDataType) {
   try {
@@ -59,5 +60,21 @@ export async function signIn(data: SignInFormDataType) {
   } catch (error) {
     console.log(error);
     return { success: false, error: handleErrors(error) };
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    return session;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: handleErrors(error),
+    };
   }
 }

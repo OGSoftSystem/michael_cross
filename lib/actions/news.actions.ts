@@ -26,9 +26,11 @@ export async function createBlogPost(data: BlogFormDataType) {
 
     const newPost = await News.create({ ...parsed.data });
 
-    revalidatePath("/news");
+    if (newPost) {
+      console.log(newPost);
 
-    return { success: true, id: newPost._id };
+      revalidatePath("/news");
+    }
   } catch (error) {
     console.error("News creation error:", error);
     return {

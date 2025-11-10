@@ -54,7 +54,7 @@ const ImageUploader = ({
                   src={imageUrl}
                   width={imgConfig.width}
                   height={imgConfig.height}
-                  alt="receipt"
+                  alt="banner"
                   className="aspect-video mt-4 object-contain"
                 />
               ) : (

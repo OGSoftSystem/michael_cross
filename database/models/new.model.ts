@@ -30,10 +30,20 @@ const newsSchema = new Schema(
       type: String,
       required: [true, "author is required"],
     },
+    content: {
+      type: String,
+      required: [true, "content is required"],
+      default: "",
+    },
+    isPublished: {
+      type: Boolean,
+      default: false,
+    },
     category: {
       type: String,
       required: [true, "category is required"],
-      default: "General",
+      default: "general",
+      toLowerCase: true,
     },
     date: {
       type: Date,

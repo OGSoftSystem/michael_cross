@@ -205,7 +205,7 @@ const AppointmentForm = () => {
                 <CustomInput
                   name="lastName"
                   control={form.control}
-                  label="First Name"
+                  label="Last Name"
                   isRequired
                 />
                 <CustomInput

@@ -94,7 +94,11 @@ export const blogSchema = z.object({
     .min(10, "Excerpt must be at least 10 characters")
     .max(300, "Excerpt must be less than 300 characters"),
 
-  image: z.string().url("Please enter a valid URL").or(z.literal("")),
+  content: z
+    .string()
+    .min(1, "Content is required")
+    .min(10, "Excerpt must be at least 10 characters"),
+  image: z.string(),
 
   author: z
     .string()

@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { ZodError } from "zod";
+import parse from 'html-react-parser'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -22,9 +23,6 @@ export function handleErrors(error: unknown) {
   return message;
 }
 
-// lib/blog-utils.ts
-import { BlogFormDataType } from '@/lib/validations';
-
 // Helper function to generate slug from title
 export function generateSlug(title: string): string {
   return title
@@ -43,16 +41,6 @@ export function estimateReadTime(content: string): string {
   return `${minutes} min read`;
 }
 
-// Default values for the form
-export const defaultBlogValues: BlogFormDataType = {
-  title: '',
-  excerpt: '',
-  image: '',
-  author: '',
-  category: 'General',
-  readTime: '',
-  slug: ''
-};
 
 // Validation for image URLs (optional enhancement)
 export const validateImageUrl = (url: string): boolean => {
@@ -67,4 +55,8 @@ export const validateImageUrl = (url: string): boolean => {
   } catch {
     return false;
   }
+};
+
+export const cleanText = (text: string) => {
+  return text ? parse(text) : "";
 };

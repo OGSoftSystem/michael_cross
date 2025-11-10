@@ -18,6 +18,7 @@ import { FileText, User, Clock, CheckCircle2 } from "lucide-react";
 import { Form } from "./ui/form";
 import {
   CustomInput,
+  CustomRichTextArea,
   CustomSelect,
   CustomTextarea,
   ImageUploadInput,
@@ -25,6 +26,9 @@ import {
 import { BlogFormDataType, blogSchema } from "@/lib/validations";
 import { toast } from "sonner";
 import { createBlogPost } from "@/lib/actions/news.actions";
+import { NewsType } from "@/types";
+import Image from "next/image";
+import { cloudinaryImageUrl } from "@/env";
 
 const categories = [
   "General",
@@ -39,19 +43,27 @@ const categories = [
   "Food",
 ];
 
-const NewsForm = () => {
+type FormType = {
+  type: "Create" | "Update";
+  news?: NewsType;
+};
+
+const NewsForm = ({ type, news }: FormType) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
-  const initial = {
-    title: "",
-    excerpt: "",
-    image: "",
-    author: "",
-    category: "General",
-    readTime: "",
-    slug: "",
-  };
+  const initial = news
+    ? { ...news }
+    : {
+        title: "",
+        excerpt: "",
+        content: "",
+        image: "",
+        author: "",
+        category: "General",
+        readTime: "",
+        slug: "",
+      };
 
   const form = useForm<BlogFormDataType>({
     defaultValues: initial,
@@ -60,13 +72,17 @@ const NewsForm = () => {
 
   const onSubmit = async (data: BlogFormDataType) => {
     try {
-      const res = await createBlogPost(data);
-      if (res?.error) {
-        toast.error(`Failed to create blog post: ${res.error}`);
-        return;
+      if (type === "Create") {
+        const res = await createBlogPost(data);
+        if (res?.error) {
+          toast.error(`Failed to create blog post: ${res.error}`);
+          return;
+        }
+        toast.success("Blog post has been created successfully!");
+        setIsSubmitted(true);
+      } else {
+        // Run update function
       }
-      toast.success("Blog post has been created successfully!");
-      setIsSubmitted(true);
     } catch (error) {
       console.error("Blog creation error:", error);
       toast.error("An unexpected error occurred");
@@ -171,8 +187,24 @@ const NewsForm = () => {
                   control={form.control}
                   label="Excerpt"
                   isRequired
-                  rows={3}
+                  rows={2}
                 />
+                {/* <CustomTextarea
+                  name="content"
+                  control={form.control}
+                  label="Content"
+                  isRequired
+                  rows={5}
+                /> */}
+
+                <div>
+                  <CustomRichTextArea
+                    name="content"
+                    control={form.control}
+                    label="Content"
+                    isRequired
+                  />
+                </div>
 
                 <CustomInput
                   name="slug"
@@ -190,6 +222,16 @@ const NewsForm = () => {
                   name="image"
                   label="Uplaod Image"
                 />
+                {news && (
+                  <div>
+                    <Image
+                      src={`${cloudinaryImageUrl}${news.image}`}
+                      alt="banner"
+                      width={400}
+                      height={200}
+                    />
+                  </div>
+                )}
                 {/* <CustomInput
                   name="image"
                   isRequired
@@ -288,7 +330,9 @@ const NewsForm = () => {
             ) : (
               <div className="flex items-center space-x-2">
                 <FileText className="w-5 h-5" />
-                <span>Publish Blog Post</span>
+                <span>
+                  {type === "Create" ? "Publish News" : "Update News"}
+                </span>
               </div>
             )}
           </Button>

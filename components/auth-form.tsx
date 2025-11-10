@@ -26,6 +26,7 @@ import {
 import { toast } from "sonner";
 import { signUp, signIn } from "@/lib/actions/auth.actions";
 import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/context/auth";
 
 type AuthType = {
   type: "SignUp" | "SignIn";
@@ -34,6 +35,8 @@ type AuthType = {
 const AuthForm = ({ type }: AuthType) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const { setUser } = useAuthContext();
   const router = useRouter();
 
   const form = useForm<SignUpFormDataType | SignInFormDataType>({
@@ -67,6 +70,7 @@ const AuthForm = ({ type }: AuthType) => {
         setIsSubmitted(true);
       } else {
         // Sign-in
+
         const res = await signIn(data as SignInFormDataType);
 
         if (!res.success) {
@@ -74,8 +78,11 @@ const AuthForm = ({ type }: AuthType) => {
           return;
         }
 
+        if (!res?.user) return;
+
+        setUser({ name: res.user.name });
         toast.success("Signed in successfully");
-        router.replace("/");
+        router.push("/");
       }
     } catch (error) {
       console.error("Sign up error:", error);
@@ -85,7 +92,7 @@ const AuthForm = ({ type }: AuthType) => {
 
   const password = useWatch({
     control: form.control,
-    name: "password"
+    name: "password",
   });
 
   if (isSubmitted && type === "SignUp") {
@@ -279,7 +286,7 @@ const AuthForm = ({ type }: AuthType) => {
                           <li className="flex items-center">
                             <div
                               className={`w-2 h-2 rounded-full mr-2 ${
-                                /[A-Z]/.test(password|| "")
+                                /[A-Z]/.test(password || "")
                                   ? "bg-green-500"
                                   : "bg-gray-300"
                               }`}
@@ -362,21 +369,21 @@ const AuthForm = ({ type }: AuthType) => {
                 </Button>
 
                 {/* Login Link */}
-                <div className="text-center mt-6">
-                  <p className="text-gray-600">
-                    {type === "SignUp"
-                      ? " Already have an account?"
-                      : "Don't have an account"}{" "}
-                    <Link
-                      href={
-                        type == "SignUp" ? "/auth/sign-in" : "/auth/sign-up"
-                      }
-                      className="text-app-blue font-semibold hover:underline"
-                    >
-                      {type === "SignUp" ? "Sign in" : "sign up"}
-                    </Link>
-                  </p>
-                </div>
+                {/* <div className="text-center mt-6">
+                    <p className="text-gray-600">
+                      {type === "SignUp"
+                        ? " Already have an account?"
+                        : "Don't have an account"}{" "}
+                      <Link
+                        href={
+                          type == "SignUp" ? "/auth/sign-in" : "/auth/sign-up"
+                        }
+                        className="text-app-blue font-semibold hover:underline"
+                      >
+                        {type === "SignUp" ? "Sign in" : "sign up"}
+                      </Link>
+                    </p>
+                  </div> */}
               </FieldGroup>
             </form>
           </Form>

@@ -11,6 +11,7 @@ import {
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config";
 
 export const metadata: Metadata = {
   title: "Appointments",
@@ -66,7 +67,7 @@ const AppointmentPage = () => {
                     emergency room immediately.
                   </p>
                   <p className="text-red-900 font-semibold mt-2">
-                    Emergency Line: (234) 800-MICHAEL
+                    Emergency Line: {siteConfig.phone}
                   </p>
                 </div>
               </div>
@@ -80,12 +81,12 @@ const AppointmentPage = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-sm">
                   <Phone className="w-4 h-4 text-app-blue" />
-                  <span className="text-gray-600">(234) 800-642-4235</span>
+                  <span className="text-gray-600">{siteConfig.phone}</span>
                 </div>
                 <div className="flex items-center space-x-3 text-sm">
                   <Mail className="w-4 h-4 text-app-blue" />
                   <span className="text-gray-600">
-                    email@michaelcrosspecialist.com
+                   {siteConfig.email}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3 text-sm">

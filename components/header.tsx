@@ -3,14 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect, useCallback, useTransition } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useTransition,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { CusTooltip } from "./tooltip";
-import { siteConfig } from "@/config";
 import { LayoutDashboard } from "lucide-react";
-// import { ArrowBigUp } from "lucide-react";
+import { useAuthContext, UserType } from "@/context/auth";
 
 const navLinks = [
   { title: "Home", path: "/" },
@@ -22,26 +28,22 @@ const navLinks = [
   { title: "Contact", path: "/contact" },
 ];
 
-type AuthType = {
-  id: string;
-  email: string;
-  emailVerified: boolean;
-  name: string;
-  image?: string | null | undefined;
-  role: string;
-};
+// type AuthType = {
+//   id: string;
+//   email: string;
+//   emailVerified: boolean;
+//   name: string;
+//   image?: string | null | undefined;
+//   role: string;
+// };
 
 const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
+  const { user, setUser } = useAuthContext();
 
-  const [user, setUser] = useState<AuthType | null>(null);
-
-  if (user) {
-    console.log("User:", user);
-  }
 
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
@@ -91,18 +93,18 @@ const Header = () => {
     };
   }, []);
 
-  useEffect(() => {
-    (async function session() {
-      const session = await authClient.getSession();
+  // useEffect(() => {
+  //   (async function session() {
+  //     const session = await authClient.getSession();
 
-      if (session.data?.user) {
-        setUser({
-          ...session.data.user,
-          role: "user",
-        });
-      }
-    })();
-  }, []);
+  //     if (session.data?.user) {
+  //       setUser({
+  //         ...session.data.user,
+  //         role: "user",
+  //       });
+  //     }
+  //   })();
+  // }, []);
   return (
     <header
       className={cn(
@@ -164,12 +166,12 @@ const Header = () => {
               Book Appointment
             </Link>
 
-            <UserIcon className="md:block" user={user as AuthType} />
+            <UserIcon className="md:block" user={user as UserType} setUser={setUser} />
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-3 md:hidden">
-            <UserIcon className="md:hidden" user={user as AuthType} />
+            <UserIcon className="md:hidden" user={user as UserType} setUser={setUser} />
 
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -254,7 +256,13 @@ const Header = () => {
 
 export default Header;
 
-function LoggedInUser({ user }: { user: string }) {
+function LoggedInUser({
+  user,
+  setUser,
+}: {
+  user: string;
+  setUser: Dispatch<SetStateAction<UserType | null>>;
+}) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   return (
@@ -265,6 +273,7 @@ function LoggedInUser({ user }: { user: string }) {
             await authClient.signOut({
               fetchOptions: {
                 onSuccess: () => {
+                  setUser(null);
                   router.push("/");
                 },
               },
@@ -276,7 +285,7 @@ function LoggedInUser({ user }: { user: string }) {
         <CusTooltip title="Log out">
           <p
             className={cn(
-              "text-2xl font-bold border rounded-full flex items-center justify-around size-8",
+              "text-2xl font-bold border rounded-full flex items-center justify-around size-6",
               isPending && "animate-pulse"
             )}
           >
@@ -284,11 +293,8 @@ function LoggedInUser({ user }: { user: string }) {
           </p>
         </CusTooltip>
       </div>
-      <Link
-        className=" hover:text-app-blue"
-        href={`/${siteConfig.baseUrl}/dashboard`}
-      >
-        <LayoutDashboard />
+      <Link className=" hover:text-app-blue" href={`/dashboard`}>
+        <LayoutDashboard className="size-6" />
       </Link>
     </div>
   );
@@ -297,14 +303,16 @@ function LoggedInUser({ user }: { user: string }) {
 function UserIcon({
   user,
   className,
+  setUser,
 }: {
   user: { name: string };
   className: string;
+  setUser: Dispatch<SetStateAction<UserType | null>>;
 }) {
   return (
     <div className={className}>
       {user ? (
-        <LoggedInUser user={user.name} />
+        <LoggedInUser user={user.name} setUser={setUser} />
       ) : (
         <Link
           href="/auth/sign-in"

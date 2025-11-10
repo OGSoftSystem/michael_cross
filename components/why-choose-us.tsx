@@ -90,7 +90,7 @@ const WhyChooseUs = () => {
               <div className="bg-gray-100 p-6 rounded-2xl">
                 <Count
                   start={0}
-                  end={500}
+                  end={30}
                   suffix="+"
                   className="text-3xl font-bold text-gray-900"
                 />
@@ -99,11 +99,10 @@ const WhyChooseUs = () => {
               <div className="bg-app-blue text-white p-6 rounded-2xl">
                 <Count
                   start={0}
-                  end={51}
-                  suffix="%"
+                  end={1}
                   className="text-3xl font-bold"
                 />
-                <div className="text-sm opacity-90">Hospital Locations</div>
+                <div className="text-sm opacity-90">Hospital Location</div>
               </div>
             </div>
           </div>

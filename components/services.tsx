@@ -30,11 +30,17 @@ const services = [
     image: "/assets/images/infer.jpg", // Fertility lab and embryos
   },
   {
-    title: "General Surgery and dermatology",
+    title: "General Surgery",
     description:
-      "Specialists in general surgery procedures and medical/surgical dermatology.",
+      "Specialists in general surgery procedures and medical/surgical ",
     icon: "✂️",
     image: "/assets/images/surg.jpg", // Surgical procedure
+  },
+  {
+    title: "Dermatology",
+    description: "Specialists in dermatology.",
+    icon: "✂️",
+    image: "/assets/images/dem.jpg", // Surgical procedure
   },
   {
     title: "Maternity Care",

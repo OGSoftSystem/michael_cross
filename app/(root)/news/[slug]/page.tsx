@@ -14,166 +14,170 @@ import {
   Twitter,
   Linkedin,
 } from "lucide-react";
+import { getNews } from "@/lib/DAL";
+import { cloudinaryImageUrl } from "@/env";
+import { NewsType } from "@/types";
+import { cleanText } from "@/lib/utils";
 
 // Blog post data as an array
-const blogPosts = [
-  {
-    slug: "advancements-in-cardiac-care",
-    id: 1,
-    title: "Advancements in Cardiac Care: New Heart Treatment Options",
-    excerpt:
-      "Discover the latest innovations in cardiology that are revolutionizing heart disease treatment across our hospitals.",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    author: "Dr. Adebayo Johnson",
-    authorImage:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    authorRole: "Head of Cardiology",
-    date: "2024-01-15",
-    readTime: "5 min read",
-    category: "Cardiology",
-    content: `
-      <p>Cardiac care has undergone remarkable transformations in recent years, with new technologies and treatment approaches significantly improving patient outcomes. At Michael Cross Specialist Hospital, we're at the forefront of implementing these advancements across our network of 51 facilities.</p>
+// const blogPosts = [
+//   {
+//     slug: "advancements-in-cardiac-care",
+//     id: 1,
+//     title: "Advancements in Cardiac Care: New Heart Treatment Options",
+//     excerpt:
+//       "Discover the latest innovations in cardiology that are revolutionizing heart disease treatment across our hospitals.",
+//     image:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     author: "Dr. Adebayo Johnson",
+//     authorImage:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     authorRole: "Head of Cardiology",
+//     date: "2024-01-15",
+//     readTime: "5 min read",
+//     category: "Cardiology",
+//     content: `
+//       <p>Cardiac care has undergone remarkable transformations in recent years, with new technologies and treatment approaches significantly improving patient outcomes. At Michael Cross Specialist Hospital, we're at the forefront of implementing these advancements across our network of 51 facilities.</p>
 
-      <h2>Minimally Invasive Procedures</h2>
-      <p>One of the most significant developments in cardiology has been the shift towards minimally invasive procedures. Techniques like transcatheter aortic valve replacement (TAVR) and robotic-assisted heart surgery allow patients to recover faster with fewer complications.</p>
+//       <h2>Minimally Invasive Procedures</h2>
+//       <p>One of the most significant developments in cardiology has been the shift towards minimally invasive procedures. Techniques like transcatheter aortic valve replacement (TAVR) and robotic-assisted heart surgery allow patients to recover faster with fewer complications.</p>
 
-      <p>Our cardiac team has successfully performed over 500 TAVR procedures in the past year alone, with a 98% success rate and average hospital stays reduced from 7 days to just 2-3 days.</p>
+//       <p>Our cardiac team has successfully performed over 500 TAVR procedures in the past year alone, with a 98% success rate and average hospital stays reduced from 7 days to just 2-3 days.</p>
 
-      <h2>Advanced Imaging Technology</h2>
-      <p>The integration of artificial intelligence with cardiac imaging has revolutionized how we diagnose and monitor heart conditions. Our facilities now feature:</p>
+//       <h2>Advanced Imaging Technology</h2>
+//       <p>The integration of artificial intelligence with cardiac imaging has revolutionized how we diagnose and monitor heart conditions. Our facilities now feature:</p>
 
-      <ul>
-        <li>AI-enhanced echocardiography for precise measurements</li>
-        <li>3D cardiac MRI for detailed structural analysis</li>
-        <li>Coronary CT angiography with fractional flow reserve</li>
-      </ul>
+//       <ul>
+//         <li>AI-enhanced echocardiography for precise measurements</li>
+//         <li>3D cardiac MRI for detailed structural analysis</li>
+//         <li>Coronary CT angiography with fractional flow reserve</li>
+//       </ul>
 
-      <h2>Personalized Treatment Plans</h2>
-      <p>Through genetic testing and advanced diagnostics, we can now create highly personalized treatment plans for patients with heart conditions. This approach considers individual risk factors, genetic predispositions, and lifestyle factors to optimize outcomes.</p>
+//       <h2>Personalized Treatment Plans</h2>
+//       <p>Through genetic testing and advanced diagnostics, we can now create highly personalized treatment plans for patients with heart conditions. This approach considers individual risk factors, genetic predispositions, and lifestyle factors to optimize outcomes.</p>
 
-      <blockquote>
-        "The future of cardiology lies in prevention and personalization. By identifying risks early and tailoring treatments, we're seeing unprecedented improvements in patient outcomes." - Dr. Adebayo Johnson
-      </blockquote>
+//       <blockquote>
+//         "The future of cardiology lies in prevention and personalization. By identifying risks early and tailoring treatments, we're seeing unprecedented improvements in patient outcomes." - Dr. Adebayo Johnson
+//       </blockquote>
 
-      <h2>Remote Patient Monitoring</h2>
-      <p>Our remote monitoring program allows patients with chronic heart conditions to be tracked from home using wearable technology. This has reduced emergency hospital admissions by 45% and improved medication adherence.</p>
+//       <h2>Remote Patient Monitoring</h2>
+//       <p>Our remote monitoring program allows patients with chronic heart conditions to be tracked from home using wearable technology. This has reduced emergency hospital admissions by 45% and improved medication adherence.</p>
 
-      <p>As we continue to innovate, our commitment remains to provide accessible, advanced cardiac care to communities across Nigeria. With 14 states covered and more facilities planned, quality heart care is becoming increasingly available to those who need it most.</p>
-    `,
-  },
-  {
-    slug: "pediatric-health-tips",
-    id: 2,
-    title: "Pediatric Health: Keeping Our Children Safe and Healthy",
-    excerpt:
-      "Essential tips and insights for parents on maintaining children's health through different developmental stages.",
-    image:
-      "https://images.unsplash.com/photo-1622253692010-333f2da60319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    author: "Dr. Funmi Adebayo",
-    authorImage:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    authorRole: "Head of Pediatrics",
-    date: "2024-01-12",
-    readTime: "4 min read",
-    category: "Pediatrics",
-    content: `
-      <p>Children's health requires special attention and care at every developmental stage. As parents and caregivers, understanding key health principles can make a significant difference in your child's wellbeing.</p>
+//       <p>As we continue to innovate, our commitment remains to provide accessible, advanced cardiac care to communities across Nigeria. With 14 states covered and more facilities planned, quality heart care is becoming increasingly available to those who need it most.</p>
+//     `,
+//   },
+//   {
+//     slug: "pediatric-health-tips",
+//     id: 2,
+//     title: "Pediatric Health: Keeping Our Children Safe and Healthy",
+//     excerpt:
+//       "Essential tips and insights for parents on maintaining children's health through different developmental stages.",
+//     image:
+//       "https://images.unsplash.com/photo-1622253692010-333f2da60319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+//     author: "Dr. Funmi Adebayo",
+//     authorImage:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+//     authorRole: "Head of Pediatrics",
+//     date: "2024-01-12",
+//     readTime: "4 min read",
+//     category: "Pediatrics",
+//     content: `
+//       <p>Children's health requires special attention and care at every developmental stage. As parents and caregivers, understanding key health principles can make a significant difference in your child's wellbeing.</p>
 
-      <h2>Nutrition for Growing Children</h2>
-      <p>Proper nutrition is fundamental to a child's growth and development. Ensure your child's diet includes:</p>
+//       <h2>Nutrition for Growing Children</h2>
+//       <p>Proper nutrition is fundamental to a child's growth and development. Ensure your child's diet includes:</p>
 
-      <ul>
-        <li>Balanced meals with fruits and vegetables</li>
-        <li>Adequate protein for muscle development</li>
-        <li>Calcium-rich foods for bone health</li>
-        <li>Healthy fats for brain development</li>
-      </ul>
+//       <ul>
+//         <li>Balanced meals with fruits and vegetables</li>
+//         <li>Adequate protein for muscle development</li>
+//         <li>Calcium-rich foods for bone health</li>
+//         <li>Healthy fats for brain development</li>
+//       </ul>
 
-      <h2>Vaccination Schedule Adherence</h2>
-      <p>Following the recommended vaccination schedule is crucial for protecting children from preventable diseases. Our pediatric departments across all 51 locations maintain complete vaccination records and provide timely reminders to parents.</p>
+//       <h2>Vaccination Schedule Adherence</h2>
+//       <p>Following the recommended vaccination schedule is crucial for protecting children from preventable diseases. Our pediatric departments across all 51 locations maintain complete vaccination records and provide timely reminders to parents.</p>
 
-      <h2>Common Childhood Illnesses</h2>
-      <p>Understanding when to seek medical attention for common childhood illnesses can prevent complications. Watch for these warning signs:</p>
+//       <h2>Common Childhood Illnesses</h2>
+//       <p>Understanding when to seek medical attention for common childhood illnesses can prevent complications. Watch for these warning signs:</p>
 
-      <ul>
-        <li>High fever that doesn't respond to medication</li>
-        <li>Difficulty breathing or rapid breathing</li>
-        <li>Dehydration signs (dry mouth, no tears, reduced urination)</li>
-        <li>Unusual lethargy or irritability</li>
-      </ul>
-    `,
-  },
-  {
-    slug: "minimally-invasive-surgery",
-    id: 3,
-    title: "Understanding Minimally Invasive Surgery Techniques",
-    excerpt:
-      "How advanced surgical methods are reducing recovery times and improving patient outcomes in modern healthcare.",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    author: "Dr. Adebayo Johnson",
-    authorImage:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    authorRole: "Chief of Surgery",
-    date: "2024-01-08",
-    readTime: "6 min read",
-    category: "Surgery",
-    content: `
-      <p>Minimally invasive surgery has transformed the field of surgical medicine, offering patients faster recovery times, less pain, and reduced scarring compared to traditional open surgery.</p>
+//       <ul>
+//         <li>High fever that doesn't respond to medication</li>
+//         <li>Difficulty breathing or rapid breathing</li>
+//         <li>Dehydration signs (dry mouth, no tears, reduced urination)</li>
+//         <li>Unusual lethargy or irritability</li>
+//       </ul>
+//     `,
+//   },
+//   {
+//     slug: "minimally-invasive-surgery",
+//     id: 3,
+//     title: "Understanding Minimally Invasive Surgery Techniques",
+//     excerpt:
+//       "How advanced surgical methods are reducing recovery times and improving patient outcomes in modern healthcare.",
+//     image:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     author: "Dr. Adebayo Johnson",
+//     authorImage:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     authorRole: "Chief of Surgery",
+//     date: "2024-01-08",
+//     readTime: "6 min read",
+//     category: "Surgery",
+//     content: `
+//       <p>Minimally invasive surgery has transformed the field of surgical medicine, offering patients faster recovery times, less pain, and reduced scarring compared to traditional open surgery.</p>
 
-      <h2>Laparoscopic Procedures</h2>
-      <p>Laparoscopic surgery involves making small incisions and using a camera to guide surgical instruments. This approach has become standard for many abdominal procedures including gallbladder removal and hernia repair.</p>
+//       <h2>Laparoscopic Procedures</h2>
+//       <p>Laparoscopic surgery involves making small incisions and using a camera to guide surgical instruments. This approach has become standard for many abdominal procedures including gallbladder removal and hernia repair.</p>
 
-      <h2>Robotic-Assisted Surgery</h2>
-      <p>Our hospitals are equipped with state-of-the-art robotic surgical systems that provide surgeons with enhanced precision, flexibility, and control during complex procedures.</p>
-    `,
-  },
-  {
-    slug: "mental-health-awareness",
-    id: 4,
-    title: "Mental Health Awareness: Breaking the Stigma in Healthcare",
-    excerpt:
-      "The importance of mental health care and how we're integrating psychological support into our medical services.",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    author: "Dr. Adebayo Johnson",
-    authorImage:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    authorRole: "Head of Psychiatry",
-    date: "2024-01-05",
-    readTime: "7 min read",
-    category: "Mental Health",
-    content: `
-      <p>Mental health is an integral part of overall wellness, and at Michael Cross Specialist Hospital, we're committed to providing comprehensive care that addresses both physical and psychological needs.</p>
+//       <h2>Robotic-Assisted Surgery</h2>
+//       <p>Our hospitals are equipped with state-of-the-art robotic surgical systems that provide surgeons with enhanced precision, flexibility, and control during complex procedures.</p>
+//     `,
+//   },
+//   {
+//     slug: "mental-health-awareness",
+//     id: 4,
+//     title: "Mental Health Awareness: Breaking the Stigma in Healthcare",
+//     excerpt:
+//       "The importance of mental health care and how we're integrating psychological support into our medical services.",
+//     image:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     author: "Dr. Adebayo Johnson",
+//     authorImage:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     authorRole: "Head of Psychiatry",
+//     date: "2024-01-05",
+//     readTime: "7 min read",
+//     category: "Mental Health",
+//     content: `
+//       <p>Mental health is an integral part of overall wellness, and at Michael Cross Specialist Hospital, we're committed to providing comprehensive care that addresses both physical and psychological needs.</p>
 
-      <h2>Integrated Care Approach</h2>
-      <p>We've implemented a holistic approach where mental health professionals work alongside medical teams to provide coordinated care for patients.</p>
-    `,
-  },
-  {
-    slug: "emergency-preparedness-guide",
-    id: 5,
-    title: "Emergency Preparedness: What to Do in Medical Emergencies",
-    excerpt:
-      "A comprehensive guide on handling common medical emergencies before professional help arrives.",
-    image:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    author: "Dr. Adebayo Johnson",
-    authorImage:
-      "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    authorRole: "Head of Emergency Medicine",
-    date: "2024-01-02",
-    readTime: "8 min read",
-    category: "Emergency Care",
-    content: `
-      <p>Being prepared for medical emergencies can save lives. This guide provides essential information on how to respond to common emergency situations.</p>
+//       <h2>Integrated Care Approach</h2>
+//       <p>We've implemented a holistic approach where mental health professionals work alongside medical teams to provide coordinated care for patients.</p>
+//     `,
+//   },
+//   {
+//     slug: "emergency-preparedness-guide",
+//     id: 5,
+//     title: "Emergency Preparedness: What to Do in Medical Emergencies",
+//     excerpt:
+//       "A comprehensive guide on handling common medical emergencies before professional help arrives.",
+//     image:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     author: "Dr. Adebayo Johnson",
+//     authorImage:
+//       "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+//     authorRole: "Head of Emergency Medicine",
+//     date: "2024-01-02",
+//     readTime: "8 min read",
+//     category: "Emergency Care",
+//     content: `
+//       <p>Being prepared for medical emergencies can save lives. This guide provides essential information on how to respond to common emergency situations.</p>
 
-      <h2>Basic First Aid Knowledge</h2>
-      <p>Every household should have basic first aid knowledge and supplies. Knowing how to perform CPR and control bleeding are fundamental skills.</p>
-    `,
-  },
-];
+//       <h2>Basic First Aid Knowledge</h2>
+//       <p>Every household should have basic first aid knowledge and supplies. Knowing how to perform CPR and control bleeding are fundamental skills.</p>
+//     `,
+//   },
+// ];
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -183,8 +187,9 @@ interface BlogPostPageProps {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const slug = (await params).slug;
+  const blogPosts = await getNews();
 
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = blogPosts.find((p: NewsType) => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -210,7 +215,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Featured Image */}
         <div className="relative h-96 md:h-[500px]">
           <Image
-            src={post.image}
+            src={`${cloudinaryImageUrl}${post.image}`}
             alt={post.title}
             fill
             className="object-cover"
@@ -252,7 +257,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center space-x-4 mb-8 p-6 bg-gray-50 rounded-2xl">
               <div className="relative w-16 h-16 rounded-full overflow-hidden">
                 <Image
-                  src={post.authorImage}
+                  src={post.authorImage ?? `${cloudinaryImageUrl}${post.image}`}
                   alt={post.author}
                   fill
                   className="object-cover"
@@ -260,7 +265,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">{post.author}</h3>
-                <p className="text-gray-600 text-sm">{post.authorRole}</p>
+                <p className="text-gray-600 text-sm">
+                  {post.authorRole ?? "Hospital Team"}
+                </p>
                 <p className="text-gray-500 text-sm">
                   Michael Cross Specialist Hospital
                 </p>
@@ -270,8 +277,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Article Content */}
             <div
               className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-blockquote:border-app-blue prose-blockquote:bg-blue-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-xl"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+              // dangerouslySetInnerHTML={{ __html: post.content }}
+            >
+              {cleanText(post.content)}
+            </div>
 
             {/* Share Section */}
             <div className="mt-12 pt-8 border-t border-gray-200">
@@ -326,9 +335,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts
-            .filter((relatedPost) => relatedPost.slug !== slug)
+            .filter((relatedPost: NewsType) => relatedPost.slug !== slug)
             .slice(0, 3)
-            .map((relatedPost) => (
+            .map((relatedPost: NewsType) => (
               <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
                 <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group overflow-hidden cursor-pointer">
                   <div className="relative h-40 overflow-hidden">
@@ -362,8 +371,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   );
 }
 
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// export async function generateStaticParams() {
+//   return blogPosts.map((post) => ({
+//     slug: post.slug,
+//   }));
+// }

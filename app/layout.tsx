@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { siteConfig } from "@/config";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthContextProvider } from "@/context/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,12 +39,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen flex flex-col justify-between">
-          <Header />
-          <main className="flex-1 h-full">{children}</main>
-          <Toaster />
-          <Footer />
-        </div>
+        <AuthContextProvider>
+          <div className="min-h-screen flex flex-col justify-between">
+            <Header />
+            <main className="flex-1 h-full">{children}</main>
+            <Toaster />
+            <Footer />
+          </div>
+        </AuthContextProvider>
       </body>
     </html>
   );

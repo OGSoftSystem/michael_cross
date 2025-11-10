@@ -36,7 +36,8 @@ const footerSections = [
       { name: "Gynaecology", href: "#services" },
       { name: "Pediatrics", href: "#services" },
       { name: "Infertility Management", href: "#services" },
-      { name: "General Surgery and dermatology", href: "#services" },
+      { name: "General Surgery", href: "#services" },
+      { name: "Dermatology", href: "#services" },
       { name: "Maternity Care", href: "#services" },
     ],
   },
@@ -240,18 +241,13 @@ const Footer = () => {
               reserved.
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm">
+            <div className="text-sm">
               <Link
-                href="/privacy"
+                href="https://ogsoftsolutions.com"
+                target="_blank"
                 className="hover:text-white transition-colors"
               >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="hover:text-white transition-colors"
-              >
-                Terms of Service
+                With❤️ by Ogsoft Solutions Ltd.
               </Link>
               {/* <Link
                 href="/sitemap"
@@ -267,9 +263,15 @@ const Footer = () => {
               </Link> */}
             </div>
 
-            <div className="text-sm">
+            <div className="flex flex-wrap items-center gap-6 text-sm">
               <span className="text-green-400">●</span> Hospital Accredited by
               Nigerian Medical Association
+              <Link
+                href="/privacy"
+                className="hover:text-white transition-colors"
+              >
+                Privacy
+              </Link>
             </div>
           </div>
         </MaxWidthWrapper>

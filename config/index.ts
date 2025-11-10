@@ -1,8 +1,7 @@
+import { baseUrl } from "@/env";
+
 export const siteConfig = {
-  baseUrl:
-    process.env.NODE_ENV === "production"
-      ? "https://michael-cross.vercel.app"
-      : "localhost:3000",
+  baseUrl,
   email: "info@michaelcrosspecialist.com",
   phone: "(234) 802 637 8305",
   location:
