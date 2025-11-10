@@ -1,47 +1,49 @@
-name: Deploy Michael Cross Site
+name: Deploy to VPS
 
 on:
-    push:
-        branches: [main]
+  push:
+    branches: [main]
+
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
 
-        steps:
-            - name: Check out branch
-              uses: actions/checkout@v3
+      - name: Set up node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: "npm"
 
-            - name: Set up node
-              uses: actions/setup-node@v5
-              with:
-                  node-version: 18
-                  cache: "npm"
-            - name: Install dependencies
-              run: npm install
-            - name: Lint code
-              run: npm run lint
-            - name: Access VPS For Deployment
-              uses: appleboy/ssh-action@v0.1.7
-              with:
-                  host: ${{ secrets.VPS_HOST }}
-                  username: ${{ secrets.VPS_USERNAME }}
-                  key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-                  port: ${{ secrets.VPS_SSH_PORT }}
-                  script: |
-                      set -e  # Exit on any error
+      - name: Install dependencies
+        run: npm install
 
-                      cd /home/deployer/michael_cross
+      - name: Lint code
+        run: npm run lint
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT }}
+          script: |
+            set -e  # Exit on any error
 
-                      # Force sync with GitHub
-                      git fetch --all
-                      git reset --hard origin/main
-                      git clean -fd
+            cd /home/deployer/michael_cross
 
-                      echo "✅ Latest commit deployed: $(git log -1 --oneline)"
+            # Force sync with GitHub
+            git fetch --all
+            git reset --hard origin/main
+            git clean -fd
 
-                      # Deploy with Docker
-                      docker-compose down
-                      docker-compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+            echo "✅ Latest commit deployed: $(git log -1 --oneline)"
 
-                      # Clean up old images to save disk space
-                      docker image prune -f
+            # Deploy with Docker
+            docker-compose down
+            docker-compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up -d --build --force-recreate
+
+            # Clean up old images to save disk space
+            docker image prune -f
