@@ -25,10 +25,11 @@ import {
 } from "./customs";
 import { BlogFormDataType, blogSchema } from "@/lib/validations";
 import { toast } from "sonner";
-import { createBlogPost } from "@/lib/actions/news.actions";
+import { createBlogPost, updateBlogPost } from "@/lib/actions/news.actions";
 import { NewsType } from "@/types";
 import Image from "next/image";
 import { cloudinaryImageUrl } from "@/env";
+import { useRouter } from "next/navigation";
 
 const categories = [
   "General",
@@ -38,8 +39,6 @@ const categories = [
   "Lifestyle",
   "Education",
   "Entertainment",
-  "Sports",
-  "Travel",
   "Food",
 ];
 
@@ -52,6 +51,8 @@ const NewsForm = ({ type, news }: FormType) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
+  const router = useRouter();
+
   const initial = news
     ? { ...news }
     : {
@@ -59,7 +60,7 @@ const NewsForm = ({ type, news }: FormType) => {
         excerpt: "",
         content: "",
         image: "",
-        author: "",
+        author: "Hospital Team",
         category: "General",
         readTime: "",
         slug: "",
@@ -82,6 +83,14 @@ const NewsForm = ({ type, news }: FormType) => {
         setIsSubmitted(true);
       } else {
         // Run update function
+        const id = news?._id as string;
+        const res = await updateBlogPost(id, data);
+        if (res?.error) {
+          toast.error(`Failed to update blog post: ${res.error}`);
+          return;
+        }
+        toast.success("Blog post has been updated successfully!");
+        router.replace("/dashboard/creator/news/view");
       }
     } catch (error) {
       console.error("Blog creation error:", error);
@@ -131,7 +140,7 @@ const NewsForm = ({ type, news }: FormType) => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/blog">
+                <Link href="/dashboard/creator/news/view">
                   <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6">
                     View Blog Posts
                   </Button>
@@ -220,10 +229,11 @@ const NewsForm = ({ type, news }: FormType) => {
                   imageUrl={imageUrl}
                   isRequired
                   name="image"
-                  label="Uplaod Image"
+                  label="Upload Image"
                 />
                 {news && (
                   <div>
+                    <p className="p-text">{news.image}</p>
                     <Image
                       src={`${cloudinaryImageUrl}${news.image}`}
                       alt="banner"
@@ -264,7 +274,7 @@ const NewsForm = ({ type, news }: FormType) => {
                     name="author"
                     control={form.control}
                     label="Author Name"
-                    isRequired
+                    // isRequired
                     placeholder="Enter author's full name"
                   />
 

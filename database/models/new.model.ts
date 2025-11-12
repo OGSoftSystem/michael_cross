@@ -28,7 +28,8 @@ const newsSchema = new Schema(
     },
     author: {
       type: String,
-      required: [true, "author is required"],
+      // required: [true, "author is required"],
+      default:'Hospital Team'
     },
     content: {
       type: String,

@@ -3,12 +3,8 @@
 
 import { connectToDatabase } from "@/database";
 import News from "@/database/models/new.model";
-import {
-  BlogFormDataType,
-  blogSchema,
-  BlogUpdateDataType,
-} from "@/lib/validations";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { BlogFormDataType, blogSchema } from "@/lib/validations";
+import { revalidatePath } from "next/cache";
 import { handleErrors } from "../utils";
 
 export async function createBlogPost(data: BlogFormDataType) {
@@ -40,7 +36,7 @@ export async function createBlogPost(data: BlogFormDataType) {
   }
 }
 
-export async function updateBlogPost(id: string, data: BlogUpdateDataType) {
+export async function updateBlogPost(id: string, data: BlogFormDataType) {
   try {
     await connectToDatabase();
 
@@ -108,7 +104,7 @@ export async function publishNews(slug: string, isPublished: boolean) {
         },
       }
     );
-    revalidateTag("news", { expire: 60 * 60 * 24 * 7 });
+    // revalidateTag("news", { expire: 60 * 60 * 24 * 7 });
   } catch (error) {
     return { error: handleErrors(error) };
   }

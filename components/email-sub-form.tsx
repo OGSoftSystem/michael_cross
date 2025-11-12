@@ -29,6 +29,7 @@ const EmailSubscriptionForm = () => {
         return;
       }
       toast.success("Thank you for subscribing");
+      form.reset();
     } catch (error) {
       throw error;
     }
@@ -42,7 +43,6 @@ const EmailSubscriptionForm = () => {
         <FieldGroup>
           <FieldSet>
             <FieldGroup>
-              
               <CustomInput
                 name="email"
                 control={form.control}

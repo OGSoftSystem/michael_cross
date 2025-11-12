@@ -12,7 +12,7 @@ const Banner = () => {
   return (
     <div className="relative w-full py-24 md:py-0 md:h-[700px]">
       <Image
-        src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80"
+        src="/assets/images/banner.avif"
         alt="Modern hospital facility"
         fill
         className="object-cover z-0"

@@ -44,6 +44,10 @@ const Header = () => {
   const [showArrow, setShowArrow] = useState(false);
   const { user, setUser } = useAuthContext();
 
+
+  console.log("user", user);
+  
+
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
       setShowArrow(true);

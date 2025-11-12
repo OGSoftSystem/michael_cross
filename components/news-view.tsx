@@ -1,7 +1,7 @@
 // components/creator/ViewNews.tsx
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useTransition } from "react";
 import Image from "next/image";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { cloudinaryImageUrl } from "@/env";
 import { NewsType } from "@/types";
 import Link from "next/link";
 import { publishNews } from "@/lib/actions/news.actions";
+import { cleanText } from "@/lib/utils";
 
 interface NewsItem {
   id: string;
@@ -24,17 +25,9 @@ interface NewsItem {
 
 const ViewNews = ({ data }: { data: NewsType[] }) => {
   const [news, setNews] = useState<NewsItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all");
 
   const [isPending, startTransition] = useTransition();
-
-  // Mock data with banner images
-  useEffect(() => {
-    (function load() {
-      setIsLoading(true);
-    })();
-  }, [data]);
 
   const filteredNews = news.filter(
     (item) => filter === "all" || item.category === filter
@@ -62,13 +55,13 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center py-12">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <MaxWidthWrapper className="paddingY">
@@ -129,7 +122,7 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
                   src={`${cloudinaryImageUrl}${item.image}`}
                   alt={item.title}
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  className="object-contain hover:scale-105 transition-transform duration-300"
                 />
 
                 {/* Category Badge */}
@@ -166,7 +159,7 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
 
                 {/* Excerpt */}
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {item.content ?? "content"}
+                  {cleanText(item.content) ?? "content"}
                 </p>
 
                 {/* Stats */}
@@ -208,19 +201,23 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
                         await publishNews(item.slug, !item.isPublished);
                       })
                     }
-                    className="flex-1 bg-green-50 text-green-600 py-2 px-3 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors flex items-center justify-center gap-1"
+                    className="flex-1 bg-green-50 text-green-600 py-2 px-3 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors flex items-center justify-center gap-1 cursor-pointer"
                   >
                     <span>📢</span>
-                    const [isPending, startTransition] = useTransition()
-                    {isPending ? "Publishing..." : "Publish"}
+
+                    {isPending
+                      ? "Wait..."
+                      : item.isPublished
+                      ? "Unpublish"
+                      : "Publish"}
                   </Button>
-                  <button
+                  <Button
                     onClick={() => handleDelete(item.slug)}
-                    className="flex-1 bg-red-50 text-red-600 py-2 px-3 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors flex items-center justify-center gap-1"
+                    className="flex-1 bg-red-50 text-red-600 py-2 px-3 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors flex items-center justify-center gap-1 cursor-pointer"
                   >
                     <span>🗑️</span>
                     Delete
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>

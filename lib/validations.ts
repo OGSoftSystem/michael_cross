@@ -107,9 +107,7 @@ export const blogSchema = z.object({
 
   author: z
     .string()
-    .min(1, "Author is required")
-    .min(2, "Author name must be at least 2 characters")
-    .max(100, "Author name must be less than 100 characters"),
+    .describe("post author's name"),
 
   category: z
     .string()
