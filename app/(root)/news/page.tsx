@@ -3,12 +3,13 @@ import Link from "next/link";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Calendar, User, ArrowRight, Clock } from "lucide-react";
+import { Calendar, User, ArrowRight, Clock, } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Metadata } from "next";
 import { getNews } from "@/lib/DAL";
 import { cloudinaryImageUrl } from "@/env";
 import { NewsType } from "@/types";
+import NoNews from "@/components/no-news";
 
 export const metadata: Metadata = {
   title: "News",
@@ -30,8 +31,9 @@ const categories = [
 export default async function BlogPage() {
   const news = await getNews();
 
-  if (!news) {
-    return <p className="p-text text-center">No news for now</p>;
+  if (!news.length) {
+    return <NoNews />;
+
   }
 
   return (
@@ -80,66 +82,70 @@ export default async function BlogPage() {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {news.map((post: NewsType) => (
-            <article
-              key={post._id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group overflow-hidden"
-            >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={`${cloudinaryImageUrl}${post.image}`}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-app-blue text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    {post.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 space-y-4">
-                <div className="flex items-center space-x-4 text-sm text-gray-500">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(post.date).toLocaleDateString()}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.readTime}</span>
+          {news
+            .filter((n: NewsType) => n.isPublished)
+            .map((post: NewsType) => (
+              <article
+                key={post._id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group overflow-hidden"
+              >
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={`${cloudinaryImageUrl}${post.image}`}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-app-blue text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      {post.category}
+                    </span>
                   </div>
                 </div>
 
-                <h2 className="text-xl font-bold text-gray-900 line-clamp-2 group-hover:text-app-blue transition-colors">
-                  {post.title}
-                </h2>
-
-                <p className="text-gray-600 leading-relaxed line-clamp-3">
-                  {post.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="flex items-center space-x-2">
-                    <User className="w-4 h-4 text-app-blue" />
-                    <span className="text-sm text-gray-600">{post.author}</span>
+                {/* Content */}
+                <div className="p-6 space-y-4">
+                  <div className="flex items-center space-x-4 text-sm text-gray-500">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-4 h-4" />
+                      <span>{new Date(post.date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="w-4 h-4" />
+                      <span>{post.readTime}</span>
+                    </div>
                   </div>
 
-                  <Link href={`/news/${post.slug}`}>
-                    <Button
-                      variant="ghost"
-                      className="text-app-blue hover:text-app-blue/80 hover:bg-app-blue/10 p-0 font-semibold group/btn"
-                    >
-                      Read More
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
+                  <h2 className="text-xl font-bold text-gray-900 line-clamp-2 group-hover:text-app-blue transition-colors">
+                    {post.title}
+                  </h2>
+
+                  <p className="text-gray-600 leading-relaxed line-clamp-3">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div className="flex items-center space-x-2">
+                      <User className="w-4 h-4 text-app-blue" />
+                      <span className="text-sm text-gray-600">
+                        {post.author}
+                      </span>
+                    </div>
+
+                    <Link href={`/news/${post.slug}`}>
+                      <Button
+                        variant="ghost"
+                        className="text-app-blue hover:text-app-blue/80 hover:bg-app-blue/10 p-0 font-semibold group/btn"
+                      >
+                        Read More
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
         </div>
 
         {/* Newsletter Subscription */}

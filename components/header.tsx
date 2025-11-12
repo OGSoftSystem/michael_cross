@@ -15,7 +15,7 @@ import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { CusTooltip } from "./tooltip";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, LogOut } from "lucide-react";
 import { useAuthContext, UserType } from "@/context/auth";
 
 const navLinks = [
@@ -43,7 +43,6 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
   const { user, setUser } = useAuthContext();
-
 
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
@@ -166,12 +165,20 @@ const Header = () => {
               Book Appointment
             </Link>
 
-            <UserIcon className="md:block" user={user as UserType} setUser={setUser} />
+            <UserIcon
+              className="md:block"
+              user={user as UserType}
+              setUser={setUser}
+            />
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-3 md:hidden">
-            <UserIcon className="md:hidden" user={user as UserType} setUser={setUser} />
+            <UserIcon
+              className="md:hidden"
+              user={user as UserType}
+              setUser={setUser}
+            />
 
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -282,7 +289,7 @@ function LoggedInUser({
         }
         className="size-10 rounded-full flex items-center justify-center  border border-app-blue cursor-pointer"
       >
-        <CusTooltip title="Log out">
+        <CusTooltip title="Log out" Icon={LogOut}>
           <p
             className={cn(
               "text-2xl font-bold border rounded-full flex items-center justify-around size-6",
@@ -294,7 +301,9 @@ function LoggedInUser({
         </CusTooltip>
       </div>
       <Link className=" hover:text-app-blue" href={`/dashboard`}>
-        <LayoutDashboard className="size-6" />
+        <CusTooltip title="Dashboard" Icon={LayoutDashboard}>
+          <LayoutDashboard className="size-6" />
+        </CusTooltip>
       </Link>
     </div>
   );

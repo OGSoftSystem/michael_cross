@@ -27,6 +27,11 @@ export const appointmentSchema = z.object({
 
 export type AppointmentFormDataType = z.infer<typeof appointmentSchema>;
 
+export const emailSchema = z.object({
+  email: z.string().email({ message: "provide a valid email" }),
+});
+export type EmailFormDataType = z.infer<typeof emailSchema>;
+
 export const contactFormSchema = z.object({
   fullName: z
     .string()

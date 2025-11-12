@@ -22,7 +22,7 @@ export default function Home() {
       <div className="bg-app-blue/5">
         <Testimonials />
       </div>
-      <div className=" bg-app-blue">
+      <div className="bg-app-blue">
         <CTA />
       </div>
     </div>

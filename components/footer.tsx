@@ -13,9 +13,10 @@ import {
   Linkedin,
   ArrowRight,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+
 import { siteConfig } from "@/config";
+
+import EmailSubscriptionForm from "./email-sub-form";
 
 const footerSections = [
   {
@@ -218,16 +219,7 @@ const Footer = () => {
                 from Michael Cross Specialists Hospital.
               </p>
             </div>
-            <div className="flex space-x-4">
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-4 py-3 rounded-full bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-app-blue"
-              />
-              <Button className="bg-app-blue hover:bg-app-blue/90 text-white font-semibold px-4 py-3 rounded-full transition-all duration-300 hover:scale-105">
-                Subscribe
-              </Button>
-            </div>
+            <EmailSubscriptionForm />
           </div>
         </div>
       </MaxWidthWrapper>
@@ -247,7 +239,7 @@ const Footer = () => {
                 target="_blank"
                 className="hover:text-white transition-colors"
               >
-                With❤️ by Ogsoft Solutions Ltd.
+                With ❤️ by OGSOFT Solutions Ltd.
               </Link>
               {/* <Link
                 href="/sitemap"

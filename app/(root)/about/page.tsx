@@ -82,10 +82,8 @@ const AboutPage = () => {
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-app-blue mb-2">
-                  360+
-                </div>
-                <div className="text-sm text-gray-600">Care Locations</div>
+                <div className="text-3xl font-bold text-app-blue mb-2">1</div>
+                <div className="text-sm text-gray-600">Care Location</div>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ import {
   blogSchema,
   BlogUpdateDataType,
 } from "@/lib/validations";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { handleErrors } from "../utils";
 
 export async function createBlogPost(data: BlogFormDataType) {
@@ -94,4 +94,22 @@ export async function getNewsPost(slug: string) {
   const news = await News.findOne({ slug });
 
   return JSON.parse(JSON.stringify(news));
+}
+
+export async function publishNews(slug: string, isPublished: boolean) {
+  try {
+    await connectToDatabase();
+
+    await News.updateOne(
+      { slug },
+      {
+        $set: {
+          isPublished,
+        },
+      }
+    );
+    revalidateTag("news", { expire: 60 * 60 * 24 * 7 });
+  } catch (error) {
+    return { error: handleErrors(error) };
+  }
 }

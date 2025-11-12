@@ -1,13 +1,14 @@
 // components/creator/ViewNews.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import Image from "next/image";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { cloudinaryImageUrl } from "@/env";
 import { NewsType } from "@/types";
 import Link from "next/link";
+import { publishNews } from "@/lib/actions/news.actions";
 
 interface NewsItem {
   id: string;
@@ -25,6 +26,8 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+
+  const [isPending, startTransition] = useTransition();
 
   // Mock data with banner images
   useEffect(() => {
@@ -51,7 +54,6 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
     );
   };
 
-  
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this news article?")) {
       console.log("Delete news:", id);
@@ -200,6 +202,18 @@ const ViewNews = ({ data }: { data: NewsType[] }) => {
                     <span>✏️</span>
                     Edit
                   </Link>
+                  <Button
+                    onClick={() =>
+                      startTransition(async () => {
+                        await publishNews(item.slug, !item.isPublished);
+                      })
+                    }
+                    className="flex-1 bg-green-50 text-green-600 py-2 px-3 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors flex items-center justify-center gap-1"
+                  >
+                    <span>📢</span>
+                    const [isPending, startTransition] = useTransition()
+                    {isPending ? "Publishing..." : "Publish"}
+                  </Button>
                   <button
                     onClick={() => handleDelete(item.slug)}
                     className="flex-1 bg-red-50 text-red-600 py-2 px-3 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors flex items-center justify-center gap-1"

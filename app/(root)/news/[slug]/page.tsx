@@ -257,7 +257,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center space-x-4 mb-8 p-6 bg-gray-50 rounded-2xl">
               <div className="relative w-16 h-16 rounded-full overflow-hidden">
                 <Image
-                  src={post.authorImage ?? `${cloudinaryImageUrl}${post.image}`}
+                  src={post.authorImage ?? `/assets/images/mc-logo.jpeg`}
                   alt={post.author}
                   fill
                   className="object-cover"

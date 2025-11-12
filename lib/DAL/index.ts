@@ -2,7 +2,12 @@ import { baseUrl } from "@/env";
 
 export async function getNews() {
   try {
-    const res = await fetch(`${baseUrl}/api/news`);
+    const res = await fetch(`${baseUrl}/api/news`, {
+      cache: "force-cache",
+      next: {
+        tags: ["news"],
+      },
+    });
 
     if (!res.ok) {
       throw new Error(res.statusText);
@@ -18,7 +23,7 @@ export async function getNews() {
 }
 export async function getNewsBySlug(slug: string) {
   try {
-    const res = await fetch(`${baseUrl}/api/news/${slug}?slug=${slug}`);
+    const res = await fetch(`${baseUrl}/api/news/${slug}`);
 
     if (!res.ok) {
       throw new Error(res.statusText);

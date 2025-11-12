@@ -85,6 +85,7 @@ type TextInputProps<T extends FieldValues> = Omit<
   min?: string;
   type?: ComponentProps<"input">["type"];
   icon?: IconType | LucideIcon | undefined;
+  className?: string;
 };
 
 function Label({
@@ -110,6 +111,9 @@ export function CustomInput<T extends FieldValues>({
   min,
   type = "text",
   icon: Icon,
+  className,
+  disabled,
+
   ...props
 }: TextInputProps<T>) {
   return (
@@ -131,7 +135,9 @@ export function CustomInput<T extends FieldValues>({
               id={props.name}
               type={type}
               min={min}
+              disabled={disabled}
               className={cn(
+                className,
                 "transition-all duration-200 size text-gray-400",
                 Icon && "pl-10", // Add padding when icon is present
                 fieldState.error &&

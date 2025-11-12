@@ -2,10 +2,12 @@ import { connectToDatabase } from "@/database";
 import News from "@/database/models/new.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
-  const params = req.nextUrl.searchParams;
-  const slug = params.get("slug") as string;
-  
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;
+
   try {
     await connectToDatabase();
 
