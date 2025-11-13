@@ -1,15 +1,15 @@
 import { connectToDatabase } from "@/database";
-import News from "@/database/models/news.model";
+import Leadership from "@/database/models/leadership.model";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await connectToDatabase();
 
-    const news = await News.find();
+    const news = await Leadership.find();
 
     if (!news) {
-      return NextResponse.json({ success: false, message: "No news found" });
+      return NextResponse.json({ success: false, message: "No leader found" });
     }
 
     return NextResponse.json(news);

@@ -40,7 +40,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthContextProvider>
-          <div className="min-h-screen flex flex-col justify-between">
+          <div className="min-h-screen flex flex-col justify-between overflow-x-hidden">
             <Header />
             <main className="flex-1 h-full">{children}</main>
             <Toaster />

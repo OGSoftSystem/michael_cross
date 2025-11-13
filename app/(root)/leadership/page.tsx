@@ -1,72 +1,15 @@
-import Image from "next/image";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Mail, Phone, Award } from "lucide-react";
 import { Metadata } from "next";
+import LeadershipCard from "@/components/ui/leadership-card";
+import { getLeaders } from "@/lib/DAL";
+import { Suspense } from "react";
+import { LeadershipCardType } from "@/types";
 
 export const metadata: Metadata = {
   title: "Leadership",
 };
-const leadershipTeam = [
-  {
-    id: 1,
-    name: "Dr. Michael Cross",
-    position: "Founder & Chief Executive Officer",
-    department: "Executive Leadership",
-    image:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MD, Harvard Medical School",
-      "MBA, Wharton School of Business",
-      "Fellow, Royal College of Physicians",
-      "Board Certified in Internal Medicine",
-    ],
-    about:
-      "With over 25 years of experience in healthcare leadership, Dr. Cross founded Michael Cross Specialist Hospital with a vision to revolutionize healthcare in Nigeria. His commitment to clinical excellence and patient-centered care has driven our growth across 14 states.",
-    experience: "25+ years",
-    email: "m.cross@michaelcrosshospital.org",
-    phone: "+234 800 642 4235",
-  },
-  {
-    id: 2,
-    name: "Dr. Adebayo Johnson",
-    position: "Chief Medical Director",
-    department: "Medical Administration",
-    image:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MD, University of Lagos College of Medicine",
-      "MSc Healthcare Management, London School of Economics",
-      "Fellow, West African College of Physicians",
-      "Certified Medical Director",
-    ],
-    about:
-      "Dr. Johnson oversees all clinical operations across our 51 facilities. His innovative approaches to healthcare delivery have significantly improved patient outcomes and operational efficiency throughout our network.",
-    experience: "20+ years",
-    email: "a.johnson@michaelcrosshospital.org",
-    phone: "+234 800 642 4236",
-  },
-  {
-    id: 4,
-    name: "Dr. Ibrahim Mohammed",
-    position: "Chief of Surgery",
-    department: "Surgical Services",
-    image:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    qualifications: [
-      "MBBS, Ahmadu Bello University",
-      "FRCS, Royal College of Surgeons of England",
-      "Fellow, International College of Surgeons",
-      "Advanced Trauma Life Support Certified",
-    ],
-    about:
-      "With expertise in minimally invasive surgical techniques, Dr. Mohammed has transformed our surgical services. He leads a team of 200+ surgeons across our network, ensuring the highest standards of surgical care.",
-    experience: "22+ years",
-    email: "i.mohammed@michaelcrosshospital.org",
-    phone: "+234 800 642 4238",
-  },
-];
 
 const LeadershipPage = () => {
   return (
@@ -97,89 +40,21 @@ const LeadershipPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {leadershipTeam.map((leader) => (
-            <div
-              key={leader.id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group overflow-hidden"
-            >
-              {/* Image Section */}
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src={leader.image}
-                  alt={`Portrait of ${leader.name}`}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-4 left-6 right-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">{leader.name}</h3>
-                  <p className="text-app-blue/90 font-semibold">
-                    {leader.position}
-                  </p>
-                  <div className="flex items-center space-x-2 mt-2">
-                    <Award className="w-4 h-4" />
-                    <span className="text-sm">
-                      {leader.experience} experience
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-6 space-y-4">
-                {/* Department Badge */}
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-app-blue/10 border border-app-blue/20">
-                  <span className="text-sm font-semibold text-app-blue">
-                    {leader.department}
-                  </span>
-                </div>
-
-                {/* Qualifications */}
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">
-                    Qualifications
-                  </h4>
-                  <ul className="space-y-1">
-                    {leader.qualifications.map((qualification, index) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <div className="w-1.5 h-1.5 bg-app-blue rounded-full mt-2 shrink-0" />
-                        <span className="text-sm text-gray-600 leading-relaxed">
-                          {qualification}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* About Section */}
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">
-                    About
-                  </h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {leader.about}
-                  </p>
-                </div>
-
-                {/* Contact Information */}
-                <div className="pt-4 border-t border-gray-200 space-y-2">
-                  <div className="flex items-center space-x-3 text-sm">
-                    <Mail className="w-4 h-4 text-app-blue" />
-                    <span className="text-gray-600">{leader.email}</span>
-                  </div>
-                  <div className="flex items-center space-x-3 text-sm">
-                    <Phone className="w-4 h-4 text-app-blue" />
-                    <span className="text-gray-600">{leader.phone}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Suspense fallback={<p>Loading...</p>}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {/* {leadershipTeam.map((leader) => (
+              <LeadershipCard
+                leader={leader}
+                isDasboardMode={false}
+                key={leader.name}
+              />
+            ))} */}
+            <RenderLeaders />
+          </div>
+        </Suspense>
 
         {/* Stats Section */}
-        <div className="mt-16 pt-12 border-t border-gray-200">
+        {/* <div className="mt-16 pt-12 border-t border-gray-200">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { number: "20+", label: "Specialist Doctors" },
@@ -197,7 +72,7 @@ const LeadershipPage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* CTA Section */}
         <div className="text-center mt-16 bg-linear-to-r from-app-blue to-blue-600 rounded-2xl p-12 text-white">
@@ -233,7 +108,6 @@ const LeadershipPage = () => {
               Contact HR Department
             </Button>
           </div>
-          
         </div>
       </MaxWidthWrapper>
     </div>
@@ -241,3 +115,21 @@ const LeadershipPage = () => {
 };
 
 export default LeadershipPage;
+
+async function RenderLeaders() {
+  const leaders = await getLeaders();
+
+  if (!leaders.length) {
+    return <p className="p-text">No leader to show</p>;
+  }
+
+  return leaders
+    .filter((l: LeadershipCardType) => !l.isMuted)
+    .map((leader: LeadershipCardType) => (
+      <LeadershipCard
+        leader={leader}
+        isDasboardMode={false}
+        key={leader.name}
+      />
+    ));
+}

@@ -1,12 +1,16 @@
+import { UserRoles } from "@/database/models/user.model";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const CreatorPage = async () => {
-  //   const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
 
-  // Optional: Add role-based access if needed
-  // if (!session || session.user.role !== 'CREATOR') {
-  //   redirect('/unauthorized');
-  // }
+  const canAcess = [UserRoles.ADMIN, UserRoles.CREATOR];
+  if (!session || !canAcess.some((u: string) => u.includes(session.user.role))) {
+    redirect("/");
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">

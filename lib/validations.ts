@@ -102,12 +102,10 @@ export const blogSchema = z.object({
   content: z
     .string()
     .min(1, "Content is required")
-    .min(10, "Excerpt must be at least 10 characters"),
+    .min(10, "Content must be at least 10 characters"),
   image: z.string(),
 
-  author: z
-    .string()
-    .describe("post author's name"),
+  author: z.string().describe("post author's name"),
 
   category: z
     .string()
@@ -136,6 +134,47 @@ export const blogSchema = z.object({
 });
 
 export type BlogFormDataType = z.infer<typeof blogSchema>;
+
+export const leadershipSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .min(3, "Name must be at least 3 characters")
+    .max(200, "Name must be less than 200 characters"),
+
+  position: z
+    .string()
+    .min(1, "Position is required")
+    .min(10, "Position must be at least 10 characters")
+    .max(300, "Position must be less than 300 characters"),
+
+  qualifications: z
+    .string()
+    .min(1, "Qualification is required")
+    .min(10, "Qualification must be at least 10 characters"),
+  department: z
+    .string()
+    .min(1, "Department is required")
+    .min(10, "Department must be at least 10 characters"),
+
+  image: z
+    .string()
+    .min(1, "Image is required")
+    .min(2, "Image must be at least 2 characters"),
+
+  about: z.string().describe("about"),
+  phone: z.string().describe("Phone name"),
+
+  experience: z
+    .string()
+    .min(1, "Experience is required")
+    .min(2, "Experience must be at least 2 characters")
+    .max(100, "Experience must be less than 100 characters"),
+
+  email: z.string().email().describe("Enter a valid email address"),
+});
+
+export type LeadershipFormDataType = z.infer<typeof leadershipSchema>;
 
 export type BlogPost = BlogFormDataType & {
   id: string;

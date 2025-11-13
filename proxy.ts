@@ -17,15 +17,11 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next();
     }
     // If no session and trying to access protected route
-    if (!session?.user || session.user.role !== UserRoles.ADMIN) {
+    if (
+      !session?.user ||
+      (session.user && session.user.role !== UserRoles.ADMIN)
+    ) {
       if (request.nextUrl.pathname.startsWith("/auth/sign-up")) {
-        return NextResponse.redirect(new URL("/", request.url));
-      }
-      return NextResponse.next();
-    }
-    // If no session and trying to access protected route
-    if (session?.user && session.user.role !== UserRoles.ADMIN) {
-      if (request.nextUrl.pathname == "/auth/sign-up") {
         return NextResponse.redirect(new URL("/", request.url));
       }
       return NextResponse.next();
@@ -35,7 +31,10 @@ export async function proxy(request: NextRequest) {
     const user = session.user;
 
     // If user is on auth pages but already signed in, redirect to home
-    if (request.nextUrl.pathname.startsWith("/auth") && user) {
+    if (
+      request.nextUrl.pathname.startsWith("/auth/sign-in") &&
+      user.role !== UserRoles.ADMIN
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 

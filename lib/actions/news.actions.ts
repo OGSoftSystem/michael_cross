@@ -2,7 +2,7 @@
 "use server";
 
 import { connectToDatabase } from "@/database";
-import News from "@/database/models/new.model";
+import News from "@/database/models/news.model";
 import { BlogFormDataType, blogSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { handleErrors } from "../utils";
@@ -93,6 +93,8 @@ export async function getNewsPost(slug: string) {
 }
 
 export async function publishNews(slug: string, isPublished: boolean) {
+  console.log(slug, isPublished);
+  
   try {
     await connectToDatabase();
 
@@ -104,7 +106,7 @@ export async function publishNews(slug: string, isPublished: boolean) {
         },
       }
     );
-    // revalidateTag("news", { expire: 60 * 60 * 24 * 7 });
+    revalidatePath("/dashboard/creator/news/view");
   } catch (error) {
     return { error: handleErrors(error) };
   }

@@ -228,7 +228,7 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <MaxWidthWrapper className="py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-gray-400">
-            <div className="text-sm">
+            <div className="text-sm text-center md:text-left">
               © {currentYear} Michael Cross Specialist Hospital. All rights
               reserved.
             </div>
@@ -255,16 +255,16 @@ const Footer = () => {
               </Link> */}
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm">
-              <span className="text-green-400">●</span> Hospital Accredited by
-              Nigerian Medical Association
-              <Link
-                href="/privacy"
-                className="hover:text-white transition-colors"
-              >
-                Privacy
-              </Link>
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              <span className="text-green-400">●</span>Hospital Accredited by Nigerian
+              Medical Association
             </div>
+            <Link
+              href="/privacy"
+              className="hover:text-white transition-colors"
+            >
+              Privacy
+            </Link>
           </div>
         </MaxWidthWrapper>
       </div>

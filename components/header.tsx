@@ -44,9 +44,7 @@ const Header = () => {
   const [showArrow, setShowArrow] = useState(false);
   const { user, setUser } = useAuthContext();
 
-
   console.log("user", user);
-  
 
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
@@ -291,7 +289,7 @@ function LoggedInUser({
             });
           })
         }
-        className="size-10 rounded-full flex items-center justify-center  border border-app-blue cursor-pointer"
+        className="flex items-center cursor-pointer"
       >
         <CusTooltip title="Log out" Icon={LogOut}>
           <p

@@ -16,7 +16,7 @@ const AboutPage = () => {
       {/* Hero Banner */}
       <section className="relative h-[60vh] min-h-[500px]">
         <Image
-          src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80"
+          src="/assets/images/banner.avif"
           alt="Modern hospital interior with medical professionals"
           fill
           className="object-cover"
@@ -91,7 +91,7 @@ const AboutPage = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                src="/assets/images/mc3.jpeg"
                 alt="Medical team discussing patient care"
                 width={600}
                 height={400}
@@ -182,7 +182,7 @@ const AboutPage = () => {
               <div className="space-y-4">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    src="/assets/images/mc1.jpeg"
                     alt="Hospital founder"
                     width={300}
                     height={200}
@@ -202,7 +202,7 @@ const AboutPage = () => {
               <div className="space-y-4 pt-8">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80"
+                    src="/assets/images/mc2.jpeg"
                     alt="Hospital facility"
                     width={300}
                     height={200}
@@ -211,7 +211,7 @@ const AboutPage = () => {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    src="/assets/images/mc4.jpeg"
                     alt="Advanced medical equipment"
                     width={300}
                     height={200}

@@ -33,7 +33,7 @@ export default function BlogPage() {
       {/* Hero Banner */}
       <section className="relative h-[60vh] min-h-[500px]">
         <Image
-          src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+          src="/assets/images/news.jpg"
           alt="Medical research and healthcare education"
           fill
           className="object-cover"

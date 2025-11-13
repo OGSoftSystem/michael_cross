@@ -1,5 +1,5 @@
 import { connectToDatabase } from "@/database";
-import News from "@/database/models/new.model";
+import News from "@/database/models/news.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
