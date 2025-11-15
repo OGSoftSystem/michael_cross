@@ -286,7 +286,7 @@ function LoggedInUser({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   return (
-    <div className="inline-flex items-center space-x-2">
+    <div className="inline-flex items-center space-x-3">
       <div
         onClick={() =>
           startTransition(async () => {
@@ -302,7 +302,7 @@ function LoggedInUser({
         }
         className="flex items-center cursor-pointer"
       >
-        <CusTooltip title="Log out" Icon={LogOut}>
+        <CusTooltip title="Log out" Icon={LogOut} className="size-4">
           <p
             className={cn(
               "text-2xl font-bold border rounded-full flex items-center justify-around size-6",
@@ -314,7 +314,7 @@ function LoggedInUser({
         </CusTooltip>
       </div>
       <Link className=" hover:text-app-blue" href={`/dashboard`}>
-        <CusTooltip title="Dashboard" Icon={LayoutDashboard}>
+        <CusTooltip title="Dashboard" Icon={LayoutDashboard} className="size-4">
           <LayoutDashboard className="size-6" />
         </CusTooltip>
       </Link>

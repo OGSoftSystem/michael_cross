@@ -1,5 +1,8 @@
 "use client";
 
+import Load from "@/components/loader";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
+import { siteConfig } from "@/config";
 import {
   useContext,
   createContext,
@@ -21,7 +24,6 @@ type ProviderProps = {
 export const AuthContext = createContext<ProviderProps>({} as ProviderProps);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  
   const [user, setUser] = useState<UserType | null>(null);
 
   // Initialize state from localStorage only on client side
@@ -49,9 +51,14 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   if (typeof window === "undefined") {
-    return <div>Loading...</div>; // Fallback for SSR
+    return (
+      <MaxWidthWrapper className="min-h-screen flex flex-col space-y-4 items-center justify-center">
+        <h2 className="text-bold">{siteConfig.title}</h2>
+        <Load />
+      </MaxWidthWrapper>
+    ); // Fallback for SSR
   }
-  
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

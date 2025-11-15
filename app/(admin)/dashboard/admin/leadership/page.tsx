@@ -6,6 +6,7 @@ import { getLeaders } from "@/lib/DAL";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { LeadershipCardType } from "@/types";
+import { CusTooltip } from "@/components/tooltip";
 
 export const metadata: Metadata = {
   title: "Leadership",
@@ -74,9 +75,7 @@ const LeadershipPage = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-app-blue/5 relative">
       {/* Leadership Grid */}
-      <Link href={"/dashboard/admin/leadership/new"}>
-        <PlusCircle className="size-10 text-app-blue absolute left-20 bottom-10" />
-      </Link>
+
       <MaxWidthWrapper className="paddingY">
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -88,6 +87,15 @@ const LeadershipPage = () => {
             brings decades of experience and innovation to patient care.
           </p>
         </div>
+
+        <Link
+          href={"/dashboard/admin/leadership/new"}
+          className="my-8 flex items-center justify-center"
+        >
+          <CusTooltip title="Add Leader" Icon={PlusCircle} className="size-10 text-app-blue">
+            <PlusCircle className="size-4 text-white" />
+          </CusTooltip>
+        </Link>
 
         <Suspense fallback={<p>Loading...</p>}>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -102,7 +110,7 @@ const LeadershipPage = () => {
 export default LeadershipPage;
 
 async function RenderLeaders() {
-  'use cache'
+  "use cache";
   const leaders = await getLeaders();
 
   if (!leaders.length) {

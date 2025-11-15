@@ -7,8 +7,6 @@ import { handleErrors } from "../utils";
 import Leadership from "@/database/models/leadership.model";
 
 export async function createLeader(data: LeadershipFormDataType) {
-  console.log(data.qualifications);
-
   try {
     const parsed = leadershipSchema.safeParse(data);
     if (!parsed.success) {
@@ -64,6 +62,7 @@ export async function updateLeader(name: string, data: LeadershipFormDataType) {
 
     if (post) {
       revalidatePath("/dashboard/admin/leadership");
+      revalidatePath("/leadership");
     }
 
     return { success: true };
@@ -79,7 +78,10 @@ export async function deleteLeader(id: string) {
 
     const leader = await Leadership.findOneAndDelete({ _id: id });
 
-    if (leader) revalidatePath("/dashboard/admin/leadership");
+    if (leader) {
+      revalidatePath("/dashboard/admin/leadership");
+      revalidatePath("/leadership");
+    }
 
     return { success: true };
   } catch (error) {
@@ -101,6 +103,7 @@ export async function muteLeader(name: string, isMuted: boolean) {
       }
     );
     revalidatePath("/dashboard/admin/leadership");
+    revalidatePath("/leadership");
   } catch (error) {
     return { error: handleErrors(error) };
   }

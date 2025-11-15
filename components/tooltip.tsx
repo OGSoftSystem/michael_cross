@@ -8,15 +8,16 @@ import { ForwardRefExoticComponent, PropsWithChildren, RefAttributes } from "rea
 
 interface Props extends PropsWithChildren {
   title: string;
+  className:string;
   Icon: ForwardRefExoticComponent<
     Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
   >;
 }
-export function CusTooltip({ children, title, Icon }: Props) {
+export function CusTooltip({ children, title, Icon, className }: Props) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Icon className="size-4" />
+        <Icon className={className} />
       </TooltipTrigger>
       <TooltipContent className="space-y-2 flex flex-col items-center justify-center">
         <p>{title}</p>

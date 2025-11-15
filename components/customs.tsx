@@ -127,7 +127,7 @@ export function CustomInput<T extends FieldValues>({
           <div className="relative">
             {Icon && (
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                <Icon className="w-5 h-5 text-gray-400" />
+                <Icon className="size-5 text-gray-400" />
               </div>
             )}
             <Input

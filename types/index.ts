@@ -12,7 +12,7 @@ export type NewsType = {
   date: string;
   content: string;
   isPublished: boolean;
-  // createdAt: "2025-11-09T03:59:20.123Z";
+  createdAt?: string;
   // updatedAt: "2025-11-09T03:59:20.123Z";
   // __v: 0;
 };

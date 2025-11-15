@@ -243,14 +243,15 @@ const AuthForm = ({ type }: AuthType) => {
                             icon={Lock}
                           />
                           <Button
+                            variant={"ghost"}
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-3 top-12 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                           >
                             {showPassword ? (
-                              <EyeOff className="w-5 h-5" />
+                              <EyeOff className="size-5" />
                             ) : (
-                              <Eye className="w-5 h-5" />
+                              <Eye className="size-5" />
                             )}
                           </Button>
                         </div>
