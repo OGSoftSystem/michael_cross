@@ -4,13 +4,13 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Calendar, User, ArrowRight, Clock } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Metadata } from "next";
 import { getNews } from "@/lib/DAL";
 import { cloudinaryImageUrl } from "@/env";
 import { NewsType } from "@/types";
 import NoNews from "@/components/no-news";
 import { Suspense } from "react";
+import EmailSubscriptionForm from "@/components/email-sub-form";
 
 export const metadata: Metadata = {
   title: "News",
@@ -88,15 +88,8 @@ export default function BlogPage() {
             Subscribe to our newsletter and receive the latest health tips,
             medical research, and hospital updates directly in your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto items-center">
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:border-white"
-            />
-            <Button className="bg-white text-app-blue hover:bg-gray-100 font-semibold px-6 py-3 rounded-lg">
-              Subscribe
-            </Button>
+          <div className="md:mx-auto max-w-2xl">
+            <EmailSubscriptionForm />
           </div>
         </div>
       </MaxWidthWrapper>
@@ -112,7 +105,7 @@ async function FetchNews() {
   const publishedNews = news.filter((n) => n.isPublished);
 
   if (publishedNews.length === 0) {
-    return <NoNews />;
+    return <NoNews text="Sorry, No news for now" />;
   }
 
   return news

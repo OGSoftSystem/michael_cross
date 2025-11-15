@@ -71,27 +71,10 @@ export async function deleteEmail(email: string) {
 
     const news = await Email.findOneAndDelete({ email });
 
-    if (news) revalidatePath("/dashboard/admin/users");
+    if (news) revalidatePath("/dashboard/admin/news-letters");
 
     return { success: true };
   } catch (error) {
     return { error: handleErrors(error) || "Failed to delete email " };
   }
-}
-
-export async function getEmails() {
-  // Simulate database fetch
-  await connectToDatabase();
-
-  const emails = await Email.find();
-
-  return JSON.parse(JSON.stringify(emails));
-}
-
-export async function getEmail(email: string) {
-  await connectToDatabase();
-
-  const emal = await Email.findOne({ email });
-
-  return JSON.parse(JSON.stringify(emal));
 }

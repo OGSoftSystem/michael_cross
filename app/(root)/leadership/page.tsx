@@ -1,11 +1,13 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import LeadershipCard from "@/components/ui/leadership-card";
 import { getLeaders } from "@/lib/DAL";
 import { Suspense } from "react";
 import { LeadershipCardType } from "@/types";
+import NoNews from "@/components/no-news";
+import Link from "next/link";
+import HeaderBanner from "@/components/header-banner";
 
 export const metadata: Metadata = {
   title: "Leadership",
@@ -29,16 +31,11 @@ const LeadershipPage = () => {
 
       {/* Leadership Grid */}
       <MaxWidthWrapper className="paddingY">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Executive Leadership & Department Heads
-          </h2>
-          <div className="w-20 h-1.5 bg-app-blue rounded-full mx-auto" />
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Our team of board-certified specialists and healthcare leaders
-            brings decades of experience and innovation to patient care.
-          </p>
-        </div>
+        <HeaderBanner
+          title="Executive Leadership & Department Heads"
+          description="Our team of board-certified specialists and healthcare leaders
+            brings decades of experience and innovation to patient care."
+        />
 
         <Suspense fallback={<p>Loading...</p>}>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -86,7 +83,8 @@ const LeadershipPage = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
+            <Link
+              href={"#footer/call"}
               className={cn(
                 "bg-white text-app-blue hover:bg-gray-100 font-semibold",
                 "px-8 py-6 rounded-full transition-all duration-300",
@@ -95,9 +93,9 @@ const LeadershipPage = () => {
               )}
             >
               View Career Opportunities
-            </Button>
-            <Button
-              variant="outline"
+            </Link>
+            <Link
+              href={"#footer/call"}
               className={cn(
                 "border-white text-app-blue hover:bg-white hover:text-app-blue",
                 "px-8 py-6 rounded-full font-semibold transition-all duration-300",
@@ -106,7 +104,7 @@ const LeadershipPage = () => {
               )}
             >
               Contact HR Department
-            </Button>
+            </Link>
           </div>
         </div>
       </MaxWidthWrapper>
@@ -117,10 +115,14 @@ const LeadershipPage = () => {
 export default LeadershipPage;
 
 async function RenderLeaders() {
+  "use cache";
+
   const leaders = await getLeaders();
 
-  if (!leaders.length) {
-    return <p className="p-text">No leader to show</p>;
+  const unMuted = leaders.filter((l: { isMuted: boolean }) => !l.isMuted);
+
+  if (leaders.length === 0 || unMuted.length === 0) {
+    <NoNews text="Sorry, team will be popuplated soon" />;
   }
 
   return leaders

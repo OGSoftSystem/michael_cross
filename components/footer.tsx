@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import MaxWidthWrapper from "./max-width-wrapper";
@@ -17,6 +19,8 @@ import {
 import { siteConfig } from "@/config";
 
 import EmailSubscriptionForm from "./email-sub-form";
+import { Suspense } from "react";
+import { CurrentYear } from "./current-year";
 
 const footerSections = [
   {
@@ -33,13 +37,16 @@ const footerSections = [
   {
     title: "Our Services",
     links: [
-      { name: "Emergency Care", href: "#emergency" },
-      { name: "Gynaecology", href: "#services" },
+      { name: "Accident and Emergency Care", href: "#emergency" },
+      { name: "Obstetrics and Gynaecology", href: "#services" },
       { name: "Pediatrics", href: "#services" },
-      { name: "Infertility Management", href: "#services" },
+      { name: "Feetility Management", href: "#services" },
       { name: "General Surgery", href: "#services" },
       { name: "Dermatology", href: "#services" },
-      { name: "Maternity Care", href: "#services" },
+      // { name: "Maternity Care", href: "#services" },
+      { name: "Internal Medicine", href: "#services" },
+      { name: "Imaging and Radiology", href: "#services" },
+      { name: "Laboratory / Diagnostics", href: "#services" },
     ],
   },
   {
@@ -75,7 +82,7 @@ const socialLinks = [
   },
   {
     name: "Twitter",
-    href: "https://twitter.com",
+    href: "https://x.com",
     icon: Twitter,
     color: "hover:text-blue-400",
   },
@@ -94,7 +101,7 @@ const socialLinks = [
 ];
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  // const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -114,14 +121,14 @@ const Footer = () => {
             </Link>
 
             <p className="text-gray-300 leading-relaxed max-w-md">
-              Michael Cross Specialist Hospital is dedicated to providing
-              exceptional healthcare with compassion and innovation. With
-              current location in Abuja, Nigeria, we&apos;re committed to
-              building a healthier community.
+              {siteConfig.title} is dedicated to providing exceptional
+              healthcare with compassion and innovation. With current location
+              in Abuja, Nigeria, we&apos;re committed to building a healthier
+              community.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-3">
+            <div className="space-y-3" id="footer/call">
               <div className="flex items-center space-x-3 text-gray-300">
                 <Phone className="w-5 h-5 text-app-blue" />
                 <span>Emergency: {siteConfig.phone}</span>
@@ -155,7 +162,7 @@ const Footer = () => {
                   )}
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="size-5" />
                 </Link>
               ))}
             </div>
@@ -175,7 +182,7 @@ const Footer = () => {
                       className="flex items-center space-x-2 text-gray-300 hover:text-app-blue transition-colors duration-200 group"
                     >
                       <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <span>{link.name}</span>
+                      <span className="capitalize">{link.name}</span>
                     </Link>
                   </li>
                 ))}
@@ -228,10 +235,11 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <MaxWidthWrapper className="py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-gray-400">
-            <div className="text-sm text-center md:text-left">
-              © {currentYear} Michael Cross Specialist Hospital. All rights
-              reserved.
-            </div>
+            <Suspense>
+              <div className="text-sm text-center md:text-left">
+                © <CurrentYear /> {siteConfig.title}. All rights reserved.
+              </div>
+            </Suspense>
 
             <div className="text-sm">
               <Link
@@ -256,8 +264,7 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 text-sm">
-              <span className="text-green-400">●</span>Hospital Accredited by Nigerian
-              Medical Association
+              <span className="text-green-400">●</span>NHIS Accredited
             </div>
             <Link
               href="/privacy"

@@ -56,7 +56,7 @@ const Locations = () => {
             Our Locations
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-            With 51 hospitals across Nigeria, quality healthcare is always
+            With our hospital in Nigeria, quality healthcare is alway
             within reach
           </p>
         </MaxWidthWrapper>

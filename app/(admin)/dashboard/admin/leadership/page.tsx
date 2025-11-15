@@ -102,6 +102,7 @@ const LeadershipPage = () => {
 export default LeadershipPage;
 
 async function RenderLeaders() {
+  'use cache'
   const leaders = await getLeaders();
 
   if (!leaders.length) {

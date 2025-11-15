@@ -68,6 +68,7 @@ const AuthForm = ({ type }: AuthType) => {
 
         toast.success("Signed up successfully");
         setIsSubmitted(true);
+        form.reset();
       } else {
         // Sign-in
 
@@ -241,7 +242,7 @@ const AuthForm = ({ type }: AuthType) => {
                             placeholder="Create a strong password"
                             icon={Lock}
                           />
-                          <button
+                          <Button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-3 top-12 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
@@ -251,7 +252,7 @@ const AuthForm = ({ type }: AuthType) => {
                             ) : (
                               <Eye className="w-5 h-5" />
                             )}
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -310,7 +311,7 @@ const AuthForm = ({ type }: AuthType) => {
                 </FieldSet>
 
                 {/* Terms and Conditions */}
-                {type === "SignUp" && (
+                {/* {type === "SignUp" && (
                   <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
                     <div className="flex items-start space-x-3">
                       <input
@@ -336,7 +337,7 @@ const AuthForm = ({ type }: AuthType) => {
                       </label>
                     </div>
                   </div>
-                )}
+                )} */}
 
                 {/* Submit Button */}
                 <Button

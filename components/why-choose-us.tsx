@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config";
 import Count from "./count";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { CheckCircle } from "lucide-react";
@@ -23,8 +24,8 @@ const features = [
     description: "Round-the-clock emergency care when you need it most",
   },
   {
-    title: "Multiple Locations",
-    description: "Convenient access to quality healthcare across Nigeria",
+    title: "Single Locations",
+    description: "Convenient access to quality healthcare",
   },
   {
     title: "Insurance Partnerships",
@@ -39,7 +40,7 @@ const WhyChooseUs = () => {
         <div className="space-y-6">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Why Choose Michael Cross Specialist Hospital?
+              Why Choose {siteConfig.title}?
             </h2>
             <div className="w-20 h-1.5 bg-app-blue rounded-full" />
             <p className="text-xl text-gray-600 leading-relaxed">

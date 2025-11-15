@@ -1,9 +1,10 @@
+import { CurrentYear } from "@/components/current-year";
 import { siteConfig } from "@/config";
+import { Suspense } from "react";
 
 // app/privacy/page.tsx
 const PrivacyPage = () => {
-    const currentYear = new Date().getFullYear();
-    
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4 max-w-4xl">
@@ -228,9 +229,7 @@ const PrivacyPage = () => {
                 <h3 className="font-semibold text-gray-700 mb-2">
                   Privacy Officer
                 </h3>
-                <p className="text-gray-600">
-                  Email: {siteConfig.email}
-                </p>
+                <p className="text-gray-600">Email: {siteConfig.email}</p>
                 <p className="text-gray-600">Phone: {siteConfig.phone}</p>
               </div>
               <div>
@@ -240,9 +239,7 @@ const PrivacyPage = () => {
                 <p className="text-gray-600">
                   Michael Cross Specialists Hospital
                 </p>
-                <p className="text-gray-600">
-                  {siteConfig.location}
-                </p>
+                <p className="text-gray-600">{siteConfig.location}</p>
                 <p className="text-gray-600">Lagos, Nigeria</p>
               </div>
             </div>
@@ -265,9 +262,11 @@ const PrivacyPage = () => {
 
         {/* Footer Note */}
         <div className="text-center mt-8 pt-6 border-t border-gray-200">
-          <p className="text-gray-500 text-sm">
-            © {currentYear} Michael Cross Specialists Hospital. All rights reserved.
-          </p>
+          <Suspense>
+            <p className="text-gray-500 text-sm">
+              © <CurrentYear/> {siteConfig.title}. All rights reserved.
+            </p>
+          </Suspense>
           <p className="text-gray-400 text-xs mt-2">
             This privacy policy complies with the Nigerian Data Protection
             Regulation (NDPR) and international healthcare privacy standards.

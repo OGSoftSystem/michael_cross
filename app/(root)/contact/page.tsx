@@ -91,9 +91,9 @@ const ContactPage = () => {
                     Working Hours
                   </h3>
                   <p className="text-gray-600">
-                    Monday - Friday: 8:00 AM - 8:00 PM
+                    Monday - Sunday: 24hrs
                   </p>
-                  <p className="text-gray-600">Weekends: 9:00 AM - 5:00 PM</p>
+                  {/* <p className="text-gray-600">Weekends: 9:00 AM - 5:00 PM</p> */}
                 </div>
               </div>
             </div>

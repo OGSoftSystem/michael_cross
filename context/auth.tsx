@@ -21,6 +21,7 @@ type ProviderProps = {
 export const AuthContext = createContext<ProviderProps>({} as ProviderProps);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
+  
   const [user, setUser] = useState<UserType | null>(null);
 
   // Initialize state from localStorage only on client side
@@ -47,6 +48,10 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
+  if (typeof window === "undefined") {
+    return <div>Loading...</div>; // Fallback for SSR
+  }
+  
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

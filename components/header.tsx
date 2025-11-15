@@ -17,6 +17,7 @@ import { authClient } from "@/lib/auth-client";
 import { CusTooltip } from "./tooltip";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { useAuthContext, UserType } from "@/context/auth";
+import { siteConfig } from "@/config";
 
 const navLinks = [
   { title: "Home", path: "/" },
@@ -44,7 +45,7 @@ const Header = () => {
   const [showArrow, setShowArrow] = useState(false);
   const { user, setUser } = useAuthContext();
 
-  console.log("user", user);
+  // console.log("user", user);
 
   const handleScrollToTop = useCallback(() => {
     if (window.scrollY > 100) {
@@ -106,6 +107,16 @@ const Header = () => {
   //     }
   //   })();
   // }, []);
+  useEffect(() => {
+    (async function session() {
+      const acc = await authClient.listAccounts();
+
+      console.log("accounts", acc);
+      
+
+     
+    })();
+  }, []);
   return (
     <header
       className={cn(
@@ -122,7 +133,7 @@ const Header = () => {
             <Link href="/" className="shrink-0">
               <Image
                 src="/assets/images/logo.png"
-                alt="Michael Cross Specialists Hospital Logo"
+                alt="Michael Cross Specialist Hospital Logo"
                 width={100}
                 height={60}
                 className="w-auto h-8 lg:h-10 transition-all duration-300"
@@ -130,7 +141,7 @@ const Header = () => {
               />
             </Link>
             <h3 className="lg:block hidden text-app-blue font-semibold text-xl">
-              Michael Cross Specialists Hospital
+              {siteConfig.title}
             </h3>
           </div>
 

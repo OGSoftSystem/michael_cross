@@ -3,13 +3,13 @@ import Image from "next/image";
 
 const services = [
   {
-    title: "Emergency Care",
+    title: "Accident and Emergency Care",
     description: "24/7 emergency services with state-of-the-art trauma centers",
     icon: "🚑",
     image: "/assets/images/emer.jpg",
   },
   {
-    title: "Gynaecology",
+    title: "Obstetrics and Gynaecology",
     description:
       "Expert gynecological care including well-woman exams, minimally invasive surgery, and reproductive health.",
     icon: "👱‍♀️",
@@ -23,7 +23,7 @@ const services = [
     image: "/assets/images/ped.jpg", // Doctor examining child
   },
   {
-    title: "Infertility management",
+    title: "Fertility management",
     description:
       "Comprehensive fertility evaluations, advanced treatments like IVF, and personalized care plans.",
     icon: "🎗️",
@@ -38,15 +38,37 @@ const services = [
   },
   {
     title: "Dermatology",
-    description: "Specialists in dermatology.",
+    description:
+      "Experts in skin, hair, and nail health. Providing care and treatment for all dermatological needs.",
     icon: "✂️",
     image: "/assets/images/dem.jpg", // Surgical procedure
   },
   {
-    title: "Maternity Care",
-    description: "Comprehensive care for mothers and newborns",
+    title: "Imaging and Radiology",
+    description:
+      "Advanced imaging for accurate diagnosis. From X-rays to detailed scans for clear insights.",
+    icon: "✂️",
+    image: "/assets/images/xray.jpg", // Surgical procedure
+  },
+  {
+    title: "Reproductive and Sexual health",
+    description:
+      "Compassionate care for reproductive and sexual well-being. Supporting your health at every stage of life.",
+    icon: "✂️",
+    image: "/assets/images/sex.jpg", // Surgical procedure
+  },
+  // {
+  //   title: "Maternity Care",
+  //   description: "Comprehensive care for mothers and newborns",
+  //   icon: "🤰",
+  //   image: "/assets/images/mar.jpg", // Newborn baby care
+  // },
+  {
+    title: "Laboratory and Diagnostics",
+    description:
+      "Precise testing for accurate results. Your partner in diagnosis and health monitoring.",
     icon: "🤰",
-    image: "/assets/images/mar.jpg", // Newborn baby care
+    image: "/assets/images/lab.jpg", // Newborn baby care
   },
 ];
 

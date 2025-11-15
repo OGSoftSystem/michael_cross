@@ -1,34 +1,137 @@
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
 import { Shield, User, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { UserRoles } from "@/database/models/user.model";
+import Link from "next/link";
+
+const DashboardLanding = async () => {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) return;
+
+  const userRole = session.user.role;
+
+  console.log(userRole);
+
+  const roles = [
+    {
+      id: "admin",
+      title: "Admin",
+      description:
+        "Full system access with user management, analytics, and platform configuration capabilities.",
+      icon: Shield,
+      features: [
+        "User Management & Permissions",
+        "System Analytics & Reports",
+        "Platform Configuration",
+        "Billing & Subscription Management",
+        "Security & Audit Logs",
+      ],
+      path: "/dashboard/admin",
+      color: "app-blue",
+    },
+    {
+      id: "creator",
+      title: "Creator",
+      description:
+        "Create, manage, and analyze your content with powerful tools designed for content creators.",
+      icon: User,
+      features: [
+        "Content Creation & Management",
+        "Audience Analytics",
+        "Content Scheduling",
+        "Performance Insights",
+        "Collaboration Tools",
+      ],
+      path: "/dashboard/creator",
+      color: "purple-600",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-app-blue/5">
+      {/* Header */}
+      <MaxWidthWrapper className="paddingY">
+        <div className="text-center mb-16">
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 bg-app-blue rounded-2xl flex items-center justify-center shadow-lg">
+              <Sparkles className="w-10 h-10 text-white" />
+            </div>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Welcome to <span className="text-app-blue">Dashboard</span>
+          </h1>
+
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Choose your role to access the dedicated dashboard with tools and
+            features tailored to your needs.
+          </p>
+        </div>
+
+        {/* Role Selection Cards */}
+        <div
+          id="dashboard-cards"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto transition-all duration-300 bg-app-blue/5 p-6 rounded-2xl"
+        >
+          {userRole === UserRoles.CREATOR
+            ? roles.slice(1).map((role) => (
+                <div key={role.id}>
+                  <RoleCard
+                    title={role.title}
+                    description={role.description}
+                    icon={role.icon}
+                    features={role.features}
+                    path={role.path}
+                  />
+                </div>
+              ))
+            : roles.map((role) => (
+                <div key={role.id}>
+                  <RoleCard
+                    title={role.title}
+                    description={role.description}
+                    icon={role.icon}
+                    features={role.features}
+                    path={role.path}
+                  />
+                </div>
+              ))}
+        </div>
+      </MaxWidthWrapper>
+
+      {/* Background Decorative Elements */}
+      <div className="fixed top-0 left-0 w-72 h-72 bg-app-blue/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="fixed bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
+    </div>
+  );
+};
+
+export default DashboardLanding;
 
 const RoleCard = ({
   title,
   description,
   icon: Icon,
   features,
-  onClick,
-  isHovered,
+  path,
 }: {
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   features: string[];
-  onClick: () => void;
-  isHovered: boolean;
+  path: string;
 }) => {
   return (
-    <div
-      onClick={onClick}
+    <Link
+      href={path}
       className={cn(
-        "group relative bg-white rounded-3xl shadow-xl border-2 border-transparent",
+        "group relative bg-white rounded-3xl shadow-xl",
         "transition-all duration-500 cursor-pointer overflow-hidden",
-        "hover:shadow-2xl hover:scale-105 hover:border-app-blue/20",
+        "hover:shadow-2xl hover:scale-105 hover:bg-app-blue/20 hover:border-app-blue/20",
         "active:scale-95",
-        isHovered && "ring-4 ring-app-blue/20 shadow-2xl scale-105"
+        "hover:border-ring-4 border ring-app-blue/20 shadow-2xl scale-105"
       )}
     >
       {/* Background linear Effect */}
@@ -101,109 +204,6 @@ const RoleCard = ({
           "group-hover:w-full"
         )}
       />
-    </div>
+    </Link>
   );
 };
-
-const DashboardLanding = () => {
-  const router = useRouter();
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-
-  const roles = [
-    {
-      id: "admin",
-      title: "Admin",
-      description:
-        "Full system access with user management, analytics, and platform configuration capabilities.",
-      icon: Shield,
-      features: [
-        "User Management & Permissions",
-        "System Analytics & Reports",
-        "Platform Configuration",
-        "Billing & Subscription Management",
-        "Security & Audit Logs",
-      ],
-      path: "/dashboard/admin",
-      color: "app-blue",
-    },
-    {
-      id: "creator",
-      title: "Creator",
-      description:
-        "Create, manage, and analyze your content with powerful tools designed for content creators.",
-      icon: User,
-      features: [
-        "Content Creation & Management",
-        "Audience Analytics",
-        "Content Scheduling",
-        "Performance Insights",
-        "Collaboration Tools",
-      ],
-      path: "/dashboard/creator",
-      color: "purple-600",
-    },
-  ];
-
-  const handleRoleSelect = (path: string) => {
-    // Add a smooth transition before navigation
-    const element = document.getElementById("dashboard-cards");
-    element?.classList.add("scale-95", "opacity-0");
-
-    setTimeout(() => {
-      router.push(path);
-    }, 300);
-  };
-
-  return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-app-blue/5">
-      {/* Header */}
-      <MaxWidthWrapper className="paddingY">
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-app-blue rounded-2xl flex items-center justify-center shadow-lg">
-              <Sparkles className="w-10 h-10 text-white" />
-            </div>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Welcome to <span className="text-app-blue">Dashboard</span>
-          </h1>
-
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Choose your role to access the dedicated dashboard with tools and
-            features tailored to your needs.
-          </p>
-        </div>
-
-        {/* Role Selection Cards */}
-        <div
-          id="dashboard-cards"
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto transition-all duration-300"
-        >
-          {roles.map((role) => (
-            <div
-              key={role.id}
-              onMouseEnter={() => setHoveredCard(role.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <RoleCard
-                title={role.title}
-                description={role.description}
-                icon={role.icon}
-                features={role.features}
-                onClick={() => handleRoleSelect(role.path)}
-                isHovered={hoveredCard === role.id}
-              />
-            </div>
-          ))}
-        </div>
-      </MaxWidthWrapper>
-
-      {/* Background Decorative Elements */}
-      <div className="fixed top-0 left-0 w-72 h-72 bg-app-blue/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="fixed bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
-    </div>
-  );
-};
-
-export default DashboardLanding;

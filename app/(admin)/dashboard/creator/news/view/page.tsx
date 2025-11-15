@@ -14,7 +14,7 @@ const ViewPage = async () => {
   const data: NewsType[] = await getNews();
 
   if (!data.length) {
-    return <NoNews />;
+    return <NoNews text="No item to show." />;
   }
   return <ViewNews data={data} />;
 };

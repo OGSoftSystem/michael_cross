@@ -69,3 +69,37 @@ export async function getLeaders() {
     return [];
   }
 }
+
+export async function getEmails() {
+  try {
+    const res = await fetch(`${baseUrl}/api/emails`);
+
+    if (!res.ok) {
+      return [];
+    }
+    const data = await res.json();
+
+    return data ?? [];
+  } catch (error) {
+    console.log(error);
+
+    return [];
+  }
+}
+
+export async function getUsers() {
+  try {
+    const res = await fetch(`${baseUrl}/api/users`);
+
+    if (!res.ok) {
+      return { users: [] };
+    }
+    const data = await res.json();
+
+    return data ?? [];
+  } catch (error) {
+    console.log(error);
+
+    return { users: [] };
+  }
+}

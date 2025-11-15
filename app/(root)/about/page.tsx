@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 import { CheckCircle, Users, Award, Heart, Shield, Star } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
+import { siteConfig } from "@/config";
 
 export const metadata: Metadata = {
-  title: "About Michael Cross Sepecialists Hospital",
+  title: `About ${siteConfig.title}`,
 };
 
 const AboutPage = () => {
@@ -27,7 +28,7 @@ const AboutPage = () => {
           <div className="text-white space-y-6 max-w-4xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               About Michael Cross
-              <span className="text-app-blue block">specialists Hospital</span>
+              <span className="text-app-blue block">specialist Hospital</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
               For over two decades, we&apos;ve been transforming healthcare
@@ -230,22 +231,46 @@ const AboutPage = () => {
               </h2>
               <div className="w-24 h-1.5 bg-app-blue rounded-full" />
               <p className="text-lg text-gray-700 leading-relaxed">
-                Founded in 1999 by Dr. Michael Cross, our hospital began as a
-                single facility with a simple mission: to provide exceptional
-                healthcare that transforms lives.
+                Michael Cross Specialist Hosptial, is a modern specialist
+                hospital located in Karu site, Abuja, Nigeria with the aim to
+                provide patients and families with high standard, excellent and
+                affordable healthcare services within and outside Abuja
+                environs.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Today, we&apos;ve grown into Nigeria&apos;s fifth largest health
-                system, but our core commitment remains unchanged. Every
-                decision we make, every technology we adopt, and every
-                professional we hire is guided by our founding principle:
-                patient care comes first.
+                As a professionally diversified specialist hospital, we render a
+                bouquet of services that offer you value for money.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Through the Michael Cross specialists Foundation, we extend our
-                mission beyond our hospital walls, supporting community health
-                initiatives and making quality care accessible to all.
-              </p>
+              <div>
+                <h2 className="text-lg md:text-xl font-bold text-gray-900">
+                  MISSION
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  To provide competent, innovative and accesible healthcare to
+                  international standards, preserving quality of life through
+                  prompt response and affordable high quality healthcare and
+                  providing effective healthcare service with total
+                  professionalism.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-lg md:text-xl font-bold text-gray-900">
+                  VISSION
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  To be the prferred and leading provider of human-centered
+                  technology-enabled medical care and services in the region,
+                  and setting a new standard for hospital care.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-lg md:text-xl font-bold text-gray-900">
+                  MOTTO
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Accessible, quality, efficient and timely healthcare.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -317,8 +342,7 @@ const AboutPage = () => {
             <span className="text-app-blue"> Exceptional Care?</span>
           </h2>
           <p className="text-xl text-gray-600">
-            Join the millions of patients who trust Michael Cross specialists
-            Hospital with their health and wellbeing.
+            Join the millions of patients who trust {siteConfig.title} with their health and wellbeing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link
@@ -349,7 +373,7 @@ const AboutPage = () => {
                 })
               )}
             >
-              Find a Location
+              Find our Location
             </Link>
           </div>
         </div>

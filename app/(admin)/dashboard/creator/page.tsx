@@ -1,3 +1,4 @@
+import HeaderBanner from "@/components/header-banner";
 import { UserRoles } from "@/database/models/user.model";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -8,7 +9,10 @@ const CreatorPage = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
 
   const canAcess = [UserRoles.ADMIN, UserRoles.CREATOR];
-  if (!session || !canAcess.some((u: string) => u.includes(session.user.role))) {
+  if (
+    !session ||
+    !canAcess.some((u: string) => u.includes(session.user.role))
+  ) {
     redirect("/");
   }
 
@@ -17,12 +21,12 @@ const CreatorPage = async () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            Welcome to Creator&apos;s Page
-          </h1>
-          <p className="text-gray-600">
-            Manage and create news content for your audience
-          </p>
+          <section className="bg-gray-200 py-20">
+            <HeaderBanner
+              title="Welcome to Creator's Page"
+              description="Manage and create news content for your audience"
+            />
+          </section>
         </div>
 
         {/* Main Content Grid */}

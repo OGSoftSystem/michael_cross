@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+*,
+html {
+  scroll-behavior: smooth;
+}
 @theme inline {
   --color-app-blue: #0b08b2;
   --color-app-vio: #b7067e;
@@ -25,6 +29,9 @@
   }
   .page-description {
     @apply text-xl text-gray-600 max-w-2xl mx-auto;
+  }
+  .tb-header{
+    @apply font-bold
   }
 }
 

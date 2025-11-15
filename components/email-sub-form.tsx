@@ -20,8 +20,6 @@ const EmailSubscriptionForm = () => {
   const isSubmitting = form.formState.isSubmitting;
 
   async function onSubmit(data: EmailFormDataType) {
-    console.log("data", data);
-
     try {
       const res = await subcribeToNewsLetter(data);
       if (res?.error) {

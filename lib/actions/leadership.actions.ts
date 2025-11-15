@@ -88,26 +88,8 @@ export async function deleteLeader(id: string) {
   }
 }
 
-export async function getLeaders() {
-  // Simulate database fetch
-  await connectToDatabase();
-
-  const leaders = await Leadership.find();
-
-  return JSON.parse(JSON.stringify(leaders));
-}
-
-export async function getLeader(slug: string) {
-  await connectToDatabase();
-
-  const leader = await Leadership.findOne({ slug });
-
-  return JSON.parse(JSON.stringify(leader));
-}
-
 export async function muteLeader(name: string, isMuted: boolean) {
-  
-    try {
+  try {
     await connectToDatabase();
 
     await Leadership.updateOne(

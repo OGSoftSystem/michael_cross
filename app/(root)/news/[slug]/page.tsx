@@ -18,6 +18,7 @@ import { getNews } from "@/lib/DAL";
 import { cloudinaryImageUrl } from "@/env";
 import { NewsType } from "@/types";
 import { cleanText } from "@/lib/utils";
+import { Suspense } from "react";
 
 // Blog post data as an array
 // const blogPosts = [
@@ -196,178 +197,182 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Article Header */}
-      <article className="relative">
-        {/* Back Button */}
-        <MaxWidthWrapper className="relative z-10 pt-8">
-          <Link href="/blog">
-            <Button
-              variant="ghost"
-              className="text-white hover:text-white hover:bg-white/20 mb-8"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
-            </Button>
-          </Link>
-        </MaxWidthWrapper>
+    <Suspense fallback={<p>Loading...</p>}>
+      <div className="min-h-screen bg-white">
+        {/* Article Header */}
+        <article className="relative">
+          {/* Back Button */}
+          <MaxWidthWrapper className="relative z-10 pt-8">
+            <Link href="/blog">
+              <Button
+                variant="ghost"
+                className="text-white hover:text-white hover:bg-white/20 mb-8"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Blog
+              </Button>
+            </Link>
+          </MaxWidthWrapper>
 
-        {/* Featured Image */}
-        <div className="relative h-96 md:h-[500px]">
-          <Image
-            src={`${cloudinaryImageUrl}${post.image}`}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-
-        {/* Article Content */}
-        <MaxWidthWrapper className="relative -mt-20 z-10">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 max-w-4xl mx-auto">
-            {/* Category Badge */}
-            <div className="inline-block bg-app-blue text-white px-4 py-2 rounded-full text-sm font-semibold mb-6">
-              {post.category}
-            </div>
-
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              {post.title}
-            </h1>
-
-            {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8 pb-8 border-b border-gray-200">
-              <div className="flex items-center space-x-2">
-                <User className="w-5 h-5" />
-                <span>{post.author}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Calendar className="w-5 h-5" />
-                <span>{new Date(post.date).toLocaleDateString()}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="w-5 h-5" />
-                <span>{post.readTime}</span>
-              </div>
-            </div>
-
-            {/* Author Bio */}
-            <div className="flex items-center space-x-4 mb-8 p-6 bg-gray-50 rounded-2xl">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden">
-                <Image
-                  src={post.authorImage ?? `/assets/images/mc-logo.jpeg`}
-                  alt={post.author}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900">{post.author}</h3>
-                <p className="text-gray-600 text-sm">
-                  {post.authorRole ?? "Hospital Team"}
-                </p>
-                <p className="text-gray-500 text-sm">
-                  Michael Cross Specialist Hospital
-                </p>
-              </div>
-            </div>
-
-            {/* Article Content */}
-            <div
-              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-blockquote:border-app-blue prose-blockquote:bg-blue-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-xl"
-              // dangerouslySetInnerHTML={{ __html: post.content }}
-            >
-              {cleanText(post.content)}
-            </div>
-
-            {/* Share Section */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center space-x-2">
-                  <Share className="w-5 h-5 text-gray-600" />
-                  <span className="font-semibold text-gray-900">
-                    Share this article:
-                  </span>
-                </div>
-                <div className="flex space-x-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center space-x-2"
-                  >
-                    <Facebook className="w-4 h-4" />
-                    <span>Facebook</span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center space-x-2"
-                  >
-                    <Twitter className="w-4 h-4" />
-                    <span>Twitter</span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center space-x-2"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    <span>LinkedIn</span>
-                  </Button>
-                </div>
-              </div>
-            </div>
+          {/* Featured Image */}
+          <div className="relative h-96 md:h-[500px]">
+            <Image
+              src={`${cloudinaryImageUrl}${post.image}`}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/40" />
           </div>
-        </MaxWidthWrapper>
-      </article>
 
-      {/* Related Articles */}
-      <MaxWidthWrapper className="paddingY">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">Related Articles</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore more health insights and medical updates from our
-            specialists
-          </p>
-        </div>
+          {/* Article Content */}
+          <MaxWidthWrapper className="relative -mt-20 z-10">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 max-w-4xl mx-auto">
+              {/* Category Badge */}
+              <div className="inline-block bg-app-blue text-white px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                {post.category}
+              </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {blogPosts
-            .filter((relatedPost: NewsType) => relatedPost.slug !== slug)
-            .slice(0, 3)
-            .map((relatedPost: NewsType) => (
-              <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group overflow-hidden cursor-pointer">
-                  <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={relatedPost.image}
-                      alt={relatedPost.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
+              {/* Title */}
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                {post.title}
+              </h1>
+
+              {/* Meta Information */}
+              <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8 pb-8 border-b border-gray-200">
+                <div className="flex items-center space-x-2">
+                  <User className="w-5 h-5" />
+                  <span>{post.author}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Calendar className="w-5 h-5" />
+                  <span>{new Date(post.date).toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock className="w-5 h-5" />
+                  <span>{post.readTime}</span>
+                </div>
+              </div>
+
+              {/* Author Bio */}
+              <div className="flex items-center space-x-4 mb-8 p-6 bg-gray-50 rounded-2xl">
+                <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                  <Image
+                    src={post.authorImage ?? `/assets/images/mc-logo.jpeg`}
+                    alt={post.author}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">{post.author}</h3>
+                  <p className="text-gray-600 text-sm">
+                    {post.authorRole ?? "Hospital Team"}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    Michael Cross Specialist Hospital
+                  </p>
+                </div>
+              </div>
+
+              {/* Article Content */}
+              <div
+                className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-blockquote:border-app-blue prose-blockquote:bg-blue-50 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-xl"
+                // dangerouslySetInnerHTML={{ __html: post.content }}
+              >
+                {cleanText(post.content)}
+              </div>
+
+              {/* Share Section */}
+              <div className="mt-12 pt-8 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Share className="w-5 h-5 text-gray-600" />
+                    <span className="font-semibold text-gray-900">
+                      Share this article:
+                    </span>
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-app-blue transition-colors mb-2">
-                      {relatedPost.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-4">
-                      {relatedPost.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span>
-                        {new Date(relatedPost.date).toLocaleDateString()}
-                      </span>
-                      <span>{relatedPost.readTime}</span>
+                  <div className="flex space-x-3">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center space-x-2"
+                    >
+                      <Facebook className="w-4 h-4" />
+                      <span>Facebook</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center space-x-2"
+                    >
+                      <Twitter className="w-4 h-4" />
+                      <span>Twitter</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center space-x-2"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                      <span>LinkedIn</span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </MaxWidthWrapper>
+        </article>
+
+        {/* Related Articles */}
+        <MaxWidthWrapper className="paddingY">
+          <div className="text-center space-y-4 mb-12">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Related Articles
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Explore more health insights and medical updates from our
+              specialists
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogPosts
+              .filter((relatedPost: NewsType) => relatedPost.slug !== slug)
+              .slice(0, 3)
+              .map((relatedPost: NewsType) => (
+                <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
+                  <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group overflow-hidden cursor-pointer">
+                    <div className="relative h-40 overflow-hidden">
+                      <Image
+                        src={relatedPost.image}
+                        alt={relatedPost.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-app-blue transition-colors mb-2">
+                        {relatedPost.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm line-clamp-2 mb-4">
+                        {relatedPost.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between text-sm text-gray-500">
+                        <span>
+                          {new Date(relatedPost.date).toLocaleDateString()}
+                        </span>
+                        <span>{relatedPost.readTime}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-        </div>
-      </MaxWidthWrapper>
-    </div>
+                </Link>
+              ))}
+          </div>
+        </MaxWidthWrapper>
+      </div>
+    </Suspense>
   );
 }
 

@@ -13,6 +13,12 @@ client.connect().catch((err) => err);
 export const auth = betterAuth({
   database: mongodbAdapter(db),
   user: {
+    deleteUser: {
+      enabled: true,
+    },
+
+    changeEmail: { enabled: true },
+
     additionalFields: {
       role: {
         type: "string",
@@ -35,5 +41,3 @@ export const auth = betterAuth({
 
   plugins: [nextCookies()],
 });
-
-

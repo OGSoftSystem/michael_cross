@@ -9,5 +9,5 @@ export const siteConfig = {
     // "Site, Plot F9 church road,Karu, Old Karu, Abuja, Federal Capital Territory",
   description: "Healing hearts, restoring hope",
   shortDesc: "Healing hearts, restoring hope",
-  title: "Michael Cross Specialists Hospital",
+  title: "Michael Cross Specialist Hospital",
 };

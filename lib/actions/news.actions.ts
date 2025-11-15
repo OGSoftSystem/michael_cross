@@ -75,26 +75,9 @@ export async function deleteBlogPost(id: string) {
   }
 }
 
-export async function getBlogPosts() {
-  // Simulate database fetch
-  await connectToDatabase();
-
-  const news = await News.find();
-
-  return JSON.parse(JSON.stringify(news));
-}
-
-export async function getNewsPost(slug: string) {
-  await connectToDatabase();
-
-  const news = await News.findOne({ slug });
-
-  return JSON.parse(JSON.stringify(news));
-}
-
 export async function publishNews(slug: string, isPublished: boolean) {
   console.log(slug, isPublished);
-  
+
   try {
     await connectToDatabase();
 
