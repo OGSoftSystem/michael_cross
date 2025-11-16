@@ -32,9 +32,8 @@ export async function createLeader(data: LeadershipFormDataType) {
     });
 
     if (newLeader) {
-      console.log(newLeader);
-
       revalidatePath("/dashboard/admin/leadership");
+      revalidatePath("/leadership");
     }
   } catch (error) {
     console.error("Leadership creation error:", error);

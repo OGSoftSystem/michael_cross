@@ -6,7 +6,7 @@ export const siteConfig = {
   phone: "(234) 802 637 8305",
   location: "Site, Plot F9 church road, Old Karu, Abuja",
   // "Site, Plot F9 church road,Karu, Old Karu, Abuja, Federal Capital Territory",
-  description: "Healing hearts, restoring hope",
+  description: ` Michael Cross Specialists Hospital is a premier healthcare destination in the heart of Abuja, setting a new standard for specialist medical care in Nigeria.`,
   shortDesc: "Healing hearts, restoring hope",
   title: "Michael Cross Specialist Hospital",
   keywords: [
@@ -17,6 +17,6 @@ export const siteConfig = {
     "Emergency care",
     "Accident",
     "Fertility",
-    "Wellness"
+    "Wellness",
   ],
 };

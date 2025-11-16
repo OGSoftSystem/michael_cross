@@ -119,10 +119,11 @@ async function RenderLeaders() {
 
   const leaders = await getLeaders();
 
-  const unMuted = leaders.filter((l: { isMuted: boolean }) => !l.isMuted);
+  const allMuted =
+    leaders.length > 0 && leaders.every((l: { isMuted: boolean }) => l.isMuted);
 
-  if (leaders.length === 0 || unMuted.length === 0) {
-    <NoNews text="Sorry, team will be popuplated soon" />;
+  if (leaders.length === 0 || allMuted) {
+    return <NoNews text="Sorry, team will be populated soon" />;
   }
 
   return leaders

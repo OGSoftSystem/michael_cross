@@ -76,7 +76,7 @@ const footerSections = [
 const socialLinks = [
   {
     name: "Facebook",
-    href: "https://facebook.com",
+    href: "https://www.facebook.com/p/Michael-Cross-Specialist-Hospital-ltd-61568523760799/",
     icon: Facebook,
     color: "hover:text-blue-600",
   },
@@ -88,7 +88,7 @@ const socialLinks = [
   },
   {
     name: "Instagram",
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/p/DB8gdybIRaz/",
     icon: Instagram,
     color: "hover:text-pink-600",
   },

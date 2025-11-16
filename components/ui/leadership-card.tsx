@@ -7,7 +7,6 @@ import { LeadershipCardType } from "@/types";
 import {
   Award,
   Edit,
-  Loader,
   Mail,
   Pause,
   Phone,
@@ -17,6 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useTransition } from "react";
+import Load from "../loader";
 
 const LeadershipCard = ({
   leader,
@@ -84,9 +84,9 @@ const LeadershipCard = ({
           <h4 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">
             About
           </h4>
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <div className="text-gray-600 text-sm leading-relaxed">
             {cleanText(leader.about)}
-          </p>
+          </div>
         </div>
 
         {/* Contact Information */}
@@ -114,25 +114,29 @@ const LeadershipCard = ({
                 }
               >
                 {leader.isMuted ? (
-                  <Pause className="size-4 " />
+                  <Play className="size-5 " />
                 ) : (
-                  <Play className="size-4 cursor-pointer hover:text-app-blue" />
+                  <Pause className="size-5 cursor-pointer hover:text-app-blue" />
                 )}
               </div>
 
               <Trash
-                className="size-4 cursor-pointer text-red-500 hover:text-app-blue"
+                className="size-5 cursor-pointer text-red-500 hover:text-app-blue"
                 onClick={() =>
                   startTransition(async () => {
                     await deleteLeader(leader.name);
                   })
                 }
               />
+
+              {isDasboardMode && (
+                <div className="p-2 size-fit rounded-full bg-app-blue text-white">
+                  {leader.isMuted ? "Muted" : "Unmuted"}
+                </div>
+              )}
             </div>
           )}
-          {isPending && (
-            <Loader className="animate-spin size-10 text-app-blue" />
-          )}
+          {isPending && <Load />}
         </div>
       </div>
     </div>
