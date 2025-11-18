@@ -6,7 +6,7 @@ export async function GET() {
   try {
     await connectToDatabase();
 
-    const news = await Email.find();
+    const news = await Email.find().select('-_id email');
 
     if (!news) {
       return NextResponse.json({ success: false, message: "No email found" });

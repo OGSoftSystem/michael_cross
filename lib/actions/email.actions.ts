@@ -29,7 +29,7 @@ export async function subcribeToNewsLetter(data: EmailFormDataType) {
 
     if (newEmail) {
       revalidatePath("/dashboard/admin/users");
-      console.log(newEmail);
+      revalidatePath("/dashboard");
     }
   } catch (error) {
     console.log(error);
@@ -56,6 +56,7 @@ export async function updateEmail(email: string) {
       console.log(mail);
 
       revalidatePath("/dashboard/admin/users");
+      revalidatePath("/dashboard");
     }
 
     return { success: true };
@@ -71,7 +72,10 @@ export async function deleteEmail(email: string) {
 
     const news = await Email.findOneAndDelete({ email });
 
-    if (news) revalidatePath("/dashboard/admin/news-letters");
+    if (news) {
+      revalidatePath("/dashboard/admin/news-letters");
+      revalidatePath("/dashboard");
+    }
 
     return { success: true };
   } catch (error) {

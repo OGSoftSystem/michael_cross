@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/data-table";
-import { emailColumn } from "@/components/email-newsletter-columns";
+import { emailColumn, EmailType } from "@/components/email-newsletter-columns";
 import HeaderBanner from "@/components/header-banner";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import NoNews from "@/components/no-news";
@@ -26,9 +26,13 @@ export default UsersPage;
 
 async function FetchEmails() {
   "use cache";
-  const emails = await getEmails();
 
-  if (!emails.length) {
+  const data = (await getEmails()) as {
+    emails: EmailType[];
+    emailsLength: number;
+  };
+
+  if (data.emailsLength === 0) {
     return <NoNews text="No subscribed email available." />;
   }
 
@@ -36,7 +40,7 @@ async function FetchEmails() {
     <div>
       <DataTable
         columns={emailColumn}
-        data={emails}
+        data={data.emails}
         isSortable
         hasPages
         filterParam="email"

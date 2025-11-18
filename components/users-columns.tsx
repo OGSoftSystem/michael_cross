@@ -8,7 +8,7 @@ import { deleteUser, updateUserRole } from "@/lib/actions/users.action";
 import { cn } from "@/lib/utils";
 import Load from "./loader";
 
-type UserType = {
+export type UserType = {
   userId: string;
   name: string;
   email: string;

@@ -2,7 +2,7 @@ import { DataTable } from "@/components/data-table";
 import HeaderBanner from "@/components/header-banner";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import NoNews from "@/components/no-news";
-import { usersColumn } from "@/components/users-columns";
+import { usersColumn, UserType } from "@/components/users-columns";
 import { getUsers } from "@/lib/DAL";
 import { Suspense } from "react";
 
@@ -27,11 +27,13 @@ export default UsersPage;
 
 async function FetchUsers() {
   "use cache";
-  
 
-  const data = await getUsers();
+  const data = (await getUsers()) as {
+    users: UserType[];
+    usersLength: number;
+  };
 
-  if (data.users === 0) {
+  if (!data || data.usersLength === 0) {
     return <NoNews text="No subscribed email available." />;
   }
 

@@ -79,7 +79,12 @@ export async function getEmails() {
     }
     const data = await res.json();
 
-    return data ?? [];
+    return data
+      ? {
+          emails: data,
+          emailsLength: data.length,
+        }
+      : [];
   } catch (error) {
     console.log(error);
 
@@ -96,7 +101,12 @@ export async function getUsers() {
     }
     const data = await res.json();
 
-    return data ?? [];
+    return data
+      ? {
+          users: data.users,
+          usersLength: data.users.length,
+        }
+      : [];
   } catch (error) {
     console.log(error);
 

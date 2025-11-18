@@ -8,7 +8,7 @@ import { CellContext, ColumnDef } from "@tanstack/react-table";
 import Load from "./loader";
 import { deleteEmail } from "@/lib/actions/email.actions";
 
-type EmailType = {
+export type EmailType = {
   email: string;
 };
 export const emailColumn: ColumnDef<EmailType>[] = [

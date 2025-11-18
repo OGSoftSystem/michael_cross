@@ -31,6 +31,7 @@ export async function signUp(data: SignUpFormDataType) {
 
     if (result) {
       revalidatePath("/dashboard/users");
+      revalidatePath("/dashboard");
     }
 
     return { success: true, user: result.user };
