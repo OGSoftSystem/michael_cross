@@ -73,11 +73,11 @@ export async function updateLeader(name: string, data: LeadershipFormDataType) {
   }
 }
 
-export async function deleteLeader(id: string) {
+export async function deleteLeader(name: string) {
   try {
     await connectToDatabase();
 
-    const leader = await Leadership.findOneAndDelete({ _id: id });
+    const leader = await Leadership.findOneAndDelete({ name });
 
     if (leader) {
       revalidatePath("/dashboard/admin/leadership");

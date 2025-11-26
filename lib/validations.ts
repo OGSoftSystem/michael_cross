@@ -149,9 +149,9 @@ export const leadershipSchema = z.object({
     .max(300, "Position must be less than 300 characters"),
 
   qualifications: z
-    .string()
-    .min(1, "Qualification is required")
-    .min(10, "Qualification must be at least 10 characters"),
+    .string().describe('qualifications'),
+    // .min(1, "Qualification is required")
+    // .min(10, "Qualification must be at least 10 characters"),
   department: z.string().describe("department"),
   // .min(1, "Department is required")
   // .min(10, "Department must be at least 10 characters"),

@@ -174,21 +174,21 @@ const LeadershipForm = ({ type, leader }: FormType) => {
                   control={form.control}
                   label="Postion"
                   placeholder="position"
-                  isRequired
+                  isRequired={false}
                 />
                 <CustomInput
                   name="department"
                   control={form.control}
                   label="Department"
                   placeholder="Enter your department"
-                  isRequired
+                  isRequired={false}
                 />
                 <CustomInput
                   name="qualifications"
                   control={form.control}
                   label="Qualifications"
                   placeholder="e.g MD, UI Medical School-MBA, RUST School of Business. seperate with -"
-                  isRequired
+                  isRequired={false}
                 />
 
                 <div>
@@ -197,7 +197,6 @@ const LeadershipForm = ({ type, leader }: FormType) => {
                     control={form.control}
                     label="About"
                     isRequired
-                    
                   />
                 </div>
 
@@ -205,7 +204,7 @@ const LeadershipForm = ({ type, leader }: FormType) => {
                   name="experience"
                   control={form.control}
                   label="Experience"
-                  isRequired
+                  isRequired={false}
                   placeholder="Enter your experience"
                 />
                 <CustomInput

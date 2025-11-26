@@ -53,8 +53,8 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   if (typeof window === "undefined") {
     return (
       <MaxWidthWrapper className="min-h-screen flex flex-col space-y-4 items-center justify-center">
-        <h2 className="text-bold">{siteConfig.title}</h2>
         <Load />
+        <h2 className="text-bold">{siteConfig.title}</h2>
       </MaxWidthWrapper>
     ); // Fallback for SSR
   }

@@ -1,8 +1,10 @@
 import { DataTable } from "@/components/data-table";
 import HeaderBanner from "@/components/header-banner";
+import Load from "@/components/loader";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import NoNews from "@/components/no-news";
 import { usersColumn, UserType } from "@/components/users-columns";
+import { siteConfig } from "@/config";
 import { getUsers } from "@/lib/DAL";
 import { Suspense } from "react";
 
@@ -16,7 +18,14 @@ const UsersPage = () => {
         />
       </section>
 
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense
+        fallback={
+          <div>
+            <Load />
+            <p>{siteConfig.title}</p>
+          </div>
+        }
+      >
         <FetchUsers />
       </Suspense>
     </MaxWidthWrapper>

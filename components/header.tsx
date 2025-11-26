@@ -15,7 +15,7 @@ import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { CusTooltip } from "./tooltip";
-import { LayoutDashboard, LogOut } from "lucide-react";
+import { ArrowBigUp, LayoutDashboard, LogOut } from "lucide-react";
 import { useAuthContext, UserType } from "@/context/auth";
 import { siteConfig } from "@/config";
 
@@ -29,15 +29,6 @@ const navLinks = [
   { title: "Contact", path: "/contact" },
 ];
 
-// type AuthType = {
-//   id: string;
-//   email: string;
-//   emailVerified: boolean;
-//   name: string;
-//   image?: string | null | undefined;
-//   role: string;
-// };
-
 const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -45,232 +36,207 @@ const Header = () => {
   const [showArrow, setShowArrow] = useState(false);
   const { user, setUser } = useAuthContext();
 
-  // console.log("user", user);
+  // Combined scroll handler for both effects
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
 
-  const handleScrollToTop = useCallback(() => {
-    if (window.scrollY > 100) {
-      setShowArrow(true);
-    } else {
-      setShowArrow(false);
-    }
-  }, [setShowArrow]);
+    // Update header background
+    setIsScrolled(scrollY > 50);
 
-  console.log("showArrow", showArrow);
+    // Update arrow visibility
+    setShowArrow(scrollY > 50);
+  }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScrollToTop);
-
-    return () => {
-      window.removeEventListener("scroll", handleScrollToTop);
-    };
-  }, [handleScrollToTop]);
-
-  // Close mobile menu when route changes - Fixed useEffect
-  useEffect(() => {
-    const handleRouteChange = () => {
-      setIsOpen(false);
-    };
-
-    handleRouteChange();
-  }, [pathname]);
-
-  // Add scroll effect - Fixed with proper cleanup
   useEffect(() => {
     let ticking = false;
 
-    const handleScroll = () => {
+    const throttledScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
+          handleScroll();
           ticking = false;
         });
         ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", throttledScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", throttledScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
-  // useEffect(() => {
-  //   (async function session() {
-  //     const session = await authClient.getSession();
-
-  //     if (session.data?.user) {
-  //       setUser({
-  //         ...session.data.user,
-  //         role: "user",
-  //       });
-  //     }
-  //   })();
-  // }, []);
+  // Close mobile menu when route changes
   useEffect(() => {
-    (async function session() {
-      const acc = await authClient.listAccounts();
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+    }, 0);
 
-      console.log("accounts", acc);
-      
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
-     
-    })();
-  }, []);
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
-          : "bg-white"
-      )}
-    >
-      <MaxWidthWrapper>
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <div className="inline-flex space-x-2 items-center">
-            <Link href="/" className="shrink-0">
-              <Image
-                src="/assets/images/logo.png"
-                alt="Michael Cross Specialist Hospital Logo"
-                width={100}
-                height={60}
-                className="w-auto h-8 lg:h-10 transition-all duration-300"
-                priority
-              />
-            </Link>
-            <h3 className="lg:block hidden text-app-blue font-semibold text-xl">
-              {siteConfig.title}
-            </h3>
-          </div>
+    <div className="h-full relative">
+      <header
+        className={cn(
+          "fixed top-0 z-50 w-full transition-all duration-300",
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
+            : "bg-white"
+        )}
+      >
+        <MaxWidthWrapper>
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            {/* Logo */}
+            <div className="inline-flex space-x-2 items-center">
+              <Link href="/" className="shrink-0">
+                <Image
+                  src="/assets/images/logo.png"
+                  alt="Michael Cross Specialist Hospital Logo"
+                  width={100}
+                  height={60}
+                  className="w-auto h-8 lg:h-10 transition-all duration-300"
+                  priority
+                />
+              </Link>
+              <h3 className="lg:block hidden text-app-blue font-semibold text-xl">
+                {siteConfig.title}
+              </h3>
+            </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {navLinks.slice(1).map((link) => {
-              const isActive =
-                pathname === link.path || pathname.startsWith(link.path + "/");
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-1">
+              {navLinks.slice(1).map((link) => {
+                const isActive =
+                  pathname === link.path ||
+                  pathname.startsWith(link.path + "/");
 
-              return (
-                <Link
-                  key={link.title}
-                  href={link.path}
-                  className={cn(
-                    "px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg",
-                    "hover:text-app-vio hover:bg-gray-50",
-                    isActive
-                      ? "text-app-blue bg-blue-50 font-semibold"
-                      : "text-gray-700"
-                  )}
-                >
-                  {link.title}
-                </Link>
-              );
-            })}
-          </nav>
+                return (
+                  <Link
+                    key={link.title}
+                    href={link.path}
+                    className={cn(
+                      "px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg",
+                      "hover:text-app-vio hover:bg-gray-50",
+                      isActive
+                        ? "text-app-blue bg-blue-50 font-semibold"
+                        : "text-gray-700"
+                    )}
+                  >
+                    {link.title}
+                  </Link>
+                );
+              })}
+            </nav>
 
-          {/* CTA Button - Desktop */}
-          <div className="hidden lg:inline-flex lg:space-x-4 lg:items-center shrink-0 ">
-            <Link
-              href="/appointment"
-              className="bg-app-blue text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-app-blue/90 transition-all duration-200 hover:shadow-lg hidden md:block"
-            >
-              Book Appointment
-            </Link>
-
-            <UserIcon
-              className="md:block"
-              user={user as UserType}
-              setUser={setUser}
-            />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-3 md:hidden">
-            <UserIcon
-              className="md:hidden"
-              user={user as UserType}
-              setUser={setUser}
-            />
-
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden flex flex-col items-center justify-center w-10 h-10 space-y-1.5 focus:outline-none"
-              aria-label="Toggle menu"
-              aria-expanded={isOpen}
-            >
-              <span
-                className={cn(
-                  "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
-                  isOpen && "rotate-45 translate-y-2"
-                )}
-              />
-              <span
-                className={cn(
-                  "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
-                  isOpen && "opacity-0"
-                )}
-              />
-              <span
-                className={cn(
-                  "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
-                  isOpen && "-rotate-45 -translate-y-2"
-                )}
-              />
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div
-          className={cn(
-            "lg:hidden absolute left-0 right-0 bg-app-blue/95 backdrop-blur-md border-t border-gray-200 shadow-lg transition-all duration-300 overflow-hidden",
-            isOpen ? "h-screen opacity-100" : "max-h-0 opacity-0"
-          )}
-          aria-hidden={!isOpen}
-        >
-          <nav className="py-4 space-y-1">
-            {navLinks.map((link) => {
-              const isActive =
-                pathname === link.path || pathname.startsWith(link.path + "/");
-
-              return (
-                <Link
-                  key={link.title}
-                  href={link.path}
-                  className={cn(
-                    "block px-6 py-3 text-base font-medium transition-all duration-200",
-                    "hover:text-app-vio hover:bg-gray-50",
-                    isActive
-                      ? "text-app-vio bg-blue-50 font-semibold border-r-2 border-app-blue"
-                      : "text-white"
-                  )}
-                >
-                  {link.title}
-                </Link>
-              );
-            })}
-
-            {/* Mobile CTA Button */}
-            <div className="px-6 py-4 border-t border-gray-200">
+            {/* CTA Button - Desktop */}
+            <div className="hidden lg:inline-flex lg:space-x-4 lg:items-center shrink-0 ">
               <Link
                 href="/appointment"
-                className="block w-full bg-app-vio text-white text-center py-3 rounded-full font-semibold text-base hover:bg-app-white hover:text-app-blue transition-all duration-200"
+                className="bg-app-blue text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-app-blue/90 transition-all duration-200 hover:shadow-lg hidden md:block"
               >
                 Book Appointment
               </Link>
-            </div>
-          </nav>
-        </div>
-      </MaxWidthWrapper>
 
-      {/* <div
-        className="size-10 rounded-full flex items-center justify-center bg-app-blue text-white font-bold absolute bottom-10 right-10"
-        onClick={() => scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        <ArrowBigUp />
-      </div> */}
-    </header>
+              <UserIcon
+                className="md:block"
+                user={user as UserType}
+                setUser={setUser}
+              />
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center space-x-3 md:hidden">
+              <UserIcon
+                className="md:hidden"
+                user={user as UserType}
+                setUser={setUser}
+              />
+
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="lg:hidden flex flex-col items-center justify-center w-10 h-10 space-y-1.5 focus:outline-none"
+                aria-label="Toggle menu"
+                aria-expanded={isOpen}
+              >
+                <span
+                  className={cn(
+                    "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
+                    isOpen && "rotate-45 translate-y-2"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
+                    isOpen && "opacity-0"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "block w-6 h-0.5 bg-gray-700 transition-all duration-300",
+                    isOpen && "-rotate-45 -translate-y-2"
+                  )}
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          <div
+            className={cn(
+              "lg:hidden absolute left-0 right-0 bg-app-blue/95 backdrop-blur-md border-t border-gray-200 shadow-lg transition-all duration-300 overflow-hidden",
+              isOpen ? "h-screen opacity-100" : "max-h-0 opacity-0"
+            )}
+            aria-hidden={!isOpen}
+          >
+            <nav className="py-4 space-y-1">
+              {navLinks.map((link) => {
+                const isActive =
+                  pathname === link.path ||
+                  pathname.startsWith(link.path + "/");
+
+                return (
+                  <Link
+                    key={link.title}
+                    href={link.path}
+                    className={cn(
+                      "block px-6 py-3 text-base font-medium transition-all duration-200",
+                      "hover:text-app-vio hover:bg-gray-50",
+                      isActive
+                        ? "text-app-vio bg-blue-50 font-semibold border-r-2 border-app-blue"
+                        : "text-white"
+                    )}
+                  >
+                    {link.title}
+                  </Link>
+                );
+              })}
+
+              {/* Mobile CTA Button */}
+              <div className="px-6 py-4 border-t border-gray-200">
+                <Link
+                  href="/appointment"
+                  className="block w-full bg-app-vio text-white text-center py-3 rounded-full font-semibold text-base hover:bg-app-white hover:text-app-blue transition-all duration-200"
+                >
+                  Book Appointment
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </MaxWidthWrapper>
+      </header>
+
+      {showArrow && (
+        <button
+          className="size-10 rounded-full flex items-center justify-center bg-app-blue text-white font-bold fixed bottom-10 right-10 cursor-pointer z-50 hover:bg-app-blue/90 transition-all duration-200 shadow-lg ease-in"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Scroll to top"
+        >
+          <ArrowBigUp className="size-6" />
+        </button>
+      )}
+    </div>
   );
 };
 

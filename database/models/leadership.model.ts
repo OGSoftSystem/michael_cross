@@ -37,7 +37,7 @@ const leadershipSchema = new Schema(
     qualifications: [
       {
         type: String,
-        required: [true, "qualifications is required"],
+        // required: [true, "qualifications is required"],
       },
     ],
     isMuted: {
