@@ -223,7 +223,7 @@ const Footer = () => {
               <h3 className="text-2xl font-bold">Stay Informed</h3>
               <p className="text-gray-300">
                 Subscribe to our newsletter for health tips, news, and updates
-                from Michael Cross Specialists Hospital.
+                from {siteConfig.title}.
               </p>
             </div>
             <EmailSubscriptionForm />

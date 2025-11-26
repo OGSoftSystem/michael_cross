@@ -86,19 +86,18 @@ const LeadershipPage = () => {
             <Link
               href={"#footer/call"}
               className={cn(
-                "bg-white text-app-blue hover:bg-gray-100 font-semibold",
-                "px-8 py-6 rounded-full transition-all duration-300",
-                "hover:scale-105 hover:shadow-lg",
+                "bg-white text-app-blue hover:bg-gray-100 font-semibold  rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center p-4",
                 "min-w-[200px]"
               )}
             >
-              View Career Opportunities
+              Career Opportunities
             </Link>
+
             <Link
               href={"#footer/call"}
               className={cn(
                 "border-white text-app-blue hover:bg-white hover:text-app-blue",
-                "px-8 py-6 rounded-full font-semibold transition-all duration-300",
+                "p-4 rounded-full font-semibold transition-all duration-300",
                 "hover:scale-105 hover:shadow-lg",
                 "min-w-[200px]"
               )}
