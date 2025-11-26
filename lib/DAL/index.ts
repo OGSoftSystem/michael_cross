@@ -37,6 +37,7 @@ export async function getNewsBySlug(slug: string) {
     return [];
   }
 }
+
 export async function getLeader(name: string) {
   try {
     const res = await fetch(`${baseUrl}/api/leadership/${name}`);

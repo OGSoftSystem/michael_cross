@@ -30,8 +30,8 @@ export async function signUp(data: SignUpFormDataType) {
     });
 
     if (result) {
-      revalidatePath("/dashboard/users");
-      revalidatePath("/dashboard");
+      revalidatePath("/dashboard/admin/users");
+      revalidatePath("/dashboard/admin");
     }
 
     return { success: true, user: result.user };

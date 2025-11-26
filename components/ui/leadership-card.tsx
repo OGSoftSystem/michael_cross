@@ -4,19 +4,12 @@ import { cloudinaryImageUrl } from "@/env";
 import { deleteLeader, muteLeader } from "@/lib/actions/leadership.actions";
 import { cleanText } from "@/lib/utils";
 import { LeadershipCardType } from "@/types";
-import {
-  Award,
-  Edit,
-  Mail,
-  Pause,
-  Phone,
-  Play,
-  Trash,
-} from "lucide-react";
+import { Award, Edit, Mail, Pause, Phone, Play, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTransition } from "react";
 import Load from "../loader";
+import { siteConfig } from "@/config";
 
 const LeadershipCard = ({
   leader,
@@ -44,21 +37,25 @@ const LeadershipCard = ({
         <div className="absolute bottom-4 left-6 right-6 text-white">
           <h3 className="text-2xl font-bold mb-1">{leader.name}</h3>
           <p className="text-app-blue/90 font-semibold">{leader.position}</p>
-          <div className="flex items-center space-x-2 mt-2">
-            <Award className="w-4 h-4" />
-            <span className="text-sm">{leader.experience} experience</span>
-          </div>
+          {leader.experience && (
+            <div className="flex items-center space-x-2 mt-2">
+              <Award className="w-4 h-4" />
+              <span className="text-sm">{leader.experience} experience</span>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Content Section */}
       <div className="p-6 space-y-4">
         {/* Department Badge */}
-        <div className="inline-flex items-center px-3 py-1 rounded-full bg-app-blue/10 border border-app-blue/20">
-          <span className="text-sm font-semibold text-app-blue">
-            {leader.department}
-          </span>
-        </div>
+        {leader.department && (
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-app-blue/10 border border-app-blue/20">
+            <span className="text-sm font-semibold text-app-blue">
+              {leader.department}
+            </span>
+          </div>
+        )}
 
         {/* Qualifications */}
         {!isDasboardMode && (
@@ -93,11 +90,15 @@ const LeadershipCard = ({
         <div className="pt-4 border-t border-gray-200 space-y-2">
           <div className="flex items-center space-x-3 text-sm">
             <Mail className="w-4 h-4 text-app-blue" />
-            <span className="text-gray-600">{leader.email}</span>
+            <span className="text-gray-600">
+              {leader.email ?? siteConfig.email}
+            </span>
           </div>
           <div className="flex items-center space-x-3 text-sm">
             <Phone className="w-4 h-4 text-app-blue" />
-            <span className="text-gray-600">{leader.phone}</span>
+            <span className="text-gray-600">
+              {leader.phone ?? siteConfig.phone}
+            </span>
           </div>
           {isDasboardMode && !isPending && (
             <div className="flex items-center space-x-3 text-sm">
@@ -130,7 +131,7 @@ const LeadershipCard = ({
               />
 
               {isDasboardMode && (
-                <div className="p-2 size-fit rounded-full bg-app-blue text-white">
+                <div className="p-2 size-fit rounded-full bg-app-blue text-white text-xs">
                   {leader.isMuted ? "Muted" : "Unmuted"}
                 </div>
               )}

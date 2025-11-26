@@ -152,10 +152,9 @@ export const leadershipSchema = z.object({
     .string()
     .min(1, "Qualification is required")
     .min(10, "Qualification must be at least 10 characters"),
-  department: z
-    .string()
-    .min(1, "Department is required")
-    .min(10, "Department must be at least 10 characters"),
+  department: z.string().describe("department"),
+  // .min(1, "Department is required")
+  // .min(10, "Department must be at least 10 characters"),
 
   image: z
     .string()
@@ -165,11 +164,10 @@ export const leadershipSchema = z.object({
   about: z.string().describe("about"),
   phone: z.string().describe("Phone name"),
 
-  experience: z
-    .string()
-    .min(1, "Experience is required")
-    .min(2, "Experience must be at least 2 characters")
-    .max(100, "Experience must be less than 100 characters"),
+  experience: z.string().describe("experience"),
+  // .min(1, "Experience is required")
+  // .min(2, "Experience must be at least 2 characters")
+  // .max(100, "Experience must be less than 100 characters"),
 
   email: z.string().email().describe("Enter a valid email address"),
 });

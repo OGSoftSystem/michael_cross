@@ -24,8 +24,6 @@ export async function createLeader(data: LeadershipFormDataType) {
       .split("-")
       .map((i) => i);
 
-    console.log("Formated:", formatedQualifications);
-
     const newLeader = await Leadership.create({
       ...parsed.data,
       qualifications: formatedQualifications,
@@ -46,20 +44,24 @@ export async function createLeader(data: LeadershipFormDataType) {
 
 export async function updateLeader(name: string, data: LeadershipFormDataType) {
   try {
-    // const formatedQualifications = data.qualifications.map((i) => i).join(". ");
+    const formatedQualifications = data.qualifications.split("-").map((i) => i);
 
     await connectToDatabase();
 
-    const post = await Leadership.findOneAndUpdate(
+    const leader = await Leadership.findOneAndUpdate(
       { name },
       {
-        ...data,
-        // qualifications: formatedQualifications,
+        $set: {
+          ...data,
+          qualifications: formatedQualifications,
+        },
       },
       { new: true }
     );
 
-    if (post) {
+    console.log("Update", leader);
+
+    if (leader) {
       revalidatePath("/dashboard/admin/leadership");
       revalidatePath("/leadership");
     }
@@ -67,7 +69,7 @@ export async function updateLeader(name: string, data: LeadershipFormDataType) {
     return { success: true };
   } catch (error) {
     console.error("Leader update error:", error);
-    return { error: handleErrors(error) || "Failed to update blog post" };
+    return { error: handleErrors(error) || "Failed to update leader leader" };
   }
 }
 

@@ -64,14 +64,14 @@ const DashboardLanding = async () => {
       <MaxWidthWrapper className="py-16">
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-linear-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+            <div className="w-20 h-20 bg-linear-to-br from-blue-500 to-app-blue rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
             Welcome to{" "}
-            <span className="text-transparent bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text">
+            <span className="text-transparent bg-linear-to-r from-blue-600 to-app-blue bg-clip-text">
               Dashboard
             </span>
           </h1>

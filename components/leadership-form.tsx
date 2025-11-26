@@ -56,6 +56,14 @@ const LeadershipForm = ({ type, leader }: FormType) => {
     resolver: zodResolver(leadershipSchema),
   });
 
+  if (type === "Update" && leader?.qualifications) {
+    const l = Array.from(leader.qualifications)
+      .map((i) => i)
+      .join("-");
+
+    form.setValue("qualifications", l);
+  }
+
   const onSubmit = async (data: LeadershipFormDataType) => {
     try {
       if (type === "Create") {
@@ -64,18 +72,18 @@ const LeadershipForm = ({ type, leader }: FormType) => {
           toast.error(`Failed to create blog post: ${res.error}`);
           return;
         }
-        toast.success("Blog post has been created successfully!");
+        toast.success("Leader been created successfully!");
         setIsSubmitted(true);
       } else {
         // Run update function
-        const id = leader?._id as string;
-        const res = await updateLeader(id, data);
+        const name = leader?.name as string;
+        const res = await updateLeader(name, data);
         if (res?.error) {
           toast.error(`Failed to update blog post: ${res.error}`);
           return;
         }
-        toast.success("Blog post has been updated successfully!");
-        router.replace("/dashboard/creator/news/view");
+        toast.success("Leader been updated successfully!");
+        router.replace("/dashboard/admin/leadership");
       }
     } catch (error) {
       console.error("Blog creation error:", error);
@@ -165,12 +173,14 @@ const LeadershipForm = ({ type, leader }: FormType) => {
                   name="position"
                   control={form.control}
                   label="Postion"
+                  placeholder="position"
                   isRequired
                 />
                 <CustomInput
                   name="department"
                   control={form.control}
                   label="Department"
+                  placeholder="Enter your department"
                   isRequired
                 />
                 <CustomInput
@@ -187,6 +197,7 @@ const LeadershipForm = ({ type, leader }: FormType) => {
                     control={form.control}
                     label="About"
                     isRequired
+                    
                   />
                 </div>
 
@@ -195,20 +206,22 @@ const LeadershipForm = ({ type, leader }: FormType) => {
                   control={form.control}
                   label="Experience"
                   isRequired
-                  placeholder="experience"
+                  placeholder="Enter your experience"
                 />
                 <CustomInput
                   name="email"
                   control={form.control}
                   label="Email"
-                  isRequired
+                  isRequired={false}
                   type="email"
+                  placeholder="Enter your email"
                 />
                 <CustomInput
                   name="phone"
                   control={form.control}
                   label="Phone"
-                  isRequired
+                  isRequired={false}
+                  placeholder="Enter your phone number"
                 />
 
                 <ImageUploadInput

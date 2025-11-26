@@ -16,7 +16,7 @@ const leadershipSchema = new Schema(
     },
     department: {
       type: String,
-      required: [true, "department is required"],
+      // required: [true, "department is required"],
     },
     about: {
       type: String,
@@ -24,7 +24,7 @@ const leadershipSchema = new Schema(
     },
     experience: {
       type: String,
-      required: [true, "experience is required"],
+      // required: [true, "experience is required"],
     },
     email: {
       type: String,
@@ -32,7 +32,7 @@ const leadershipSchema = new Schema(
     },
     phone: {
       type: String,
-      required: [true, "phone is required"],
+      // required: [true, "phone is required"],
     },
     qualifications: [
       {

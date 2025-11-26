@@ -11,65 +11,6 @@ import { CusTooltip } from "@/components/tooltip";
 export const metadata: Metadata = {
   title: "Leadership",
 };
-// const leadershipTeam = [
-//   {
-//     id: 1,
-//     name: "Dr. Michael Cross",
-//     position: "Founder & Chief Executive Officer",
-//     department: "Executive Leadership",
-//     image:
-//       "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-//     qualifications: [
-//       "MD, Harvard Medical School",
-//       "MBA, Wharton School of Business",
-//       "Fellow, Royal College of Physicians",
-//       "Board Certified in Internal Medicine",
-//     ],
-//     about:
-//       "With over 25 years of experience in healthcare leadership, Dr. Cross founded Michael Cross Specialist Hospital with a vision to revolutionize healthcare in Nigeria. His commitment to clinical excellence and patient-centered care has driven our growth across 14 states.",
-//     experience: "25+ years",
-//     email: "m.cross@michaelcrosshospital.org",
-//     phone: "+234 800 642 4235",
-//   },
-//   {
-//     id: 2,
-//     name: "Dr. Adebayo Johnson",
-//     position: "Chief Medical Director",
-//     department: "Medical Administration",
-//     image:
-//       "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-//     qualifications: [
-//       "MD, University of Lagos College of Medicine",
-//       "MSc Healthcare Management, London School of Economics",
-//       "Fellow, West African College of Physicians",
-//       "Certified Medical Director",
-//     ],
-//     about:
-//       "Dr. Johnson oversees all clinical operations across our 51 facilities. His innovative approaches to healthcare delivery have significantly improved patient outcomes and operational efficiency throughout our network.",
-//     experience: "20+ years",
-//     email: "a.johnson@michaelcrosshospital.org",
-//     phone: "+234 800 642 4236",
-//   },
-//   {
-//     id: 4,
-//     name: "Dr. Ibrahim Mohammed",
-//     position: "Chief of Surgery",
-//     department: "Surgical Services",
-//     image:
-//       "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-//     qualifications: [
-//       "MBBS, Ahmadu Bello University",
-//       "FRCS, Royal College of Surgeons of England",
-//       "Fellow, International College of Surgeons",
-//       "Advanced Trauma Life Support Certified",
-//     ],
-//     about:
-//       "With expertise in minimally invasive surgical techniques, Dr. Mohammed has transformed our surgical services. He leads a team of 200+ surgeons across our network, ensuring the highest standards of surgical care.",
-//     experience: "22+ years",
-//     email: "i.mohammed@michaelcrosshospital.org",
-//     phone: "+234 800 642 4238",
-//   },
-// ];
 
 const LeadershipPage = () => {
   return (
@@ -111,7 +52,12 @@ export default LeadershipPage;
 
 async function RenderLeaders() {
   "use cache";
+
   const leaders = await getLeaders();
+
+  // console.log(leaders);
+  
+
 
   if (!leaders.length) {
     return <p className="p-text">No leader to show</p>;
