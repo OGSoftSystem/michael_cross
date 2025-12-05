@@ -53,7 +53,7 @@ const Locations = () => {
       <section className="bg-linear-to-r from-app-blue to-blue-700 text-white py-20">
         <MaxWidthWrapper className="text-center space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Our Locations
+            Our Location
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
             With our hospital in Nigeria, quality healthcare is alway
@@ -82,7 +82,7 @@ const Locations = () => {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Find Us Across Nigeria
+                Find Us In Abuja, Nigeria
               </h2>
 
               {/* Interactive Map */}
@@ -319,7 +319,7 @@ const Locations = () => {
               🚨 Medical Emergency?
             </h3>
             <p className="text-red-800 mb-6">
-              Don&apos;t wait - visit the nearest Michael Cross Hospital
+              Don&apos;t wait - visit the nearest {siteConfig.title}
               immediately or call our emergency line
             </p>
             <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
